@@ -1,0 +1,18 @@
+#BlueJ class context
+comment0.target=AbstOrganism
+comment0.text=\n\ AbstOrganism\ is\ the\ base\ class\ for\ all\ organism\ operations.\ Has\ functionality\ to\ feed,\ grow,\ clone,\ kill,\ move\ and\ mutate\ an\ organism.\n\ This\ is\ Mr.\ Rowbottom's\ version\ for\ us\ to\ use\n\ Needs\ lots\ of\ clean\ up\n\ \n\ @author\ Uzair\ Ahmed\ \n\ @version\ 0.0.2\n
+comment1.params=
+comment1.target=void\ feed()
+comment2.params=
+comment2.target=void\ grow()
+comment3.params=
+comment3.target=void\ reproduce()
+comment4.params=
+comment4.target=void\ age()
+comment5.params=
+comment5.target=void\ die()
+comment6.params=
+comment6.target=void\ move()
+comment7.params=
+comment7.target=void\ mutate()
+numComments=8
