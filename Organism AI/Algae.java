@@ -6,7 +6,7 @@ import java.util.*;
  * Needs lots of clean-up.
  * 
  * @author Uzair Ahmed
- * @0.1
+ * @0.2
  */
 
 public class Algae extends AbstOrganism
@@ -19,18 +19,19 @@ public class Algae extends AbstOrganism
         ArrayList <Object> predators;       //list of all the types of organsims that the organism can be eaten by 
         
         age = 0;
-        speed = 0;
+        health = 1.0;
         trophicLevel = 0;
+        energy = 10;
+        size = 10;
+        speed = 5;
+        
         repro_age = 0;
         repro_energy = 0;
-        siz = 0;
-        health = 0.0;
-        energy = 10;
-        siz = (int)(0.2*energy+5.);
+        mutation_rate = 0;
         att = 0;
         def = 0;
-        mutation_rate = 0.00;
-        MyWorld world;
+
+        MainWorld world;
         //lifeForms = new lifeForm (this);
 
         
@@ -38,35 +39,38 @@ public class Algae extends AbstOrganism
     
     public void act() 
     {
-        if (world == null){world = (MyWorld) getWorld();}
+        if (world == null){world = (MainWorld) getWorld();}
         
+        move();
         feed();
         grow();
         reproduce();
         age();
-        move();
+
     }    
+    
+    public void move(){
+        
+    }
 
     public void feed(){
         
     }
     
     public void grow(){
-        siz = (int)(0.2*energy+5);
+        size = (int)(0.2*energy+5);
     }
     
     public void reproduce(){
         
     }
-    public void age(){
-        
+    public int age(){
+        return 0;
     }  
     public void die(){
         
     }
-    public void move(){
-        
-    }
+    
     public void mutate(){
         
     }

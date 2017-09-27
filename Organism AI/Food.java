@@ -1,14 +1,14 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class Food here.
+ * Leaves for the organism to eat.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Uzair Ahmed 
+ * @version 0.1
  */
 public class Food extends Actor
 {
-    MyWorld world;
+    MainWorld world;
     /**
      * Act - do whatever the Food wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
@@ -16,7 +16,7 @@ public class Food extends Actor
     public void act() 
     {
         if(world == null){
-            world = (MyWorld)getWorld();
+            world = (MainWorld)getWorld();
         }
         // Add your action code here.
         if (getOneIntersectingObject(TestOrganism.class)!= null){
