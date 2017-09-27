@@ -14,7 +14,7 @@ public class Algae extends AbstOrganism
     Color fill = new Color(200, 200,200);
     Color edge = new Color(0,255,0);
     public Algae(){
-        ArrayList <AbstOrganism> lifeforms; //list of all the organsims in the game
+        ArrayList <Object> lifeforms; //list of all the organsims in the game
         ArrayList <Object> prey;            //list of all that the types of organism can feed on
         ArrayList <Object> predators;       //list of all the types of organsims that the organism can be eaten by 
         
@@ -31,10 +31,7 @@ public class Algae extends AbstOrganism
         att = 0;
         def = 0;
 
-        MainWorld world;
-        //lifeForms = new lifeForm (this);
-
-        
+        MainWorld world;        
     }
     
     public void act() 
@@ -42,7 +39,7 @@ public class Algae extends AbstOrganism
         if (world == null){world = (MainWorld) getWorld();}
         
         move();
-        feed();
+        //feed();
         grow();
         reproduce();
         age();
@@ -64,8 +61,8 @@ public class Algae extends AbstOrganism
     public void reproduce(){
         
     }
-    public int age(){
-        return 0;
+    public void age(){
+    
     }  
     public void die(){
         
