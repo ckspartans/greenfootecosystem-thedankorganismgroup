@@ -1,0 +1,24 @@
+#BlueJ class context
+comment0.target=MyOrganism
+comment0.text=\n\ Extends\ off\ AbstOrganism\ to\ create\ a\ basic\ organism\ that\ reproduces,\ and\ moves\ around\ the\ screen.\n\ \n\ CHANGELOG\ September\ 30,\ 2017\ \n\ \ \ \ \ \ -\ Added\ variables\ to\ complement\ that\ of\ AbstOrganism\ 0.0.5\n\ \n\ @author\ Uzair\ Ahmed\n\ @version\ 0.4\n
+comment1.params=
+comment1.target=MyOrganism()
+comment10.params=
+comment10.target=void\ die()
+comment2.params=
+comment2.target=void\ act()
+comment3.params=
+comment3.target=void\ move()
+comment4.params=
+comment4.target=void\ consumeFood()
+comment5.params=
+comment5.target=void\ consumePlayer()
+comment6.params=damageTaken
+comment6.target=void\ shrink(int)
+comment7.params=damageGiven
+comment7.target=void\ grow(int)
+comment8.params=
+comment8.target=void\ age()
+comment9.params=
+comment9.target=void\ reproduce()
+numComments=11

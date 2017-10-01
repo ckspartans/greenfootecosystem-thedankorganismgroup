@@ -3,8 +3,10 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 /**
  * Leaves for the organism to eat.
  * 
+ * CHANGLOG September 30,2017
+ * - Commented collsion code, thi will now be done in MyOrganism and (future)EnemyOrganism
  * @author Uzair Ahmed 
- * @version 0.1
+ * @version 0.1.1
  */
 public class Food extends Actor
 {
@@ -19,9 +21,9 @@ public class Food extends Actor
             world = (MainWorld)getWorld();
         }
         // Add your action code here.
-        if (getOneIntersectingObject(TestOrganism.class)!= null){
-           world.foodEaten ++;
-           world.removeObject(this);
-        }
+        //if (getOneIntersectingObject(AbstOrganism.class)!= null){
+          // world.foodEaten ++;
+         //  world.removeObject(this);
+       // }
     }    
 }
