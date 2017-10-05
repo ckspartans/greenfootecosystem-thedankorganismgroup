@@ -15,7 +15,7 @@ public class gvars
   static int startingSpeed = 5;
   static int startingAttackPower = 1;
   static int startingDefensePower = 1;
-  static int startingSight = 200;
+  static int startingSight = 100;
   
   static int maxBuyableMaxHealth = 100;
   static int maxBuyableMaxXp = 100;

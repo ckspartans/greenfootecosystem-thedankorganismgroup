@@ -42,7 +42,7 @@ public class MyOrganism extends AbstOrganism {
   public void act() {
 
     moveAround();
-    drawRadius(35,35,500);
+    //drawRadius(35,35,500);
     //consumeFood();
     //consumePlayer();
     //reproduce();
@@ -50,11 +50,10 @@ public class MyOrganism extends AbstOrganism {
   }
 
   public void moveAround() {
-    //drawRadius(getX(),getY(),sight);
-    List foodNearby = getObjectsInRange(sight, Food.class);
+    List foodNearby = getObjectsInRange(100, Actor.class);
     if ((foodNearby.size()) > 0){
       track(foodNearby);
-      move(gvars.startingSpeed);
+      move(gvars.startingSpeed+5);
     }
     else{
       move(gvars.startingSpeed);
@@ -73,7 +72,7 @@ public class MyOrganism extends AbstOrganism {
     turnTowards(nearest.getX(),nearest.getY());
   }
 
-  public void drawRadius(int x,int y,int sight){
+  public static void drawRadius(int x,int y,int sight){
     GreenfootImage img = new GreenfootImage(sight,sight);
     img.setColor(new Color(0,0,0));
     img.drawOval(x,y,sight,sight);
@@ -87,11 +86,7 @@ public class MyOrganism extends AbstOrganism {
   }
 
   public void consumePlayer() {
-    if (getOneIntersectingObject(TestOrganism.class) != null) { //Change testOrganism to enemyOrganism
-      //do stuff to return damage int to enemy and to self.
-      //add xp
-    }
-
+      //
   }
 
   public void shrink(int damageTaken) {

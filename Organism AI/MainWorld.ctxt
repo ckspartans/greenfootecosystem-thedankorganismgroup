@@ -4,6 +4,4 @@ comment0.text=\r\n\ Main\ GameState\r\n\r\n\ @author\ Uzair\ Ahmed\r\n\ @version
 comment1.params=
 comment1.target=MainWorld()
 comment1.text=\r\n\ Constructor\ for\ objects\ of\ class\ MyWorld.\r\n
-comment2.params=
-comment2.target=void\ act()
-numComments=3
+numComments=2

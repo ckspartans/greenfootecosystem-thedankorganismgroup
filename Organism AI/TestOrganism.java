@@ -1,11 +1,11 @@
-import greenfoot.*; // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+/*import greenfoot.*; // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
  * Write a description of class TestOrganism here.
  *
  * @author (your name)
  * @version (a version number or a date)
- */
+ *
 public class TestOrganism extends Actor {
   protected int speed = 5;
   protected int spX = 0;
@@ -14,7 +14,7 @@ public class TestOrganism extends Actor {
   /**
    * Act - do whatever the TestOrganism wants to do. This method is called whenever
    * the 'Act' or 'Run' button gets pressed in the environment.
-   */
+   
   public void act() {
     // Add your action code here.
     checkKeys();
@@ -37,4 +37,4 @@ public class TestOrganism extends Actor {
     }
     setLocation(getX() + spX, getY() + spY);
   }
-}
+}*/
