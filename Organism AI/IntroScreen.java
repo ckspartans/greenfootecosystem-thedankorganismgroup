@@ -29,6 +29,7 @@ public class IntroScreen extends World
     }
     
     public void act(){
+        //Switch form intro screen to game when mouse is clicked 
         if (Greenfoot.mouseClicked(this)){
             Greenfoot.setWorld(world);
         }

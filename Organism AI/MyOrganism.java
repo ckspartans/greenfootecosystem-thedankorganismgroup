@@ -64,6 +64,7 @@ public class MyOrganism extends AbstOrganism
     }    
     
     protected void move(){
+        //What keys to make it move
         if(Greenfoot.isKeyDown("w")){
             organismY = - speed;
         }
@@ -96,11 +97,6 @@ public class MyOrganism extends AbstOrganism
     }
     
     public void consumePlayer(){
-        if (getOneIntersectingObject(TestOrganism.class)!=null){ //Change testOrganism to enemyOrganism
-            //do stuff to return damage int to enemy and to self.
-            //add xp
-        }
-        
     }
     
     public void shrink(int damageTaken){

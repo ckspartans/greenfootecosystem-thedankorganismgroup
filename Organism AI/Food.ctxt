@@ -1,7 +1,7 @@
 #BlueJ class context
 comment0.target=Food
-comment0.text=\n\ Leaves\ for\ the\ organism\ to\ eat.\n\ \n\ @author\ Uzair\ Ahmed\ \n\ @version\ 0.1\n
+comment0.text=\r\n\ Leaves\ for\ the\ organism\ to\ eat.\r\n\ \r\n\ CHANGLOG\ September\ 30,2017\r\n\ -\ Commented\ collsion\ code,\ thi\ will\ now\ be\ done\ in\ MyOrganism\ and\ (future)EnemyOrganism\r\n\ @author\ Uzair\ Ahmed\ \r\n\ @version\ 0.1.1\r\n
 comment1.params=
 comment1.target=void\ act()
-comment1.text=\n\ Act\ -\ do\ whatever\ the\ Food\ wants\ to\ do.\ This\ method\ is\ called\ whenever\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\n
+comment1.text=\r\n\ Act\ -\ do\ whatever\ the\ Food\ wants\ to\ do.\ This\ method\ is\ called\ whenever\r\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\r\n
 numComments=2

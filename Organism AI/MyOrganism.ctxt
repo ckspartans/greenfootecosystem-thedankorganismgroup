@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=MyOrganism
-comment0.text=\n\ Extends\ off\ AbstOrganism\ to\ create\ a\ basic\ organism\ that\ reproduces,\ and\ moves\ around\ the\ screen.\n\ \n\ CHANGELOG\ September\ 30,\ 2017\ \n\ \ \ \ \ \ -\ Added\ variables\ to\ complement\ that\ of\ AbstOrganism\ 0.0.5\n\ \n\ @author\ Uzair\ Ahmed\n\ @version\ 0.4\n
+comment0.text=\r\n\ Extends\ off\ AbstOrganism\ to\ create\ a\ basic\ organism\ that\ reproduces,\ and\ moves\ around\ the\ screen.\r\n\ \r\n\ CHANGELOG\ September\ 30,\ 2017\ \r\n\ \ \ \ \ \ -\ Added\ variables\ to\ complement\ that\ of\ AbstOrganism\ 0.0.5\r\n\ \r\n\ @author\ Uzair\ Ahmed\r\n\ @version\ 0.4\r\n
 comment1.params=
 comment1.target=MyOrganism()
 comment10.params=

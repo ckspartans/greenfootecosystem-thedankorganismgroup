@@ -34,6 +34,7 @@ public class MainWorld extends World
         addObject(player, 250,250);
 
         for(int i = 0; i < 10; i ++){
+            //Creating new food
             addObject(new Food(), Greenfoot.getRandomNumber(getWidth()), Greenfoot.getRandomNumber(getHeight()));
             
         }
