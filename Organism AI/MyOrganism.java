@@ -13,6 +13,7 @@ import java.util.*;
 
 public class MyOrganism extends AbstOrganism {
 
+  //Takes in the custom variables (located in MainWorld), and sets them for the whole class to use.
   public MyOrganism(int smh, int smxp, int ss, int sa, int sd, int ssi) {
 
     //XP Upgradeable Variables-------------------------------------------------
@@ -39,26 +40,37 @@ public class MyOrganism extends AbstOrganism {
     moveAround();
   }
 
+  //Moves in a random motion, until it sees food in its perimeter, might be moved to an AI class
   public void moveAround() {
-    List foodNearby = getObjectsInRange(sight, Actor.class);
+    //Gets all Food objects in the sight radius
+    List foodNearby = getObjectsInRange(sight, Food.class);
+    //if theres something near it
     if ((foodNearby.size()) > 0){
+      //track stuff
       track(foodNearby);
       move(speed);
     }
     else{
       move(speed);
+      //One in 4 chance of it turning a random number,
       if (Greenfoot.getRandomNumber(100) < 25){
+        //45 degrees on either side of the vertical
         turn(Greenfoot.getRandomNumber(90)-45);
       }
     }
+    //removes the food it touches, consume will be run after this.
     removeTouching(Food.class);
+    //turns around if it hits an edge
     if (isAtEdge()){
       turn(180);
     }
   }
 
+  //takes in a list of objects nearby, to turn towards it
   public void track(List l){
+    //gets the first instance of the class
     Food nearest = (Food) l.get(0);
+    //turns towards it
     turnTowards(nearest.getX(),nearest.getY());
   }
 
