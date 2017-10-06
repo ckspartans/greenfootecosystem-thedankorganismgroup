@@ -1,4 +1,5 @@
 import greenfoot.*; // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import java.util.*;
 
 /**
  * Main GameState
@@ -8,13 +9,29 @@ import greenfoot.*; // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class MainWorld extends World {
 
+  //VARIABLES ---------------------------------------------------------
+  static public ArrayList<Actor>  lifeForms = new ArrayList<Actor>();
+  static public ArrayList<Object> food;
+  static public ArrayList<Object> myOrgansims;
+  static public ArrayList<Object> enemyOrganisms;
+
+  static int startingMaxHealth = 10;
+  static int startingMaxXp = 10;
+  static int startingSpeed = 5;
+  static int startingAttackPower = 1;
+  static int startingDefensePower = 1;
+  static int startingSight = 100;
+
+  static int maxBuyableMaxHealth = 100;
+  static int maxBuyableMaxXp = 100;
+  static int maxBuyableSpeed = 10;
+  static int maxBuyableAtt = 10;
+  static int maxBuyableDef = 10;
+  static int maxBuyableSight = 10;
+
+  //ACTUAL CODE--------------------------------------------------------
   IntroScreen intro;
   MyOrganism player;
-  int foodEaten;
-
-  /**
-   * Constructor for objects of class MyWorld.
-   */
 
   public MainWorld() {
 
@@ -22,9 +39,11 @@ public class MainWorld extends World {
     intro = new IntroScreen(this);
     Greenfoot.setWorld(intro);
 
-    //setPaintOrder(MyOrganism.class);
+    setPaintOrder(Actor.class);
 
-    player = new MyOrganism();
+    player = new MyOrganism(startingMaxHealth, startingMaxXp, startingSpeed,
+                            startingAttackPower, startingDefensePower, startingSight);
+
     addObject(player, 250, 250);
 
     for (int i = 0; i < 10; i++) {
