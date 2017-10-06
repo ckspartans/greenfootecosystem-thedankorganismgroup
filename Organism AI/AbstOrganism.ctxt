@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=AbstOrganism
-comment0.text=\r\n\ CHANGELOG\:\ Sept\ 30,\ 2017\r\n\ \ \ \ \ \ \ -\ Changed\ energy\ to\ xp.\ XP\ will\ now\ be\ skillpoints\ that\ you\ earn\ in\r\n\ \ order\ to\ mutate,\ and\ reproduce.\r\n\r\n\ \ \ \ \ \ \ -\ Added\ CustomValues\ section\ in\ which\ the\ player\ can\ change\ constants\r\n\ \ \ for\ a\ custom\ game,\ these\ settings\ can\ be\ edited\ through\ the\ UI.\r\n\r\n\ \ \ \ \ \ \ -\ Added\ upgradeableable\ constants\ section.\ These\ include\ speed,\r\n\ \ attack,\ defense,\ max\ health,\ and\ max\ xp.\r\n\r\n\ \ \ \ \ \ \ -\ Removed\ repro_age/repro_energy.\ Age\ will\ be\ replaced\ by\ xp\ units,\r\n\ \ once\ player\ has\ gained\ a\ set\ amount\ of\ xp,\ player\ can\ reproduce.\ Energy\r\n\ \ required\ will\ now\ be\ a\ flat\ 35%\ of\ max\ xp\ storage.\r\n\r\n\ \ \ \ \ \ \ -\ Mutation_rate,\ and\ trophic\ level\ are\ now\ irrelevant\r\n\r\n\ @author\ Uzair\ Ahmed\r\n\ @version\ 0.0.5\r\n
+comment0.text=\r\n\ CHANGELOG\:\ Oct\ 5,\ 2017\r\n\ \ \ \ \ \ \ \ \ -\ Deleted\ custom\ variables.\r\n\r\n\ @author\ Uzair\ Ahmed\r\n\ @version\ 0.0.6\r\n
 comment1.params=
 comment1.target=void\ moveAround()
 comment2.params=
