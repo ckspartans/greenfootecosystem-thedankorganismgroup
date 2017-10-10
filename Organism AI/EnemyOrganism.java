@@ -1,22 +1,23 @@
 import greenfoot.*; // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.*;
 /**
- * Organism class for player. This will the the player specific functions.
+ * Class for the EnemyOrganism based off organism. This will have the enemy specific functions.
  *
  * @author Uzair Ahmed
  * @version 0.3
  */
-public class MyOrganism extends Organism
+public class EnemyOrganism extends Organism
 {
   //Takes in the custom variables (located in MainWorld), and sets them for the whole class to use.
-  public MyOrganism(int smh, int smxp, int ss, int sa, int sd, int ssi, int am) {
+  public EnemyOrganism(int smh, int smxp, int ss, int sa, int sd, int ssi, int am) {
     //Game Variables
     attMult = am;
+    
     //XP Upgradeable Variables-------------------------------------------------
     maxHealth = smh; //Maximum Health
     maxXp = smxp; //Max XP Storage
     speed = ss; //Nuff Said
-    att = sa; //Attack power
+    att = sa; //Attack powerz
     def = sd; //Defensive power
     sight = ssi; //Sight
 
@@ -28,13 +29,13 @@ public class MyOrganism extends Organism
     fill = new Color(0, 0, 0);
     border = new Color(0, 0, 255);
     threatLevel = (att*health*def)/(1+age);
-    
+
     MainWorld world;
   }
 
     public void act()
     {
-        drawOrganism(Color.GREEN, radius);
+        drawOrganism(Color.RED, radius);
         moveAround();
     }
 }
