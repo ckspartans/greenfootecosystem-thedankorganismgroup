@@ -1,29 +1,23 @@
-import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
-
+import greenfoot.*; // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import java.util.*;
 /**
  * Leaves for the organism to eat.
- * 
- * CHANGLOG September 30,2017
- * - Commented collsion code, thi will now be done in MyOrganism and (future)EnemyOrganism
- * @author Uzair Ahmed 
- * @version 0.1.1
+ *
+ * CHANGLOG Oct 4,2017
+ *  - Deleted old code
+ * @author Uzair Ahmed
+ * @version 0.1.2
  */
-public class Food extends Actor
-{
+public class Food extends Actor {
     MainWorld world;
-    /**
-     * Act - do whatever the Food wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
-     */
-    public void act() 
+    static int foodMass = 10;
+    GreenfootImage img = new GreenfootImage(foodMass, foodMass);
+
+    public void act()
     {
-        if(world == null){
-            world = (MainWorld)getWorld();
-        }
-        // Add your action code here.
-        //if (getOneIntersectingObject(AbstOrganism.class)!= null){
-          // world.foodEaten ++;
-         //  world.removeObject(this);
-       // }
-    }    
+        img.setColor(Color.BLACK);
+        img.drawOval(0,0,foodMass,foodMass);
+        img.fillOval(0,0,foodMass,foodMass);
+        setImage(img);
+    }
 }
