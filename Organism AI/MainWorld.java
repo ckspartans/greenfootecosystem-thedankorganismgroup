@@ -5,7 +5,7 @@ import java.util.*;
  * Main GameState
  *
  * @author Uzair Ahmed
- * @version 0.3
+ * @version 0.5
  */
 public class MainWorld extends World {
 
@@ -28,7 +28,7 @@ public class MainWorld extends World {
   static int maxBuyableAtt = 10;
   static int maxBuyableDef = 10;
   static int maxBuyableSight = 10;
-  
+
   static int attackMultiplier = 5;
 
   //ACTUAL CODE--------------------------------------------------------
@@ -49,7 +49,7 @@ public class MainWorld extends World {
 
     enemy = new EnemyOrganism(startingMaxHealth, startingMaxXp, startingSpeed,
                             startingAttackPower, startingDefensePower, startingSight, attackMultiplier);
-    
+
     addObject(player, 0, 0);
     addObject(enemy, 100, 0);
 

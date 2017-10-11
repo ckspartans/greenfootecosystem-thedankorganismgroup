@@ -4,7 +4,7 @@ import java.util.*;
  * Class for the EnemyOrganism based off organism. This will have the enemy specific functions.
  *
  * @author Uzair Ahmed
- * @version 0.3
+ * @version 0.5
  */
 public class EnemyOrganism extends Organism
 {
@@ -12,7 +12,7 @@ public class EnemyOrganism extends Organism
   public EnemyOrganism(int smh, int smxp, int ss, int sa, int sd, int ssi, int am) {
     //Game Variables
     attMult = am;
-    
+
     //XP Upgradeable Variables-------------------------------------------------
     maxHealth = smh; //Maximum Health
     maxXp = smxp; //Max XP Storage
@@ -35,7 +35,14 @@ public class EnemyOrganism extends Organism
 
     public void act()
     {
+        //Gets all objects in the sight radius and puts them into thier proper lists.
+        List foodNearby = getObjectsInRange(sight, Food.class);
+        List enemiesNearby  = getObjectsInRange(sight, EnemyOrganism.class);
+
+        //Gets the food object it is touching
+        Food foodBeingEaten = (Food) getOneIntersectingObject(Food.class);
+
         drawOrganism(Color.RED, radius);
-        AI.think(this); //NONSTATICMETHOD CANNOT BE REFERED BY A STATIC...
+        AI.think(this, foodNearby, enemiesNearby, foodBeingEaten);
     }
 }

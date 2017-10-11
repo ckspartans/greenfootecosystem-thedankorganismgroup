@@ -4,22 +4,22 @@ import java.util.*;
 /**
  * AI Code (Things like patrolling the area, knowing how to move, and more.
  *
- *  TODO: 
+ *  TODO:
  *      - FIX THIS: <A>getObjectsInRange has protected access in Greenfoot.Actor.
  *      - Do I have to put o. move, o.this,o.that?
  *      - //NONSTATICMETHOD think() CANNOT BE REFERED BY A STATIC CONTEXT
  * @author Uzair Ahmed
- * @version 0.2
+ * @version 0.5
  */
 public class AI
 {
-    public static void think(Organism o){
-        //Gets all objects in the sight radius and puts them into thier proper lists.
-        List foodNearby = o.getObjectsInRange(o.sight, Food.class);
-        List enemiesNearby  = o.getObjectsInRange(o.sight, EnemyOrganism.class);
-
-        //Gets the food object it is touching
-        Food foodBeingEaten = (Food) getOneIntersectingObject(Food.class);
+   static List foodNearby;
+   static Food foodBeingEaten;
+   static List enemiesNearby;
+    public static void think(Organism o, List fn, List en, Food fbe){
+        foodNearby = fn;
+        enemiesNearby = en;
+        foodBeingEaten = fbe;
 
         patrol(o, foodNearby, 0);
         patrol(o, enemiesNearby, 1);
@@ -52,6 +52,7 @@ public class AI
                 o.turn(Greenfoot.getRandomNumber(90)-45);
             }
         }
+        o.consumeFood(foodBeingEaten);
     }
 
     public static void stayAwayFromEdges(Organism o){

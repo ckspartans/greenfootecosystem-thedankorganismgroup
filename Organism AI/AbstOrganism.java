@@ -33,7 +33,7 @@ public abstract class AbstOrganism extends Actor {
   
   MainWorld world;
 
-  public abstract void consumeFood();
+  public abstract void consumeFood(Food foodBeingEaten);
 
   public abstract void healthToSize();
 

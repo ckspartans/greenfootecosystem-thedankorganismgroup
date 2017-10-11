@@ -4,7 +4,7 @@ import java.util.*;
  * Organism class for player. This will the the player specific functions.
  *
  * @author Uzair Ahmed
- * @version 0.3
+ * @version 0.5
  */
 public class MyOrganism extends Organism
 {
@@ -28,13 +28,20 @@ public class MyOrganism extends Organism
     fill = new Color(0, 0, 0);
     border = new Color(0, 0, 255);
     threatLevel = (att*health*def)/(1+age);
-    
+
     MainWorld world;
   }
 
     public void act()
     {
+        //Gets all objects in the sight radius and puts them into thier proper lists.
+        List foodNearby = getObjectsInRange(sight, Food.class);
+        List enemiesNearby  = getObjectsInRange(sight, EnemyOrganism.class);
+
+        //Gets the food object it is touching
+        Food foodBeingEaten = (Food) getOneIntersectingObject(Food.class);
+
         drawOrganism(Color.GREEN, radius);
-        AI.think(this);
+        AI.think(this, foodNearby, enemiesNearby, foodBeingEaten);
     }
 }

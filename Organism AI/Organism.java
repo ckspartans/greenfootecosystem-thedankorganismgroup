@@ -8,7 +8,7 @@ import java.util.*;
  *  - Deleted ol Code to move to AI, will fix AI code with rowbottom
  *
  * @author Uzair Ahmed
- * @version 0.7
+ * @version 1.0
  */
 
 public class Organism extends AbstOrganism {
@@ -21,9 +21,12 @@ public class Organism extends AbstOrganism {
       setImage(img);
   }
 
-  public void consumeFood() {
-    int foodConsumed = Food.foodMass;
-    xp+=foodConsumed/10;
+  public void consumeFood(Food foodBeingEaten){
+      if (foodBeingEaten != null){
+          removeTouching(Food.class);
+          int foodConsumed = Food.foodMass;
+          xp+=foodConsumed/10;
+      }
   }
 
   public boolean isOnSameTeam(){
