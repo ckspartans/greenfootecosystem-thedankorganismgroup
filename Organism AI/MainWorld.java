@@ -5,7 +5,7 @@ import java.util.*;
  * Main GameState
  *
  * @author Uzair Ahmed
- * @version 0.1
+ * @version 0.3
  */
 public class MainWorld extends World {
 
@@ -28,25 +28,32 @@ public class MainWorld extends World {
   static int maxBuyableAtt = 10;
   static int maxBuyableDef = 10;
   static int maxBuyableSight = 10;
+  
+  static int attackMultiplier = 5;
 
   //ACTUAL CODE--------------------------------------------------------
   IntroScreen intro;
   MyOrganism player;
+  EnemyOrganism enemy;
 
   public MainWorld() {
 
-    super(500,500, 1);
+    super(1000,1000, 1);
     intro = new IntroScreen(this);
     Greenfoot.setWorld(intro);
 
     setPaintOrder(Actor.class);
 
     player = new MyOrganism(startingMaxHealth, startingMaxXp, startingSpeed,
-                            startingAttackPower, startingDefensePower, startingSight);
+                            startingAttackPower, startingDefensePower, startingSight, attackMultiplier);
 
-    addObject(player, 250, 250);
+    enemy = new EnemyOrganism(startingMaxHealth, startingMaxXp, startingSpeed,
+                            startingAttackPower, startingDefensePower, startingSight, attackMultiplier);
+    
+    addObject(player, 0, 0);
+    addObject(enemy, 0, 0);
 
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 100; i++) {
       addObject(new Food(), Greenfoot.getRandomNumber(getWidth()), Greenfoot.getRandomNumber(getHeight()));
     }
   }

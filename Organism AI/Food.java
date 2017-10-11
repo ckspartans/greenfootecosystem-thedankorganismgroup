@@ -1,5 +1,5 @@
 import greenfoot.*; // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
-
+import java.util.*;
 /**
  * Leaves for the organism to eat.
  *
@@ -9,12 +9,15 @@ import greenfoot.*; // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @version 0.1.2
  */
 public class Food extends Actor {
-  MainWorld world;
+    MainWorld world;
+    static int foodMass = 10;
+    GreenfootImage img = new GreenfootImage(foodMass, foodMass);
 
     public void act()
     {
-        if(world == null){
-            world = (MainWorld)getWorld();
-        }
+        img.setColor(Color.BLACK);
+        img.drawOval(0,0,foodMass,foodMass);
+        img.fillOval(0,0,foodMass,foodMass);
+        setImage(img);
     }
 }

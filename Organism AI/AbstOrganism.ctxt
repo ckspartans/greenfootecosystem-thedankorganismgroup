@@ -1,12 +1,12 @@
 #BlueJ class context
 comment0.target=AbstOrganism
-comment0.text=\r\n\ CHANGELOG\:\ Oct\ 5,\ 2017\r\n\ \ \ \ \ \ \ \ \ -\ Deleted\ custom\ variables.\r\n\r\n\ @author\ Uzair\ Ahmed\r\n\ @version\ 0.0.6\r\n
+comment0.text=\r\n\ CHANGELOG\:\ Oct\ 9,\ 2017\r\n\ \ \ \ \ \ \ \ \ -\ Added\ threat\ level\ variable.\r\n\r\n\ @author\ Uzair\ Ahmed\r\n\ @version\ 0.0.7\r\n
 comment1.params=
 comment1.target=void\ moveAround()
 comment2.params=
 comment2.target=void\ consumeFood()
-comment3.params=
-comment3.target=void\ consumePlayer()
+comment3.params=mode
+comment3.target=void\ consumePlayer(int)
 comment4.params=damageTaken
 comment4.target=void\ shrink(int)
 comment5.params=damageGiven
