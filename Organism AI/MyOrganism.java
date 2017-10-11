@@ -22,7 +22,7 @@ public class MyOrganism extends Organism
 
     //"Live" Variables. ----------------------------------------------------
     age = 0; //Time
-    health = maxHealth; //Out of maxHealth
+    health = maxHealth-2; //Out of maxHealth
     xp = 0; //Out of maxXp
     radius = health*2;
     fill = new Color(0, 0, 0);
@@ -35,6 +35,6 @@ public class MyOrganism extends Organism
     public void act()
     {
         drawOrganism(Color.GREEN, radius);
-        moveAround();
+        AI.think(this);
     }
 }

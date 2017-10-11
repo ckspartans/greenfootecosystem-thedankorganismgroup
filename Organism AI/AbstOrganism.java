@@ -6,7 +6,7 @@ import java.util.*;
 *         - Added threat level variable.
 *
 * @author Uzair Ahmed
-* @version 0.0.7
+* @version 0.0.8
 */
 public abstract class AbstOrganism extends Actor {
 
@@ -33,15 +33,9 @@ public abstract class AbstOrganism extends Actor {
   
   MainWorld world;
 
-  public abstract void moveAround();
-
   public abstract void consumeFood();
 
-  public abstract void consumePlayer(int mode);
-
-  public abstract void shrink(int damageTaken);
-
-  public abstract void grow(int damageGiven);
+  public abstract void healthToSize();
 
   public abstract void reproduce();
 
