@@ -24,8 +24,8 @@ public class Organism extends AbstOrganism {
   public void consumeFood(Food foodBeingEaten){
       if (foodBeingEaten != null){
           removeTouching(Food.class);
-          int foodConsumed = Food.foodMass;
-          xp+=foodConsumed/10;
+          //int foodConsumed = foodBeingEaten.foodMass;
+          //xp+=foodConsumed/10;
       }
   }
 
