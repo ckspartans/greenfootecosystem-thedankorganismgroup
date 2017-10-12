@@ -1,88 +1,50 @@
-import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import greenfoot.*; // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.*;
-
 /**
- * Extends off AbstOrganism to create a basic organism that reproduces, and moves around the screen.
- * 
- * CHANGELOG September 30, 2017 
- *      - Added variables to complement that of AbstOrganism 0.0.5
- * 
+ * Organism class for player. This will the the player specific functions.
+ *
  * @author Uzair Ahmed
- * @version 0.4
+ * @version 0.5
  */
-
-public class MyOrganism extends AbstOrganism
+public class MyOrganism extends Organism
 {
-    protected int speed = 5;
-    protected int organismX; //X location (can be protected
-    protected int organismY;//Y location (can be protected
-    public MyOrganism(){
-        ArrayList <Object> lifeforms;       //list of all the organsims in the game
-        ArrayList <Object> prey;            //list of all that the types of organism can feed on
-        ArrayList <Object> predators;       //list of all the types of organsims that the organism can be eaten 
-        
-        // Custom Variables
-        int startingMaxHealth = 10;
-        int startingMaxXp = 10;
-        int startingSpeed = 5;
-        int startingAttackPower = 1;
-        int startingDefensePower = 1;
-        int maxBuyableMaxHealth = 100;
-        int maxBuyableMaxXp = 100;
-        int maxBuyableSpeed = 10;
-        int maxBuyableAtt = 10;
-        int maxBuyableDef = 10;
-        
-        //XP Upgradeable Variables
-        int maxHealth = startingMaxHealth; //Maximum Health
-        int maxXp = startingMaxXp; //Max XP Storage
-        //int speed = startingSpeed; //Nuff Said 
-        int att = startingAttackPower; //Attack power
-        int def = startingDefensePower; //Defensive power
-        
-        //"Current" Variables. (These are live variables that are constantly changing.
-        int age = 0; //Time
-        int health = startingMaxHealth; //Out of maxHealth
-        int xp = 0; //Out of maxXp
-        int radius = health; //Same as value from health
-        Color playerColor = new Color(0,0,255); //Same as value mapped to 255.
-        //int organismX = 0;
-        //int organismY = 0;
+  //Takes in the custom variables (located in MainWorld), and sets them for the whole class to use.
+  public MyOrganism(int smh, int smxp, int ss, int sa, int sd, int ssi, int am) {
+    //Game Variables
+    attMult = am;
+    //XP Upgradeable Variables-------------------------------------------------
+    maxHealth = smh; //Maximum Health
+    maxXp = smxp; //Max XP Storage
+    speed = ss; //Nuff Said
+    att = sa; //Attack power
+    def = sd; //Defensive power
+    sight = ssi; //Sight
 
-        MainWorld world;        
-    }
-    
-    public void act() 
+    //"Live" Variables. ----------------------------------------------------
+    age = 0; //Time
+    health = maxHealth-2; //Out of maxHealth
+    xp = 0; //Out of maxXp
+    radius = health*2;
+    fill = new Color(0, 0, 0);
+    border = new Color(0, 0, 255);
+    threatLevel = (att*health*def)/(1+age);
+
+    MainWorld world;
+  }
+
+    public void act()
     {
-        
-        move();
-        consumeFood();
-        consumePlayer();
-        reproduce();
-        age();
+        //Gets all objects in the sight radius and puts them into thier proper lists.
+        List foodNearby = getObjectsInRange(sight, Food.class);
+        List enemiesNearby  = getObjectsInRange(sight, EnemyOrganism.class);
+        //Gets the food object it is touching
+        Food foodBeingEaten = (Food) getOneIntersectingObject(Food.class);
 
-    }    
-    
-    protected void move(){
-        if(Greenfoot.isKeyDown("w")){
-            organismY = - speed;
-        }
-        else if (Greenfoot.isKeyDown("s")){
-            organismY = speed;
-        }
-        else{
-            organismY = 0;
-        }
-        if (Greenfoot.isKeyDown("a")){
-            organismX = - speed;
-        }
-        else if (Greenfoot.isKeyDown("d")){
-            organismX = speed;
-        }
-        else{
-            organismX = 0;
-        }
-        setLocation(getX()+organismX, getY() + organismY);
+        //Draws the organism
+        drawOrganism(Color.GREEN, radius);
+
+        //Runs the AI Method
+        AI.think(this, foodNearby, enemiesNearby, foodBeingEaten);
     }
     
     public void consumeFood(){
@@ -96,10 +58,10 @@ public class MyOrganism extends AbstOrganism
     }
     
     public void consumePlayer(){
-        if (getOneIntersectingObject(TestOrganism.class)!=null){ //Change testOrganism to enemyOrganism
+        //if (getOneIntersectingObject(TestOrganism.class)!=null){ //Change testOrganism to enemyOrganism
             //do stuff to return damage int to enemy and to self.
             //add xp
-        }
+       // }
         
     }
     

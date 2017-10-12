@@ -1,0 +1,6 @@
+#BlueJ class context
+comment0.target=Food
+comment0.text=\r\n\ Leaves\ for\ the\ organism\ to\ eat.\r\n\r\n\ CHANGLOG\ Oct\ 10,\ 2017\r\n\ \ -\ Added\ trippy\ movement\ to\ food.\r\n\ @author\ Uzair\ Ahmed\r\n\ @version\ 0.1.3\r\n
+comment1.params=
+comment1.target=void\ act()
+numComments=2
