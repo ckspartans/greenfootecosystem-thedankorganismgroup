@@ -42,6 +42,11 @@ public class MyOrganism extends Organism
 
         //Draws the organism
         drawOrganism(Color.GREEN, radius);
+        
+        //Runs Mutation Method
+        mutate(xp, speed, att, def, sight);
+        
+        System.out.println(speed);
 
         //Runs the AI Method
         AI.think(this, foodNearby, enemiesNearby, foodBeingEaten);
