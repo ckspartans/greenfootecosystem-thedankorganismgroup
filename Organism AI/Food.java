@@ -20,16 +20,16 @@ public class Food extends Actor {
     public void act()
     {
       //Draws food.
-      drawFood(foodmass, img);
+      drawFood(foodMass, img);
     }
 
     //Draws the food
     public void drawFood(int m, GreenfootImage i){
       //Gets a random angle between a range of 35-55
-      int num = Greenfoot.getRandomNumber(20)+35;
+      int num = Greenfoot.getRandomNumber(10)+15;
       //turns and moves accordingly
       turn(num);
-      move((int)(num/20));
+      move(1);
 
       //Set the color to black, draw an empty oval, fill the oval
       i.setColor(Color.BLACK);

@@ -31,31 +31,39 @@ public class MainWorld extends World {
   static int maxBuyableSight = 10;
 
   static int attackMultiplier = 5;
+  static int startingFood = 25;
 
   //ACTUAL CODE--------------------------------------------------------
   IntroScreen intro;
   MyOrganism player;
   EnemyOrganism enemy;
 
-  public MainWorld() {
-
-    super(1000,1000, 1);
-    intro = new IntroScreen(this);
-    Greenfoot.setWorld(intro);
-
-    setPaintOrder(Actor.class);
-
-    player = new MyOrganism(startingMaxHealth, startingMaxXp, startingSpeed,
-                            startingAttackPower, startingDefensePower, startingSight, attackMultiplier);
-
-    enemy = new EnemyOrganism(startingMaxHealth, startingMaxXp, startingSpeed,
-                            startingAttackPower, startingDefensePower, startingSight, attackMultiplier);
-
-    addObject(player, 0, 0);
-    addObject(enemy, 100, 0);
-
-    for (int i = 0; i < 100; i++) {
-      addObject(new Food(), Greenfoot.getRandomNumber(getWidth()), Greenfoot.getRandomNumber(getHeight()));
+    public MainWorld() {
+    
+        super(1000,1000, 1);
+        intro = new IntroScreen(this);
+        Greenfoot.setWorld(intro);
+    
+        setPaintOrder(Actor.class);
+    
+        player = new MyOrganism(startingMaxHealth, startingMaxXp, startingSpeed,
+                                startingAttackPower, startingDefensePower, startingSight, attackMultiplier);
+    
+        enemy = new EnemyOrganism(startingMaxHealth, startingMaxXp, startingSpeed,
+                                startingAttackPower, startingDefensePower, startingSight, attackMultiplier);
+    
+        addObject(player, 0, 0);
+        addObject(enemy, 100, 0);
+    
+        for (int i = 0; i < startingFood; i++) {
+          addObject(new Food(), Greenfoot.getRandomNumber(getWidth()), Greenfoot.getRandomNumber(getHeight()));
+        }
+        
     }
-  }
+    public void act(){
+
+        if (Greenfoot.getRandomNumber(200)<10){
+          addObject(new Food(), Greenfoot.getRandomNumber(getWidth()), Greenfoot.getRandomNumber(getHeight()));
+        }
+    }
 }
