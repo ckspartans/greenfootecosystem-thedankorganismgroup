@@ -56,6 +56,12 @@ public class MainWorld extends World {
 
     for (int i = 0; i < 100; i++) {
       addObject(new Food(), Greenfoot.getRandomNumber(getWidth()), Greenfoot.getRandomNumber(getHeight()));
+        UI = new UIBack(); // creates a reference to draw the back of the UI
+        pause = new PauseButton();
+        addObject(UI, 1920 - UI.width/2, 0 + UI.height/2); // spawning the ui back at the right hand side of the screen
+        addObject(pause, UI.getX(), UI.getY());
+    UIBack UI;
+    PauseButton pause;
     }
   }
 }

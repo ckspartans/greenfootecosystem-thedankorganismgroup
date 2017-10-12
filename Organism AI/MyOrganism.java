@@ -46,4 +46,46 @@ public class MyOrganism extends Organism
         //Runs the AI Method
         AI.think(this, foodNearby, enemiesNearby, foodBeingEaten);
     }
+    
+    public void consumeFood(){
+        if (getOneIntersectingObject(Food.class)!= null){
+          //world.foodEaten ++;
+          //world.removeObject(); //Try and find a way to remove the object it touches
+          //call grow (or add it to a temp health variable) to increase health
+          //add xp
+        }
+        
+    }
+    
+    public void consumePlayer(){
+        //if (getOneIntersectingObject(TestOrganism.class)!=null){ //Change testOrganism to enemyOrganism
+            //do stuff to return damage int to enemy and to self.
+            //add xp
+       // }
+        
+    }
+    
+    public void shrink(int damageTaken){
+        //takes damagetaken and applys it to health and radius
+    }
+    
+    public void grow(int damageGiven){
+        //takes damageGiven and applys it to health and radius
+    }
+    
+    public void age(){
+        //start a timer in act() and use that value to edit age value, and color
+    }  
+    
+    public void reproduce(){
+        //create new myOrganism object and do magic
+        //remove xp
+        //drop in size
+    }
+    
+    public void die(){
+        //Remove the object.
+        //disperse as food througout the world
+    }
+    
 }

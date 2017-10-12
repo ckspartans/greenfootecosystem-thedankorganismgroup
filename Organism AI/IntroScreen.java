@@ -23,5 +23,17 @@ public class IntroScreen extends World {
     if (Greenfoot.mouseClicked(this)) {
       Greenfoot.setWorld(world);
     }
-  }
+    
+    public IntroScreen(MainWorld w)
+    {    
+        // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
+        super(1900, 1080, 1); 
+        world = w;
+    }
+    
+    public void act(){
+        if (Greenfoot.mouseClicked(this)){
+            Greenfoot.setWorld(world);
+        }
+    }
 }
