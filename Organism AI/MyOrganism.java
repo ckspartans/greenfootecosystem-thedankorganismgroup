@@ -37,11 +37,13 @@ public class MyOrganism extends Organism
         //Gets all objects in the sight radius and puts them into thier proper lists.
         List foodNearby = getObjectsInRange(sight, Food.class);
         List enemiesNearby  = getObjectsInRange(sight, EnemyOrganism.class);
-
         //Gets the food object it is touching
         Food foodBeingEaten = (Food) getOneIntersectingObject(Food.class);
 
+        //Draws the organism
         drawOrganism(Color.GREEN, radius);
+
+        //Runs the AI Method
         AI.think(this, foodNearby, enemiesNearby, foodBeingEaten);
     }
 }
