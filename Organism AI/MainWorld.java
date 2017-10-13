@@ -30,13 +30,11 @@ public class MainWorld extends World {
   static int maxBuyableDef = 10;
   static int maxBuyableSight = 10;
 
-  static int attackMultiplier = 5;
   static int startingFood = 25;
 
   //ACTUAL CODE--------------------------------------------------------
   IntroScreen intro;
-  MyOrganism player;
-  EnemyOrganism enemy;
+  Organism player;
 
     public MainWorld() {
     
@@ -46,14 +44,10 @@ public class MainWorld extends World {
     
         setPaintOrder(Actor.class);
     
-        player = new MyOrganism(startingMaxHealth, startingMaxXp, startingSpeed,
-                                startingAttackPower, startingDefensePower, startingSight, attackMultiplier);
-    
-        enemy = new EnemyOrganism(startingMaxHealth, startingMaxXp, startingSpeed,
-                                startingAttackPower, startingDefensePower, startingSight, attackMultiplier);
+        player = new Organism(startingMaxHealth, startingMaxXp, startingSpeed,
+                                startingAttackPower, startingDefensePower, startingSight);
     
         addObject(player, 0, 0);
-        addObject(enemy, 100, 0);
     
         for (int i = 0; i < startingFood; i++) {
           addObject(new Food(), Greenfoot.getRandomNumber(getWidth()), Greenfoot.getRandomNumber(getHeight()));

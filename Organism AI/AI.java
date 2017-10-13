@@ -16,18 +16,19 @@ public class AI
    //Declare Lists/Variables to hold protected actor methods.
    static List foodNearby;
    static Food foodBeingEaten;
+   static List familyNearby;
    static List enemiesNearby;
 
    //This is the only called function by outside classes. This will choose what to do based on if statements.
-    public static void think(Organism o, List fn, List en, Food fbe){
+    public static void think(Organism o, List fn, List fam, List en, Food fbe){
         //Set the values to what was given in by the upper class.
         foodNearby = fn;
+        familyNearby = fam;
         enemiesNearby = en;
         foodBeingEaten = fbe;
 
         //These are the basic methods implemented till now.
         patrol(o, foodNearby, 0);
-        patrol(o, enemiesNearby, 1);
         stayAwayFromEdges(o);
     }
 

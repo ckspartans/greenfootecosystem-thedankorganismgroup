@@ -4,14 +4,61 @@ import java.util.*;
 /**
  * Extends off AbstOrganism to create a basic organism that reproduces, and moves around the screen.
  *
- * CHANGELOG October 10, 2017
- *  - Deleted ol Code to move to AI, will fix AI code with rowbottom
+ * CHANGELOG October 12, 2017
+ *  - Added Setter and Getter Variables for team, and method for team differentiation.
  *
  * @author Uzair Ahmed
- * @version 1.0
+ * @author Ethan Gale
+ * @version 1.2
  */
 
 public class Organism extends AbstOrganism {
+  public Organism(int smh, int smxp, int ss, int sa, int sd, int ssi) {
+    //XP Upgradeable Variables-------------------------------------------------
+    maxHealth = smh; //Maximum Health
+    maxXp = smxp; //Max XP Storage
+    speed = ss; //Nuff Said
+    att = sa; //Attack power
+    def = sd; //Defensive power
+    sight = ssi; //Sight
+
+    //"Live" Variables. ----------------------------------------------------
+    age = 0; //Time
+    health = maxHealth-2; //Out of maxHealth
+    xp = 0; //Out of maxXp
+    radius = health*2;
+    fill = new Color(0, 0, 0);
+    border = new Color(0, 0, 255);
+    threatLevel = (att*health*def)/(1+age);
+    
+    myTeam = 1;
+    enemies = new ArrayList();
+    family = new ArrayList();
+
+    MainWorld world;
+  }
+  
+  public void act()
+    {
+    //Gets all objects in the sight radius and puts them into thier proper lists.
+    List foodNearby = getObjectsInRange(sight, Food.class);
+    List organismsNearby  = getObjectsInRange(sight, Organism.class);
+    //Gets the food object it is touching
+    Food foodBeingEaten = (Food) getOneIntersectingObject(Food.class);
+    
+    //Draws the organism
+    drawOrganism(Color.GREEN, radius);
+    
+    //checks for nearby friends or enemies.
+    friendOrFoe(organismsNearby);
+    
+    //Runs Mutation Method
+    //mutate(xp, speed, att, def, sight);
+
+    //Runs the AI Method
+    AI.think(this, foodNearby, family, enemies, foodBeingEaten);
+    }
+
   //draws the organism
   public void drawOrganism(Color c, int rad){
       GreenfootImage img = new GreenfootImage(rad, rad);

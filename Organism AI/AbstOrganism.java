@@ -29,7 +29,9 @@ public abstract class AbstOrganism extends Actor {
   public Color fill;
   public Color border;
   
-  public int attMult;
+  public List family;
+  public List enemies;
+  public int myTeam;
   
   MainWorld world;
 
