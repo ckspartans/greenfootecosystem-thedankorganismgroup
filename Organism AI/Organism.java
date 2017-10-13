@@ -13,7 +13,7 @@ import java.util.*;
  */
 
 public class Organism extends AbstOrganism {
-  public Organism(int smh, int smxp, int ss, int sa, int sd, int ssi) {
+  public Organism(int smh, int smxp, int ss, int sa, int sd, int ssi, int t) {
     //XP Upgradeable Variables-------------------------------------------------
     maxHealth = smh; //Maximum Health
     maxXp = smxp; //Max XP Storage
@@ -27,31 +27,29 @@ public class Organism extends AbstOrganism {
     health = maxHealth-2; //Out of maxHealth
     xp = 0; //Out of maxXp
     radius = health*2;
-    fill = new Color(0, 0, 0);
-    border = new Color(0, 0, 255);
     threatLevel = (att*health*def)/(1+age);
-    
-    myTeam = 1;
-    enemies = new ArrayList();
-    family = new ArrayList();
+
+    //Game Variables
+    myTeam = t;
+    MainWorld.lifeForms.get(myTeam-1).add(this);
+
 
     MainWorld world;
   }
-  
-  public void act()
-    {
+
+  public void act(){
     //Gets all objects in the sight radius and puts them into thier proper lists.
     List foodNearby = getObjectsInRange(sight, Food.class);
     List organismsNearby  = getObjectsInRange(sight, Organism.class);
     //Gets the food object it is touching
     Food foodBeingEaten = (Food) getOneIntersectingObject(Food.class);
-    
+
     //Draws the organism
     drawOrganism(Color.GREEN, radius);
-    
-    //checks for nearby friends or enemies.
-    friendOrFoe(organismsNearby);
-    
+
+    //Checks for nearby friends or enemies.
+    //friendOrFoe();
+
     //Runs Mutation Method
     //mutate(xp, speed, att, def, sight);
 
@@ -71,20 +69,11 @@ public class Organism extends AbstOrganism {
   public void consumeFood(Food foodBeingEaten){
       if (foodBeingEaten != null){
           removeTouching(Food.class);
-          //int foodConsumed = foodBeingEaten.foodMass;
-          //xp+=foodConsumed/10;
+          int foodConsumed = foodBeingEaten.foodMass;
+          xp+=foodConsumed/10;
       }
   }
-
-  public boolean isOnSameTeam(){
-      //check if thing is on the same team
-      return false;
-  }
-
-  public void healthToSize() {
-    radius = health*2;
-  }
-
+  
   //I haven't thought about things this far yet :/
 
   public void age() {
@@ -92,9 +81,9 @@ public class Organism extends AbstOrganism {
   }
 
   public void reproduce() {
-    //create new myOrganism object and do magic
-    //remove xp
-    //drop in size
+      world.addObject(new Organism(maxHealth, xp,speed, att, def, sight, myTeam), 
+      (Greenfoot.getRandomNumber(50)-25)+getX(), 
+      (Greenfoot.getRandomNumber(50)-25)+getY());
   }
 
   public void die() {

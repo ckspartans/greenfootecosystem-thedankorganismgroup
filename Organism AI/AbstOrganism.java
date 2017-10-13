@@ -37,8 +37,6 @@ public abstract class AbstOrganism extends Actor {
 
   public abstract void consumeFood(Food foodBeingEaten);
 
-  public abstract void healthToSize();
-
   public abstract void reproduce();
 
   public abstract void age();
