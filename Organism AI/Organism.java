@@ -5,14 +5,58 @@ import java.util.*;
  * Extends off AbstOrganism to create a basic organism that reproduces, and moves around the screen.
  *
  * CHANGELOG October 12, 2017
- *  - Added Ethan's Mutation Code
+ *  - Added Setter and Getter Variables for team, and method for team differentiation.
  *
  * @author Uzair Ahmed
  * @author Ethan Gale
- * @version 1.1
+ * @version 1.2
  */
 
 public class Organism extends AbstOrganism {
+  public Organism(int smh, int smxp, int ss, int sa, int sd, int ssi, int t) {
+    //XP Upgradeable Variables-------------------------------------------------
+    maxHealth = smh; //Maximum Health
+    maxXp = smxp; //Max XP Storage
+    speed = ss; //Nuff Said
+    att = sa; //Attack power
+    def = sd; //Defensive power
+    sight = ssi; //Sight
+
+    //"Live" Variables. ----------------------------------------------------
+    age = 0; //Time
+    health = maxHealth-2; //Out of maxHealth
+    xp = 0; //Out of maxXp
+    radius = health*2;
+    threatLevel = (att*health*def)/(1+age);
+
+    //Game Variables
+    myTeam = t;
+    MainWorld.lifeForms.get(myTeam-1).add(this);
+
+
+    MainWorld world;
+  }
+
+  public void act(){
+    //Gets all objects in the sight radius and puts them into thier proper lists.
+    List foodNearby = getObjectsInRange(sight, Food.class);
+    List organismsNearby  = getObjectsInRange(sight, Organism.class);
+    //Gets the food object it is touching
+    Food foodBeingEaten = (Food) getOneIntersectingObject(Food.class);
+
+    //Draws the organism
+    drawOrganism(Color.GREEN, radius);
+
+    //Checks for nearby friends or enemies.
+    //friendOrFoe();
+
+    //Runs Mutation Method
+    mutate();
+
+    //Runs the AI Method
+    AI.think(this, foodNearby, family, enemies, foodBeingEaten);
+    }
+
   //draws the organism
   public void drawOrganism(Color c, int rad){
       GreenfootImage img = new GreenfootImage(rad, rad);
@@ -29,38 +73,28 @@ public class Organism extends AbstOrganism {
           xp+=foodConsumed/10;
       }
   }
-
-  public boolean isOnSameTeam(){
-      //check if thing is on the same team
-      return false;
-  }
-
-  public void healthToSize() {
-    radius = health*2;
-  }
-
-  //Mutation Function Made By Ethan Gale
-  public static void mutate(int xp, int ss, int sa, int sd, int ssi) {
-    if (xp > 9){
-        if (Greenfoot.getRandomNumber(3) == 1){ //mutation rate
+ 
+  
+  public void mutate(){
+      if (xp >= 10){
+        if (Greenfoot.getRandomNumber(5) == 1){ //mutation rate
             int chosenMutation = Greenfoot.getRandomNumber(4);
             if (chosenMutation == 1){ //attack
-                sa = sa++;
-            }
+                att += 1;
+            } 
             else if (chosenMutation == 2){ //defense
-                sd = sd++;
+                def += 1;
             }
             else if (chosenMutation == 3){ //speed
-                ss = ss + 2;
+                speed += 2;
             }
             else if (chosenMutation == 4){ //sight range
-                ssi = ssi + 10;
+                sight += 10;
             }
+            xp=0;
         }
     }
   }
-
-
   //I haven't thought about things this far yet :/
 
   public void age() {
@@ -68,9 +102,9 @@ public class Organism extends AbstOrganism {
   }
 
   public void reproduce() {
-    //create new myOrganism object and do magic
-    //remove xp
-    //drop in size
+      world.addObject(new Organism(maxHealth, xp,speed, att, def, sight, myTeam), 
+      (Greenfoot.getRandomNumber(50)-25)+getX(), 
+      (Greenfoot.getRandomNumber(50)-25)+getY());
   }
 
   public void die() {

@@ -1,8 +1,0 @@
-#BlueJ class context
-comment0.target=MyOrganism
-comment0.text=\r\n\ Organism\ class\ for\ player.\ This\ will\ the\ the\ player\ specific\ functions.\r\n\r\n\ @author\ Uzair\ Ahmed\r\n\ @version\ 0.5\r\n
-comment1.params=smh\ smxp\ ss\ sa\ sd\ ssi\ am
-comment1.target=MyOrganism(int,\ int,\ int,\ int,\ int,\ int,\ int)
-comment2.params=
-comment2.target=void\ act()
-numComments=3
