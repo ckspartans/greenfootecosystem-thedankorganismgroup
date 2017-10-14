@@ -51,7 +51,7 @@ public class Organism extends AbstOrganism {
     //friendOrFoe();
 
     //Runs Mutation Method
-    //mutate(xp, speed, att, def, sight);
+    mutate();
 
     //Runs the AI Method
     AI.think(this, foodNearby, family, enemies, foodBeingEaten);
@@ -73,7 +73,28 @@ public class Organism extends AbstOrganism {
           xp+=foodConsumed/10;
       }
   }
+ 
   
+  public void mutate(){
+      if (xp >= 10){
+        if (Greenfoot.getRandomNumber(5) == 1){ //mutation rate
+            int chosenMutation = Greenfoot.getRandomNumber(4);
+            if (chosenMutation == 1){ //attack
+                att += 1;
+            } 
+            else if (chosenMutation == 2){ //defense
+                def += 1;
+            }
+            else if (chosenMutation == 3){ //speed
+                speed += 2;
+            }
+            else if (chosenMutation == 4){ //sight range
+                sight += 10;
+            }
+            xp=0;
+        }
+    }
+  }
   //I haven't thought about things this far yet :/
 
   public void age() {
