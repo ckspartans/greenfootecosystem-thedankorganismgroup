@@ -5,7 +5,12 @@ import java.util.*;
  * Extends off AbstOrganism to create a basic organism that reproduces, and moves around the screen.
  *
  * CHANGELOG October 12, 2017
- *  - Added Setter and Getter Variables for team, and method for team differentiation.
+ *      -Added differentiation code
+ *      
+ * KNOWN BUGS TO ASK ABOUT: 
+ * - nullpointerException on line 127, in reproduce.
+ * - lines 111, 114. Organism does not stop at adding itself once.
+ * 
  *
  * @author Uzair Ahmed
  * @author Ethan Gale
@@ -32,7 +37,9 @@ public class Organism extends AbstOrganism {
     //Game Variables
     myTeam = t;
     MainWorld.lifeForms.get(myTeam-1).add(this);
-
+    
+    family = new ArrayList<Organism>();
+    enemies = new ArrayList<Organism>();
 
     MainWorld world;
   }
@@ -43,16 +50,18 @@ public class Organism extends AbstOrganism {
     List organismsNearby  = getObjectsInRange(sight, Organism.class);
     //Gets the food object it is touching
     Food foodBeingEaten = (Food) getOneIntersectingObject(Food.class);
-
+    
     //Draws the organism
     drawOrganism(Color.GREEN, radius);
 
-    //Checks for nearby friends or enemies.
-    //friendOrFoe();
-
+    //Checks for friends or enemies.
+    distinguishOrganisms();
+    
     //Runs Mutation Method
     mutate();
-
+    
+    reproduce();
+    
     //Runs the AI Method
     AI.think(this, foodNearby, family, enemies, foodBeingEaten);
     }
@@ -95,6 +104,21 @@ public class Organism extends AbstOrganism {
         }
     }
   }
+  
+  public void distinguishOrganisms(){
+      for (int l = 0; l < world.lifeForms.size(); l++){
+          for (int o = 0; o < world.lifeForms.get(l).size();o++){
+            Organism org = (Organism) world.lifeForms.get(l).get(o);
+            if (org.myTeam == myTeam){
+                family.add(org);
+            }
+            else if (org.myTeam != myTeam){
+                enemies.add(org);
+            }
+        }
+    }
+}
+  
   //I haven't thought about things this far yet :/
 
   public void age() {
@@ -102,9 +126,8 @@ public class Organism extends AbstOrganism {
   }
 
   public void reproduce() {
-      world.addObject(new Organism(maxHealth, xp,speed, att, def, sight, myTeam), 
-      (Greenfoot.getRandomNumber(50)-25)+getX(), 
-      (Greenfoot.getRandomNumber(50)-25)+getY());
+      Organism tempOrg = new Organism(maxHealth, xp,speed, att, def, sight, myTeam);
+      world.addObject(tempOrg,getX(),getY());
   }
 
   public void die() {

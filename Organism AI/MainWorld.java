@@ -83,7 +83,7 @@ public class MainWorld extends World {
         }
 
     }
-    public void act(){
+   public void act(){
 
         if (Greenfoot.getRandomNumber(200)<10){
           addObject(new Food(), Greenfoot.getRandomNumber(getWidth()), Greenfoot.getRandomNumber(getHeight()));
