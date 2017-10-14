@@ -25,14 +25,12 @@ public abstract class AbstOrganism extends Actor {
   public int att; //Attck power
   public int def; //defensive power
   public int sight; //how far it can see
-
-  public Color fill;
-  public Color border;
-  
+ 
   public List family;
   public List enemies ;
   public int myTeam;
-  
+  public Color myColor;
+    
   MainWorld world;
 
   public abstract void consumeFood(Food foodBeingEaten);

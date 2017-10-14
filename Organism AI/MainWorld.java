@@ -61,16 +61,16 @@ public class MainWorld extends World {
 
 
         player1 = new Organism(startingMaxHealth, startingMaxXp, startingSpeed,
-         startingAttackPower, startingDefensePower, startingSight, 1);
+         startingAttackPower, startingDefensePower, startingSight, 1 , Color.RED);
 
         player2 = new Organism(startingMaxHealth, startingMaxXp, startingSpeed,
-         startingAttackPower, startingDefensePower, startingSight, 2);
+         startingAttackPower, startingDefensePower, startingSight, 2, Color.BLUE);
 
         player3 = new Organism(startingMaxHealth, startingMaxXp, startingSpeed,
-         startingAttackPower, startingDefensePower, startingSight, 3);
+         startingAttackPower, startingDefensePower, startingSight, 3, Color.GREEN);
 
         player4 = new Organism(startingMaxHealth, startingMaxXp, startingSpeed,
-         startingAttackPower, startingDefensePower, startingSight, 4);
+         startingAttackPower, startingDefensePower, startingSight, 4, Color.CYAN);
 
 
         addObject(player1, 0, 0);

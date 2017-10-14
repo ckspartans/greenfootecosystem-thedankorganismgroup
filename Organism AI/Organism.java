@@ -18,7 +18,7 @@ import java.util.*;
  */
 
 public class Organism extends AbstOrganism {
-  public Organism(int smh, int smxp, int ss, int sa, int sd, int ssi, int t) {
+  public Organism(int smh, int smxp, int ss, int sa, int sd, int ssi, int t, Color c) {
     //XP Upgradeable Variables-------------------------------------------------
     maxHealth = smh; //Maximum Health
     maxXp = smxp; //Max XP Storage
@@ -35,16 +35,20 @@ public class Organism extends AbstOrganism {
     threatLevel = (att*health*def)/(1+age);
 
     //Game Variables
-    myTeam = t;
-    MainWorld.lifeForms.get(myTeam-1).add(this);
-    
     family = new ArrayList<Organism>();
     enemies = new ArrayList<Organism>();
+    myTeam = t;
+    myColor = c;
+    
+    MainWorld.lifeForms.get(myTeam-1).add(this);
 
     MainWorld world;
   }
 
   public void act(){
+      if (world == null){
+          world = (MainWorld) getWorld();
+        }
     //Gets all objects in the sight radius and puts them into thier proper lists.
     List foodNearby = getObjectsInRange(sight, Food.class);
     List organismsNearby  = getObjectsInRange(sight, Organism.class);
@@ -52,15 +56,13 @@ public class Organism extends AbstOrganism {
     Food foodBeingEaten = (Food) getOneIntersectingObject(Food.class);
     
     //Draws the organism
-    drawOrganism(Color.GREEN, radius);
+    drawOrganism(myColor, radius);
 
     //Checks for friends or enemies.
     distinguishOrganisms();
     
     //Runs Mutation Method
     mutate();
-    
-    reproduce();
     
     //Runs the AI Method
     AI.think(this, foodNearby, family, enemies, foodBeingEaten);
@@ -83,24 +85,30 @@ public class Organism extends AbstOrganism {
       }
   }
  
-  
+  //Ethan Gale
   public void mutate(){
       if (xp >= 10){
         if (Greenfoot.getRandomNumber(5) == 1){ //mutation rate
-            int chosenMutation = Greenfoot.getRandomNumber(4);
-            if (chosenMutation == 1){ //attack
-                att += 1;
-            } 
-            else if (chosenMutation == 2){ //defense
-                def += 1;
+            if (Greenfoot.getRandomNumber(5) == 1){
+                reproduce();
+                xp = 0;
             }
-            else if (chosenMutation == 3){ //speed
-                speed += 2;
+            else{
+                int chosenMutation = Greenfoot.getRandomNumber(4);
+                if (chosenMutation == 1){ //attack
+                    att += 1;
+                } 
+                else if (chosenMutation == 2){ //defense
+                    def += 1;
+                }
+                else if (chosenMutation == 3){ //speed
+                    speed += 2;
+                }
+                else if (chosenMutation == 4){ //sight range
+                    sight += 10;
+                }
+                xp=0;
             }
-            else if (chosenMutation == 4){ //sight range
-                sight += 10;
-            }
-            xp=0;
         }
     }
   }
@@ -126,8 +134,8 @@ public class Organism extends AbstOrganism {
   }
 
   public void reproduce() {
-      Organism tempOrg = new Organism(maxHealth, xp,speed, att, def, sight, myTeam);
-      world.addObject(tempOrg,getX(),getY());
+      Organism tempOrg = new Organism(maxHealth, xp,speed, att, def, sight, myTeam, myColor);
+      world.addObject(tempOrg,(getX()+Greenfoot.getRandomNumber(30)-15),(getY()+Greenfoot.getRandomNumber(30)-15));
   }
 
   public void die() {
