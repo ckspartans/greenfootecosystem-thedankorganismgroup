@@ -3,10 +3,10 @@ import java.util.*;
 
 /**
 * CHANGELOG: Oct 9, 2017
-*         - Added threat level variable.
+*         - Added missong methods.
 *
 * @author Uzair Ahmed
-* @version 0.0.8
+* @version 1.0
 */
 public abstract class AbstOrganism extends Actor {
 
@@ -25,19 +25,25 @@ public abstract class AbstOrganism extends Actor {
   public int att; //Attck power
   public int def; //defensive power
   public int sight; //how far it can see
- 
+
   public List family;
   public List enemies ;
   public int myTeam;
   public Color myColor;
-  
-  public int timer;
-    
+
   MainWorld world;
+
+  public abstract void drawOrganism(Color c, int rad);
 
   public abstract void consumeFood(Food foodBeingEaten);
 
+  public abstract void mutate();
+
+  public abstract void distinguishOrganisms();
+
   public abstract void reproduce();
+
+  public abstract void startTimer();
 
   public abstract int getAge();
 

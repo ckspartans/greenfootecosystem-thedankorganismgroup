@@ -7,7 +7,7 @@ import java.util.*;
  * CHANGELOG: Change Class tree, now we have four organisms, and they will reproduce.
  *
  * @author Uzair Ahmed
- * @version 0.6
+ * @version 0.7
  */
 
 public class MainWorld extends World {
