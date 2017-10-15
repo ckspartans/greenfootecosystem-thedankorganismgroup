@@ -30,6 +30,8 @@ public abstract class AbstOrganism extends Actor {
   public List enemies ;
   public int myTeam;
   public Color myColor;
+  
+  public int timer;
     
   MainWorld world;
 
@@ -37,7 +39,7 @@ public abstract class AbstOrganism extends Actor {
 
   public abstract void reproduce();
 
-  public abstract void age();
+  public abstract int getAge();
 
   public abstract void die();
 

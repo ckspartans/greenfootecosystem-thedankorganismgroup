@@ -6,11 +6,11 @@ import java.util.*;
  *
  * CHANGELOG October 12, 2017
  *      -Added differentiation code
- *      
- * KNOWN BUGS TO ASK ABOUT: 
+ *
+ * KNOWN BUGS TO ASK ABOUT:
  * - nullpointerException on line 127, in reproduce.
  * - lines 111, 114. Organism does not stop at adding itself once.
- * 
+ *
  *
  * @author Uzair Ahmed
  * @author Ethan Gale
@@ -39,31 +39,36 @@ public class Organism extends AbstOrganism {
     enemies = new ArrayList<Organism>();
     myTeam = t;
     myColor = c;
-    
+
     MainWorld.lifeForms.get(myTeam-1).add(this);
 
     MainWorld world;
   }
 
   public void act(){
-      if (world == null){
+    
+    if (world == null){
           world = (MainWorld) getWorld();
-        }
+    }
     //Gets all objects in the sight radius and puts them into thier proper lists.
     List foodNearby = getObjectsInRange(sight, Food.class);
     List organismsNearby  = getObjectsInRange(sight, Organism.class);
     //Gets the food object it is touching
     Food foodBeingEaten = (Food) getOneIntersectingObject(Food.class);
-    
+
+    //Starts the timer for age.
+    startTimer();
+
     //Draws the organism
     drawOrganism(myColor, radius);
 
     //Checks for friends or enemies.
     distinguishOrganisms();
-    
+
     //Runs Mutation Method
     mutate();
-    
+
+    System.out.println(getAge());
     //Runs the AI Method
     AI.think(this, foodNearby, family, enemies, foodBeingEaten);
     }
@@ -84,7 +89,7 @@ public class Organism extends AbstOrganism {
           xp+=foodConsumed/10;
       }
   }
- 
+
   //Ethan Gale
   public void mutate(){
       if (xp >= 10){
@@ -97,7 +102,7 @@ public class Organism extends AbstOrganism {
                 int chosenMutation = Greenfoot.getRandomNumber(4);
                 if (chosenMutation == 1){ //attack
                     att += 1;
-                } 
+                }
                 else if (chosenMutation == 2){ //defense
                     def += 1;
                 }
@@ -112,7 +117,7 @@ public class Organism extends AbstOrganism {
         }
     }
   }
-  
+
   public void distinguishOrganisms(){
       for (int l = 0; l < world.lifeForms.size(); l++){
           for (int o = 0; o < world.lifeForms.get(l).size();o++){
@@ -126,17 +131,24 @@ public class Organism extends AbstOrganism {
         }
     }
 }
-  
-  //I haven't thought about things this far yet :/
 
-  public void age() {
-    //start a timer in act() and use that value to edit age value, and color
+
+  public void startTimer(){
+    age++;
+  }
+
+  public int getAge() {
+      //Calculates the age in time, by taking the frames
+      //and calculating based on an anerage 60 fps
+      return timer/60;
   }
 
   public void reproduce() {
       Organism tempOrg = new Organism(maxHealth, xp,speed, att, def, sight, myTeam, myColor);
       world.addObject(tempOrg,(getX()+Greenfoot.getRandomNumber(30)-15),(getY()+Greenfoot.getRandomNumber(30)-15));
   }
+
+    //I haven't thought about things this far yet :/
 
   public void die() {
     //Remove the object.
