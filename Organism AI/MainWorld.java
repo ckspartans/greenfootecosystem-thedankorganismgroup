@@ -7,7 +7,7 @@ import java.util.*;
  * CHANGELOG: Change Class tree, now we have four organisms, and they will reproduce.
  *
  * @author Uzair Ahmed
- * @version 0.6
+ * @version 0.7
  */
 
 public class MainWorld extends World {
@@ -21,14 +21,14 @@ public class MainWorld extends World {
 
   static int startingMaxHealth = 10;
   static int startingMaxXp = 10;
-  static int startingSpeed = 5;
+  static int startingSpeed = 3;
   static int startingAttackPower = 1;
   static int startingDefensePower = 1;
   static int startingSight = 100;
 
   static int maxBuyableMaxHealth = 100;
   static int maxBuyableMaxXp = 100;
-  static int maxBuyableSpeed = 10;
+  static int maxBuyableSpeed = 30;
   static int maxBuyableAtt = 10;
   static int maxBuyableDef = 10;
   static int maxBuyableSight = 10;
@@ -61,16 +61,16 @@ public class MainWorld extends World {
 
 
         player1 = new Organism(startingMaxHealth, startingMaxXp, startingSpeed,
-         startingAttackPower, startingDefensePower, startingSight, 1);
+         startingAttackPower, startingDefensePower, startingSight, 1 , Color.RED);
 
         player2 = new Organism(startingMaxHealth, startingMaxXp, startingSpeed,
-         startingAttackPower, startingDefensePower, startingSight, 2);
+         startingAttackPower, startingDefensePower, startingSight, 2, Color.BLUE);
 
         player3 = new Organism(startingMaxHealth, startingMaxXp, startingSpeed,
-         startingAttackPower, startingDefensePower, startingSight, 3);
+         startingAttackPower, startingDefensePower, startingSight, 3, Color.GREEN);
 
         player4 = new Organism(startingMaxHealth, startingMaxXp, startingSpeed,
-         startingAttackPower, startingDefensePower, startingSight, 4);
+         startingAttackPower, startingDefensePower, startingSight, 4, Color.CYAN);
 
 
         addObject(player1, 0, 0);
@@ -83,7 +83,7 @@ public class MainWorld extends World {
         }
 
     }
-    public void act(){
+   public void act(){
 
         if (Greenfoot.getRandomNumber(200)<10){
           addObject(new Food(), Greenfoot.getRandomNumber(getWidth()), Greenfoot.getRandomNumber(getHeight()));
