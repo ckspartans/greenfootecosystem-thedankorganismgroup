@@ -116,8 +116,8 @@ public class Organism extends AbstOrganism {
         }
         
       //Caps maxhealth to max buyable health  
-      if (maxHealth > world.maxBuyableHealth){
-          maxHealth = maxBuyableHealth;
+      if (maxHealth > world.maxBuyableMaxHealth){
+          maxHealth = world.maxBuyableMaxHealth;
         }
       
       //Caps speed to max buyable speed
@@ -164,7 +164,7 @@ public class Organism extends AbstOrganism {
             else{
                 int chosenMutation = Greenfoot.getRandomNumber(5);
                 if (chosenMutation == 1){ //attack
-                    maxBuyableHealth += 1;
+                    world.maxBuyableMaxHealth += 1;
                 }
                 else if (chosenMutation == 2){ //defense
                     speed += 1;
