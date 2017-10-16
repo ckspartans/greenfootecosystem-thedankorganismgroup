@@ -21,14 +21,14 @@ public class MainWorld extends World {
 
   static int startingMaxHealth = 10;
   static int startingMaxXp = 10;
-  static int startingSpeed = 5;
+  static int startingSpeed = 3;
   static int startingAttackPower = 1;
   static int startingDefensePower = 1;
   static int startingSight = 100;
 
   static int maxBuyableMaxHealth = 100;
   static int maxBuyableMaxXp = 100;
-  static int maxBuyableSpeed = 10;
+  static int maxBuyableSpeed = 30;
   static int maxBuyableAtt = 10;
   static int maxBuyableDef = 10;
   static int maxBuyableSight = 10;
