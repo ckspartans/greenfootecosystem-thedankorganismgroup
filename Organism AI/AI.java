@@ -18,18 +18,18 @@ public class AI
    static Food foodBeingEaten;
    static List familyNearby;
    static List enemiesNearby;
-   static List totalFamily;
-   static List totalEnemy;
+   //static List totalFamily;
+   //static List totalEnemy;
 
    //This is the only called function by outside classes. This will choose what to do based on if statements.
-    public static void think(Organism o, List fn, List fam, List en, Food fbe, List fams, List nMes){
+    public static void think(Organism o, List fn, List fam, List en, Food fbe){//, List fams, List nMes){
         //Set the values to what was given in by the upper class.
         foodNearby = fn;
         familyNearby = fam;
         enemiesNearby = en;
         foodBeingEaten = fbe;
-        totalFamily = fams;
-        totalEnemy = nMes;
+        //totalFamily = fams;
+        //totalEnemy = nMes;
 
         //These are the basic methods implemented till now.
         patrol(o, foodNearby, 0);
@@ -83,8 +83,8 @@ public class AI
     }
     
     
-    // Dhoir's Code:
-     public void attack(int enemy){
+     //Dhoir's Code:
+     //public void attack(int enemy){
         /*get the amount of organisms in the group
          *calculate the total group power
          *
@@ -101,7 +101,7 @@ public class AI
          *if win return how many energy they get
          */
 
-        int eX;
+        /*int eX;
         int eY;
         int radius;
 
@@ -117,7 +117,7 @@ public class AI
 
     }
 
-    public void defend(){
+    public void defend(){*/
         /*search for the amount of enemies in sight range (this needs to be constantly run so the defender knows if more enemies are coming)
          *check the enemies coming at you (threat level and position)
          *determine the best strategy to use
@@ -129,7 +129,7 @@ public class AI
          *keep track of all the energy they gain by eating the bodies
          *eat the bodies (if they win at the end)
          */
-        for (int i=0; i > enemiesNearby.size(); i++){ //finds all the enemies nearby
+        /*for (int i=0; i > enemiesNearby.size(); i++){ //finds all the enemies nearby
             if (enemiesNearby.get(i).attackMode == true){ //if any enemy is attacking
                 //if (intelligence >= Xamount){ //if this organism is smart
                 //if (enemiesNearby.get(i.chosenEnemy) == ){ //only notice it is being attacked if it is acutally being attacked, not an organism near it
@@ -183,7 +183,7 @@ public class AI
             totalEnemy.get(enemy.health) -= (att - totalEnemy.get(enemy.def)); //hits selected enemy for your attack - enemy defense
             totalEnemy.get(enemy.def) -= (totalEnemy.get(enemy.def)*(att/totalEnemy.get(enemy.def))); //reduce the defensive power by the your attack divided by their defense percentage eg att-->1 def -->2 new def = 1
         }
-    }
+    }*/
 }
 
 
