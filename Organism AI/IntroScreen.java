@@ -8,11 +8,11 @@ import java.util.*;
  */
 public class IntroScreen extends World {
 
-  MainWorld world;
+    MainWorld world;
 
-  public IntroScreen() {
-    super(1920, 1080, 1);
-  }
+    public IntroScreen() {
+        super(1920, 1080, 1);
+    }
 
     public IntroScreen(MainWorld w)
     {    
@@ -21,18 +21,19 @@ public class IntroScreen extends World {
         world = w;
     }
 
-  public void act() {
-    if (Greenfoot.mouseClicked(this)) {
-      Greenfoot.setWorld(world);
+    public void act() {
+        if (Greenfoot.mouseClicked(this)) {
+            Greenfoot.setWorld(world);
+        }
+        draw();
     }
-    draw();
-}
-  public void draw() {
-      //draws a list of text options such as start, options, and exit
+
+    public void draw() {
+        //draws a list of text options such as start, options, and exit
     }
 
     public void setWorld() {
-      Greenfoot.setWorld(world);
+        Greenfoot.setWorld(world);
     }
 
 }
