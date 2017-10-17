@@ -79,6 +79,9 @@ public class AI
         if(o.isAtEdge()){
             o.turn(180);
         }
+        else if (o.getX() > 1000){
+            o.turn(180);
+        }
     }
 
     //Dhoir's Code:

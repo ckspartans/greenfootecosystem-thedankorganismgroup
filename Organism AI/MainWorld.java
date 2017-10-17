@@ -84,14 +84,15 @@ public class MainWorld extends World {
         openUI();
 
         for (int i = 0; i < startingFood; i++) {
-            addObject(new Food(), Greenfoot.getRandomNumber(getWidth()), Greenfoot.getRandomNumber(getHeight()));
+            addObject(new Food(), Greenfoot.getRandomNumber(1000), Greenfoot.getRandomNumber(1000));
         }
 
     }
 
     public void act(){
+        System.out.println(player2.getX());
         if (Greenfoot.getRandomNumber(200)<10){
-            addObject(new Food(), Greenfoot.getRandomNumber(getWidth()), Greenfoot.getRandomNumber(getHeight()));
+            addObject(new Food(), Greenfoot.getRandomNumber(1000), Greenfoot.getRandomNumber(1000));
         }
     }
 
