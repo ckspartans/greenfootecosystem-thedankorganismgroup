@@ -27,7 +27,7 @@ public class PauseButton extends Actor
     {
         // Add your action code here.
         if(Greenfoot.mouseClicked(this)) {
-            world.setWorld(pause);
+            //world.setWorld(pause);
         }
     }    
 }
