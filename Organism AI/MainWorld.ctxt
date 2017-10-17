@@ -4,5 +4,9 @@ comment0.text=\r\n\ Main\ GameState\r\n\r\n\ CHANGELOG\:\ Change\ Class\ tree,\ 
 comment1.params=
 comment1.target=MainWorld()
 comment2.params=
+<<<<<<< HEAD
 comment2.target=void\ act()
+=======
+comment2.target=void\ openUI()
+>>>>>>> UI
 numComments=3

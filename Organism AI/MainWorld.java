@@ -37,14 +37,19 @@ public class MainWorld extends World {
 
   //ACTUAL CODE--------------------------------------------------------
   IntroScreen intro;
+  MyOrganism player;
+  EnemyOrganism enemy;
+  UIBack UI;
+  PauseButton pauseButton;
+  PauseWorld pause;
   Organism player1;
   Organism player2;
   Organism player3;
   Organism player4;
 
-    public MainWorld() {
 
-        super(1000,1000, 1);
+  public MainWorld() {
+
         intro = new IntroScreen(this);
         Greenfoot.setWorld(intro);
         setPaintOrder(Actor.class);
@@ -58,11 +63,15 @@ public class MainWorld extends World {
         lifeForms.add(team2);
         lifeForms.add(team3);
         lifeForms.add(team4);
+    super(1920,1080, 1);
+    intro = new IntroScreen(this);
+    pause = new PauseWorld();
 
 
         player1 = new Organism(startingMaxHealth, startingMaxXp, startingSpeed,
          startingAttackPower, startingDefensePower, startingSight, 1 , Color.RED);
 
+    openUI();
         player2 = new Organism(startingMaxHealth, startingMaxXp, startingSpeed,
          startingAttackPower, startingDefensePower, startingSight, 2, Color.BLUE);
 
@@ -82,6 +91,14 @@ public class MainWorld extends World {
           addObject(new Food(), Greenfoot.getRandomNumber(getWidth()), Greenfoot.getRandomNumber(getHeight()));
         }
 
+    }
+  }
+  
+  public void openUI() {
+    UI = new UIBack(); // creates a reference to draw the back of the UI
+    pauseButton = new PauseButton(this, pause, 100,100);
+    addObject(UI, 1920 - UI.width/2, 0 + UI.height/2); // spawning the ui back at the right hand side of the screen
+    addObject(pauseButton, UI.getX(),UI.getY());
     }
    public void act(){
 

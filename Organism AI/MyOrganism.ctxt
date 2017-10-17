@@ -1,0 +1,22 @@
+#BlueJ class context
+comment0.target=MyOrganism
+comment0.text=\r\n\ Organism\ class\ for\ player.\ This\ will\ the\ the\ player\ specific\ functions.\r\n\r\n\ @author\ Uzair\ Ahmed\r\n\ @version\ 0.5\r\n
+comment1.params=smh\ smxp\ ss\ sa\ sd\ ssi\ am
+comment1.target=MyOrganism(int,\ int,\ int,\ int,\ int,\ int,\ int)
+comment2.params=
+comment2.target=void\ act()
+comment3.params=
+comment3.target=void\ consumeFood()
+comment4.params=
+comment4.target=void\ consumePlayer()
+comment5.params=damageTaken
+comment5.target=void\ shrink(int)
+comment6.params=damageGiven
+comment6.target=void\ grow(int)
+comment7.params=
+comment7.target=void\ age()
+comment8.params=
+comment8.target=void\ reproduce()
+comment9.params=
+comment9.target=void\ die()
+numComments=10
