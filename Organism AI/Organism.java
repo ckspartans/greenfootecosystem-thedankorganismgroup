@@ -150,6 +150,7 @@ public class Organism extends AbstOrganism {
           //Gets the mass of the food and adds it to xp.
           int foodConsumed = foodBeingEaten.foodMass;
           xp+=foodConsumed/10;
+          health++;
       }
   }
 
@@ -164,7 +165,7 @@ public class Organism extends AbstOrganism {
             else{
                 int chosenMutation = Greenfoot.getRandomNumber(5);
                 if (chosenMutation == 1){ //attack
-                    world.maxBuyableMaxHealth += 1;
+                    maxHealth += 5;
                 }
                 else if (chosenMutation == 2){ //defense
                     speed += 1;

@@ -70,7 +70,7 @@ public class MainWorld extends World {
          startingAttackPower, startingDefensePower, startingSight, 3, Color.GREEN);
 
         player4 = new Organism(startingMaxHealth, startingMaxXp, startingSpeed,
-         startingAttackPower, startingDefensePower, startingSight, 4, Color.CYAN);
+         startingAttackPower, startingDefensePower, startingSight, 4, Color.YELLOW);
 
 
         addObject(player1, 0, 0);

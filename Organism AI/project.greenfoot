@@ -1,5 +1,5 @@
 #Greenfoot properties
-#Mon Oct 16 12:10:29 EDT 2017
+#Mon Oct 16 21:18:21 EDT 2017
 editor.fx.0.height=739
 target2.width=80
 target8.name=Food
@@ -71,8 +71,8 @@ dependency7.type=UsesDependency
 target1.naviview.expanded=true
 dependency21.from=MyOrganism
 version=3.0.0
-editor.fx.0.y=70
-editor.fx.0.x=-1090
+editor.fx.0.y=-32000
+editor.fx.0.x=-32000
 dependency15.from=Food
 dependency6.to=AI
 target2.showInterface=false
@@ -160,7 +160,7 @@ target4.type=ClassTarget
 target8.width=80
 dependency8.to=Organism
 dependency19.type=UsesDependency
-simulation.speed=100
+simulation.speed=51
 target9.width=80
 target7.height=50
 dependency20.to=MainWorld
@@ -190,6 +190,7 @@ readme.y=10
 readme.x=10
 target4.height=50
 readme.height=58
+class.Timer.superclass=
 target1.width=90
 =\=\=\=\=\=\=
 dependency14.to=AbstOrganism
