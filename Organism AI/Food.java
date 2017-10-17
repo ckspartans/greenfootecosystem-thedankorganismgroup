@@ -20,7 +20,7 @@ public class Food extends Actor {
     public void act()
     {
       //Draws food.
-      drawFood(foodmass, img);
+      drawFood(foodMass, img);
     }
 
     //Draws the food

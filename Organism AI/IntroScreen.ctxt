@@ -1,11 +1,14 @@
 #BlueJ class context
 comment0.target=IntroScreen
-comment0.text=\r\n\ Write\ a\ description\ of\ class\ IntroScreen\ here.\r\n\r\n\ @author\ (your\ name)\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment0.text=\r\n\ Intro\ Screen\r\n\r\n\ @author\ class\r\n\ @version\ 0.1\r\n
 comment1.params=
 comment1.target=IntroScreen()
-comment1.text=\r\n\ Constructor\ for\ objects\ of\ class\ IntroScreen.\r\n\r\n
 comment2.params=w
 comment2.target=IntroScreen(MainWorld)
 comment3.params=
 comment3.target=void\ act()
-numComments=4
+comment4.params=
+comment4.target=void\ draw()
+comment5.params=
+comment5.target=void\ setWorld()
+numComments=6
