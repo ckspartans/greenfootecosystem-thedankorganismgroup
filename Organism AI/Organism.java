@@ -13,10 +13,15 @@ import java.util.*;
  *
  * @author Uzair Ahmed
  * @author Ethan Gale
+ * @authot Josh Dhori
  * @version 1.4
  */
 
 public class Organism extends AbstOrganism {
+    //Dhori Variables
+    public boolean attackMode = false; //if the organism is attacking
+    public Organism chosenEnemy;
+
     public Organism(int smh, int smxp, int ss, int sa, int sd, int ssi, int t, Color c) {
         //XP Upgradeable Variables-------------------------------------------------
         maxHealth = smh; //Maximum Health
@@ -70,7 +75,8 @@ public class Organism extends AbstOrganism {
         mutate();
 
         //Runs the AI Method
-        AI.think(this, foodNearby, family, enemies, foodBeingEaten);
+
+        AI.think(this, foodNearby, family, enemies, foodBeingEaten, family, enemies);
     }
 
     //Draws the organism
@@ -154,7 +160,7 @@ public class Organism extends AbstOrganism {
     public int getAge() {
         //Calculates the age in time, by taking the frames
         //and calculating based on an anerage 60 fps
-        return timer/60;
+        return age/60;
     }
 
     public void reproduce() {
@@ -172,103 +178,35 @@ public class Organism extends AbstOrganism {
         //Remove the object.
     }
 
-    public void attack(int enemy){
-        /*get the amount of organisms in the group
-         *calculate the total group power
-         *
-         *To be done v2:
-         *search for enemies
-         *check if enemy is worth attacking (check enemy threat level, enemy size, enemy position & check group threat level, group number, group position)
-         *if the enemy is worth attacking check to see how easy it is attacked, how many organisms the herd needs to kill the enemy, which organisms to use
-         *choose a tatic and attack!!
-         *
-         *
-         *fight until death
-         *if defender has first strike they attack first
-         *delete the loser
-         *if win return how many energy they get
-         */
-
-        int eX;
-        int eY;
-        int radius;
-
-        chosenEnemy(enemy); //choose which enemy to attack their chosenEnemy value, which enemy is it?
-        attackMode(true); //set your own attackmode to true	
-        calculateAttack(); //figure out how badass your squad is
-
-        //move towards enemy
-        hit(enemy);
-
-        
-        //surround enemy
-        //attack enemy at once
-
-    }
-
-    public void defend(){
-        /*search for the amount of enemies in sight range (this needs to be constantly run so the defender knows if more enemies are coming)
-         *check the enemies coming at you (threat level and position)
-         *determine the best strategy to use
-         *Tatics:
-         *A) Run like hell away
-         *B) Attack closest enemy
-         *C) Attack enemies based on position, threat level
-         *
-         *keep track of all the energy they gain by eating the bodies
-         *eat the bodies (if they win at the end)
-         */
-        for (int i=0; i++; i > enemiesNearby.size){ //finds all the enemies nearby
-            if (enemiesNearby.get(i.attackMode) == true){ //if any enemy is attacking
-                //if (intelligence >= Xamount){ //if this organism is smart
-                    //if (enemiesNearby.get(i.chosenEnemy) == ){ //only notice it is being attacked if it is acutally being attacked, not an organism near it
-                            //go towards enemy
-                            //hit enemy
-                     //}
-                //}
-                //else {
-                    //turn towards enemy (Uzair)
-                    //move towards enemy (Uzair)
-                    //hit enemy
-                    hit(i);
-                //}
+    public void kill(Organism prey){
+        if (prey != null){
+            //Remove the prey
+            int energyGain = (prey.maxHealth/family.size());
+            //prey.die(); //runs uzair's die function on the prey
+            for(int i = 0; i > family.size(); i++){ //distributes the energy gain between team members
+                Organism tempOrg; 
+                tempOrg = (Organism)family.get(i);
+                tempOrg.xp += energyGain/10;
             }
         }
     }
 
-    public int calculateAttack(int groupAtt){
-        //This gets all the attack power of the organisms in the group
-        //needs uzair's code
-
-        for (int i = 0; i++; i > family.size){
-            groupAtt += family.get(i.attack);
-        }
-
-        return groupAtt;
-    }
-
-    public boolean attackMode(boolean attacking){ //if you choose to attack someone, set attackMode to true
-        return mode;
-    }
-
-    public int chosenEnemy(int enemyNum){//if you are attacking someone, this is the enemy you are attacking (number is the number it is on the enemy list)
-        return enemyNum;
-    }
-
-    public void checkGroupAttack(){ //checks if anyone in the group is attacking someone
-        for (int i = 0; i++; i > family.size){ 
-            if (family.get(i.attackMode) == true){ //if anyone in your family is attaccking someone
-                chosenEnemy(family.get(i.chosenEnemy)); //using their chosenEnemy value, which enemy is it?
-                attackMode(true); //set your own attackmode to true
-                attack(i); //attack that enemy
+    public void hit(Organism prey){ //hits enemy
+        if (prey != null) {
+            if (isTouching(Organism.class)){ //if touching the X organism in totalEnemy list
+                if ((att - prey.def) > 0){
+                    prey.health -= (att - prey.def); //hits selected enemy for your attack - enemy defense
+                }
+                prey.def -= (prey.def*(att/prey.def)); //reduce their defensive power by your attack by dividing their defense percentage eg att-->1 def -->2 new def = 1
+                if(prey.health <=0){
+                    kill(prey);
+                }
             }
         }
     }
-    
-    public void hit(int enemy){ //hits enemy
-        if (isTouching(enemies.enemy)){
-         enemies.get(enemy.health) -= (att - enemies.get(enemy.def)); //hits selected enemy for your attack - enemy defense
-         enemies.get(enemy.def) -= (enemies.get(enemy.def)*(att/enemies.get(enemy.def))); //reduce the defensive power by the your attack divided by their defense percentage eg att-->1 def -->2 new def = 1
-        }
+
+    public boolean touching(Organism enemy){
+        return (isTouching(Organism.class));
     }
+
 }
