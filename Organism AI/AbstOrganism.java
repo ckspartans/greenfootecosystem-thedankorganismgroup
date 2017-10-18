@@ -2,10 +2,12 @@ import greenfoot.*; // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.*;
 
 /**
- * CHANGELOG: Oct 9, 2017
- *         - Added missong methods.
- *
+ * Abstract Organism, this is the base class for Organism
+ * 
+ * @author Class
  * @author Uzair Ahmed
+ * @author Ethan Gale
+ * @author Josh Dhori
  * @version 1.0
  */
 public abstract class AbstOrganism extends Actor {
@@ -15,8 +17,7 @@ public abstract class AbstOrganism extends Actor {
     public int health; //Health
     public int xp; //XP - allows for RPG-like store for mutation
     public int radius; //Based off health, to visually see health
-    public int threatLevel; // WE NEED TO CALCULATE THIS
-    public Color playerColor; //Based off age, to visually see age.
+    public Boolean isAlive;
 
     //XP Upgradeable Variables
     public int maxHealth; //Maximum Health
@@ -39,6 +40,8 @@ public abstract class AbstOrganism extends Actor {
     public abstract void consumeFood(Food foodBeingEaten);
 
     public abstract void mutate();
+
+    public abstract void updateandCapVariables();
 
     public abstract void distinguishOrganisms();
 

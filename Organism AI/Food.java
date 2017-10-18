@@ -1,7 +1,7 @@
 import greenfoot.*; // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.*;
 /**
- * Leaves for the organism to eat.
+ * Food for the organism to eat.
  *
  * CHANGLOG Oct 10, 2017
  *  - Added trippy movement to food

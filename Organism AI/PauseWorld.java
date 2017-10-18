@@ -1,17 +1,12 @@
-import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import greenfoot.*; // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import java.util.*;
 
 /**
- * Write a description of class PauseWorld here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Cameron Dickie 
+ * @version 0.0
  */
 public class PauseWorld extends World
 {
-    /**
-     * Constructor for objects of class PauseWorld.
-     * 
-     */
     public PauseWorld()
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.

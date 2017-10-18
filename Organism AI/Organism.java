@@ -4,16 +4,12 @@ import java.util.*;
 /**
  * Extends off AbstOrganism to create a basic organism that reproduces, and moves around the screen.
  *
- * CHANGELOG October 14, 2017
- *      -Added cap/set code
- *
  * KNOWN BUGS TO ASK ABOUT:
  * - lines 111, 114. Organism does not stop at adding itself once.
  *
- *
  * @author Uzair Ahmed
  * @author Ethan Gale
- * @version 1.5
+ * @version 1.7
  */
 
 public class Organism extends AbstOrganism {
@@ -31,6 +27,7 @@ public class Organism extends AbstOrganism {
         health = maxHealth; //Out of maxHealth
         xp = 0; //Out of maxXp
         radius = health*2;
+        isAlive = true;
 
         //Team Variables
         family = new ArrayList<Organism>();
@@ -48,6 +45,7 @@ public class Organism extends AbstOrganism {
     }
 
     public void act(){
+
         //Instantiates world class
         if (world == null){
             world = (MainWorld) getWorld();
@@ -65,17 +63,23 @@ public class Organism extends AbstOrganism {
         //Updates Variables like Size and Color, and caps variables like speed. 
         updateandCapVariables();
 
-        //Draws the organism
-        drawOrganism(myColor, radius);
-
         //Runs Mutation Method
         mutate();
 
+        //Draws the organism
+        drawOrganism(myColor, radius);
+
+        //Checks if the organism is alive, if not, return.
+        if (isAlive != true){
+            return;
+        }
+
         //Checks for friends or enemies.
-        distinguishOrganisms();
+        distinguishOrganisms();             
 
         //Runs the AI Method
         AI.think(this, foodNearby, family, enemies, foodBeingEaten);
+
     }
 
     //Draws the organism
@@ -90,10 +94,9 @@ public class Organism extends AbstOrganism {
         setImage(img);
     }
 
+    //As the name suggests, updates values like size and age, and limits values like age...
     public void updateandCapVariables(){
-        //Updates the radius to match the size
-        radius = health*2;
-
+        //--------------------UPDATERS---------------------
         //Colors the organism to show a visual rep. of age
         //every 30 seconds of an organisms lifetime
         if ((getAge()%100)==30){
@@ -109,14 +112,23 @@ public class Organism extends AbstOrganism {
             myColor = new Color(r,g,b);
         }
 
-        //Caps health to the maximum health
-        if (health > maxHealth){
-            health = maxHealth;
+        //Updates the radius to match the size
+        radius = health*2;
+
+        //--------------------LIMITERS---------------------
+        //Dies after exactly 120 seconds
+        if (getAge() >= 120){
+            die();
         }
 
         //Caps maxhealth to max buyable health  
         if (maxHealth > world.maxBuyableMaxHealth){
             maxHealth = world.maxBuyableMaxHealth;
+        }
+
+        //Caps health to the maximum health
+        if (health > maxHealth){
+            health = maxHealth;
         }
 
         //Caps speed to max buyable speed
@@ -138,7 +150,7 @@ public class Organism extends AbstOrganism {
         if (def > world.maxBuyableDef){
             def = world.maxBuyableDef;
         }
-    }
+    }    
 
     public void mutate(){
         //Created by Ethan Gale
@@ -171,6 +183,28 @@ public class Organism extends AbstOrganism {
         }
     }
 
+    //Creates two new organisms and kills the OG
+    public void reproduce() {
+        //Creates a temporary organism with the same traits as its parent.
+        Organism tempOrg1 = new Organism(maxHealth, xp,speed, att, def, sight, myTeam, familyColor);
+        Organism tempOrg2 = new Organism(maxHealth, xp,speed, att, def, sight, myTeam, familyColor);
+
+        //Adds it to myWorld
+        world.addObject(tempOrg1,(getX()+Greenfoot.getRandomNumber(30)-15),(getY()+Greenfoot.getRandomNumber(30)-15));
+        world.addObject(tempOrg2,(getX()+Greenfoot.getRandomNumber(30)-15),(getY()+Greenfoot.getRandomNumber(30)-15));
+
+        die();
+    }
+
+    //Kills the Organism
+    public void die() {
+        //Untested, need to do some garbage collection tests.
+        //sets isalive to false
+        isAlive = false;
+        //removes the object from the world
+        world.removeObject(this);
+    }
+
     //Distinguishes all organisms and adds them to a respective List
     public void distinguishOrganisms(){
         //Go through each team in lifeforms
@@ -191,7 +225,7 @@ public class Organism extends AbstOrganism {
             }
         }
     }
-   
+
     //Removes the food it touches, and adds the mass to xp
     public void consumeFood(Food foodBeingEaten){
         //Check if the organism is currently on top of something
@@ -205,27 +239,16 @@ public class Organism extends AbstOrganism {
         }
     }
 
+    //Simple frame counter timer.
     public void startTimer(){
         //Frame counter
         age++;
     }
 
+    //Returns the Age in seconds
     public int getAge() {
         //Calculates the age in time, by taking the frames
         //and calculating based on an anerage 60 fps
         return age/60;
     }
-
-    public void reproduce() {
-        //Creates a temporary organism with the same traits as its parent.
-        Organism tempOrg1 = new Organism(maxHealth, xp,speed, att, def, sight, myTeam, familyColor);
-        //Adds it to myWorld
-        world.addObject(tempOrg1,(getX()+Greenfoot.getRandomNumber(30)-15),(getY()+Greenfoot.getRandomNumber(30)-15));
-        //Will have this run twice and kill the parent once die() method is created.
-    }
-
-    public void die() {
-        //DIE
-    }
-
 }

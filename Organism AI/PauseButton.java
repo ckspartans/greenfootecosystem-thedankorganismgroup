@@ -1,18 +1,13 @@
-import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import greenfoot.*; // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import java.util.*;
 
 /**
- * Write a description of class PauseButton here.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Cameron Dickie 
+ * @version 0.1
  */
 public class PauseButton extends Actor
 {
-    /**
-     * Act - do whatever the PauseButton wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
-     */
-
     GreenfootImage img;
     PauseWorld pause;
     MainWorld world;
