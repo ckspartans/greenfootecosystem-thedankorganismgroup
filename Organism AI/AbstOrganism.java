@@ -3,7 +3,7 @@ import java.util.*;
 
 /**
  * Abstract Organism, this is the base class for Organism
- * 
+ *
  * @author Class
  * @author Uzair Ahmed
  * @author Ethan Gale
@@ -27,9 +27,7 @@ public abstract class AbstOrganism extends Actor {
     public int def; //defensive power
     public int sight; //how far it can see
 
-    public List family;
-    public List enemies ;
-    public int myTeam;
+    Family myFamily;
     public Color familyColor;
     public Color myColor;
 
@@ -42,8 +40,6 @@ public abstract class AbstOrganism extends Actor {
     public abstract void mutate();
 
     public abstract void updateandCapVariables();
-
-    public abstract void distinguishOrganisms();
 
     public abstract void reproduce();
 

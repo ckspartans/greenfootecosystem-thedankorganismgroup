@@ -3,7 +3,7 @@ import java.util.*;
 
 /**
  * Main GameState
- * 
+ *
  * @author Class
  * @author Uzair Ahmed
  * @author Cameron Dickie
@@ -14,12 +14,6 @@ import java.util.*;
 public class MainWorld extends World {
 
     //VARIABLES ---------------------------------------------------------
-    static public ArrayList<ArrayList> lifeForms;
-    static public ArrayList<Organism> team1;
-    static public ArrayList<Organism> team2;
-    static public ArrayList<Organism> team3;
-    static public ArrayList<Organism> team4;
-
     static int startingMaxHealth = 10;
     static int startingMaxXp = 10;
     static int startingSpeed = 3;
@@ -50,6 +44,11 @@ public class MainWorld extends World {
     Organism player3;
     Organism player4;
 
+    Family fam1;
+    Family fam2;
+    Family fam3;
+    Family fam4;
+
     public MainWorld() {
         //Creates new world of the size given
         super(1920,1080, 1);
@@ -64,24 +63,17 @@ public class MainWorld extends World {
         //Sets paint order
         setPaintOrder(Actor.class);
 
-        //Instantiates team arraylists
-        team1 = new ArrayList<Organism>();
-        team2 = new ArrayList<Organism>();
-        team3 = new ArrayList<Organism>();
-        team4 = new ArrayList<Organism>();
-        lifeForms = new ArrayList<ArrayList>();
-
-        //Adds each team to 2D arraylist
-        lifeForms.add(team1);
-        lifeForms.add(team2);
-        lifeForms.add(team3);
-        lifeForms.add(team4);
+        //Instantiates Families
+        fam1 = new Family();
+        fam2 = new Family();
+        fam3 = new Family();
+        fam4 = new Family();
 
         //Instantiates players
-        player1 = new Organism(startingMaxHealth, startingMaxXp, startingSpeed, startingAttackPower, startingDefensePower, startingSight, 1 , Color.RED);
-        player2 = new Organism(startingMaxHealth, startingMaxXp, startingSpeed, startingAttackPower, startingDefensePower, startingSight, 2, Color.BLUE);
-        player3 = new Organism(startingMaxHealth, startingMaxXp, startingSpeed, startingAttackPower, startingDefensePower, startingSight, 3, Color.GREEN);
-        player4 = new Organism(startingMaxHealth, startingMaxXp, startingSpeed, startingAttackPower, startingDefensePower, startingSight, 4, Color.YELLOW);
+        player1 = new Organism(startingMaxHealth, startingMaxXp, startingSpeed, startingAttackPower, startingDefensePower, startingSight, fam1 , Color.RED);
+        player2 = new Organism(startingMaxHealth, startingMaxXp, startingSpeed, startingAttackPower, startingDefensePower, startingSight, fam2, Color.BLUE);
+        player3 = new Organism(startingMaxHealth, startingMaxXp, startingSpeed, startingAttackPower, startingDefensePower, startingSight, fam3, Color.GREEN);
+        player4 = new Organism(startingMaxHealth, startingMaxXp, startingSpeed, startingAttackPower, startingDefensePower, startingSight, fam4, Color.YELLOW);
 
         //Adds player to world
         addObject(player1, 10, 10);
