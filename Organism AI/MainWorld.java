@@ -77,9 +77,15 @@ public class MainWorld extends World {
 
         //Adds player to world
         addObject(player1, 10, 10);
-        addObject(player2, 990, 0);
-        addObject(player3, 0, 990);
+        addObject(player2, 990, 10);
+        addObject(player3, 10, 990);
         addObject(player4, 990, 990);
+        
+        //adds families to world, can change to straight up calling act method
+        addObject(fam1, 10,10);
+        addObject(fam2, 990,10);
+        addObject(fam3, 10,990);
+        addObject(fam4, 990,990);
 
         //Runs UI method
         openUI();
@@ -92,10 +98,11 @@ public class MainWorld extends World {
     }
 
     public void act(){
-        //10% chance of new food being spawned
-        if (Greenfoot.getRandomNumber(100)<10){
-            addObject(new Food(), Greenfoot.getRandomNumber(1000), Greenfoot.getRandomNumber(1000));
-        }
+      //System.out.println(fam1.alpha.age);
+      //10% chance of new food being spawned
+      if (Greenfoot.getRandomNumber(100)<10){
+          addObject(new Food(), Greenfoot.getRandomNumber(1000), Greenfoot.getRandomNumber(1000));
+      }
     }
 
     //UI Method
