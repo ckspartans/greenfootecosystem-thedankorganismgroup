@@ -87,6 +87,12 @@ public class Organism extends AbstOrganism {
     //As the name suggests, updates values like size and age, and limits values like age...
     public void updateandCapVariables(){
         //--------------------UPDATERS---------------------
+        if (myFamily.alpha == this){
+          isAlpha = true;
+        }
+        else{
+          isAlpha = false;
+        }
         //Colors the organism to show a visual rep. of age
         //every 30 seconds of an organisms lifetime
         if ((getAge()%100)==30){

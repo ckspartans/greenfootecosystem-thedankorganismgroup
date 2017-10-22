@@ -18,6 +18,7 @@ public abstract class AbstOrganism extends Actor {
     public int xp; //XP - allows for RPG-like store for mutation
     public int radius; //Based off health, to visually see health
     public Boolean isAlive;
+    public Boolean isAlpha;
 
     //XP Upgradeable Variables
     public int maxHealth; //Maximum Health

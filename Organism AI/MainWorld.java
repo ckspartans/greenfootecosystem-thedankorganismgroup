@@ -26,7 +26,7 @@ public class MainWorld extends World {
     static int maxBuyableSpeed = 30;
     static int maxBuyableAtt = 10;
     static int maxBuyableDef = 10;
-    static int maxBuyableSight = 10;
+    static int maxBuyableSight = 1000;
 
     static int startingFood = 50;
 
@@ -80,8 +80,7 @@ public class MainWorld extends World {
         addObject(player2, 990, 10);
         addObject(player3, 10, 990);
         addObject(player4, 990, 990);
-        
-        //adds families to world, can change to straight up calling act method
+
         addObject(fam1, 10,10);
         addObject(fam2, 990,10);
         addObject(fam3, 10,990);
@@ -98,7 +97,6 @@ public class MainWorld extends World {
     }
 
     public void act(){
-      //System.out.println(fam1.alpha.age);
       //10% chance of new food being spawned
       if (Greenfoot.getRandomNumber(100)<10){
           addObject(new Food(), Greenfoot.getRandomNumber(1000), Greenfoot.getRandomNumber(1000));

@@ -13,7 +13,7 @@ public class Family extends Actor
     public Organism alpha;
 
     public Family() {
- 
+
     }
 
     public void addOrganism(Organism o){
@@ -37,8 +37,6 @@ public class Family extends Actor
       }
     }
     
-    
-
     public void act()
     {
         setAlpha();

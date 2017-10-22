@@ -32,48 +32,42 @@ public class AI
         //totalEnemy = nMes;
 
         //These are the basic methods implemented till now.
-        patrol(o, foodNearby, 0);
+        patrol(o, foodNearby);
         stayAwayFromEdges(o);
     }
 
     //Moves in a random motion, until it sees "the thing" food or organism in its perimeter.
-    public static void patrol(Organism o, List thingsNearby, int mode){
-        if (o.isAlive == true){
-            //If theres "the thing" near it.
-            if ((thingsNearby.size()) > 0){
-                //Move towards it.
-                o.move(o.speed);
-                //If the mode is set to food.
+    public static void patrol(Organism o, List thingsNearby){
+      if (o.isAlpha){
+          //If theres "the thing" near it.
+          if ((thingsNearby.size()) > 0){
+              //Move towards it.
+              o.move(o.speed);
+              //Get the first instance of nearby Food.
+              Food nearest = (Food) thingsNearby.get(0);
+              //Turn towards it.
+              o.turnTowards(nearest.getX(),nearest.getY());
+          }
+          //If there's nothing near it
+          else{
+              //Move in original direction
+              o.move(o.speed);
+              //25% chance to turn
+              if (Greenfoot.getRandomNumber(100) < 25){
+                  //within 45 degrees on either side of of the direction im facing
+                  o.turn(Greenfoot.getRandomNumber(90)-45);
+              }
+          }
+      }
+      if (!o.isAlpha){
+        Organism alpha = o.myFamily.alpha;
+        int aSize = alpha.radius*4;
+        o.turnTowards(alpha.getX()-(Greenfoot.getRandomNumber(aSize)-aSize/2), alpha.getY()-(Greenfoot.getRandomNumber(aSize)-aSize/2));
+        o.move(o.speed);
+      }
 
-                if (mode==0){
-                    //Get the first instance of nearby Food.
-                    Food nearest = (Food) thingsNearby.get(0);
-                    //Turn towards it.
-                    o.turnTowards(nearest.getX(),nearest.getY());
-                }
-
-                //Otherwise, if the mode is set to organism
-                else if(mode==1){
-                    //--------------------------------------------------------------
-                    //---------------JOSH'S THINKING CODE GOES HERE-----------------
-                    //--------------------------------------------------------------
-                }
-            }
-            //If there's nothing near it
-            else{
-                //Move in original direction
-                o.move(o.speed);
-
-                //25% chance to turn
-                if (Greenfoot.getRandomNumber(100) < 25){
-                    //within 45 degrees on either side of of the direction im facing
-                    o.turn(Greenfoot.getRandomNumber(90)-45);
-                }
-            }
-
-            //Consume any food you come across.
-            o.consumeFood(foodBeingEaten);
-        }
+      //Consume any food you come across.
+      o.consumeFood(foodBeingEaten);
     }
 
     //Turn around if organism is at the edge of the map.
