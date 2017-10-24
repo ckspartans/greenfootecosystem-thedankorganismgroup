@@ -1,8 +1,10 @@
 #BlueJ class context
 comment0.target=MainWorld
-comment0.text=\r\n\ Main\ GameState\r\n\r\n\ CHANGELOG\:\ Change\ Class\ tree,\ now\ we\ have\ four\ organisms,\ and\ they\ will\ reproduce.\r\n\r\n\ @author\ Uzair\ Ahmed\r\n\ @version\ 0.7\r\n
+comment0.text=\r\n\ Main\ GameState\r\n\r\n\ @author\ Class\r\n\ @author\ Uzair\ Ahmed\r\n\ @author\ Cameron\ Dickie\r\n\ @author\ Laura\ Balofsky\r\n\ @version\ 1.0\r\n
 comment1.params=
 comment1.target=MainWorld()
 comment2.params=
 comment2.target=void\ act()
-numComments=3
+comment3.params=
+comment3.target=void\ openUI()
+numComments=4
