@@ -9,7 +9,10 @@ import java.util.*;
 public class IntroScreen extends World {
 
   MainWorld world;
+  GreenfootImage bg;
 
+  StartButton start;
+  ExitButton exit;
   public IntroScreen() {
     super(1920, 1080, 1);
   }
@@ -17,18 +20,26 @@ public class IntroScreen extends World {
     public IntroScreen(MainWorld w)
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
-        super(1900, 1080, 1); 
+        super(1920, 1080, 1); 
         world = w;
+        bg = new GreenfootImage(1920,1080);
+        bg.setColor(new Color(119, 221, 119));
+        bg.fill();
+        start = new StartButton(400,100, w);
+        exit = new ExitButton(400,100);
+        addObject(start, 1920/2, 1080/2 - 100);
+        addObject(exit, 1920/2, 1080/2 + 100);
     }
 
   public void act() {
-    if (Greenfoot.mouseClicked(this)) {
+    if (Greenfoot.mouseClicked(start)) {
       Greenfoot.setWorld(world);
     }
     draw();
 }
   public void draw() {
       //draws a list of text options such as start, options, and exit
+      setBackground(bg);
     }
 
     public void setWorld() {
