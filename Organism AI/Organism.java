@@ -10,10 +10,6 @@ import java.util.*;
  */
 
 public class Organism extends AbstOrganism {
-    public boolean attackMode = false; //if the organism is attacking
-    public int attackTatic;
-    public Organism chosenEnemy;
-
     public Organism(int smh, int smxp, int ss, int sa, int sd, int ssi, Family fam, Color c) {
         //XP Upgradeable Variables-------------------------------------------------
         maxHealth = smh; //Maximum Health
@@ -35,7 +31,7 @@ public class Organism extends AbstOrganism {
         myFamily.addOrganism(this);
         familyColor = c;
         myColor = familyColor;
-
+        threatLevel = (maxHealth + att + def + speed);
         //Declares world class
         MainWorld world;
 
@@ -211,6 +207,8 @@ public class Organism extends AbstOrganism {
         if (def > world.maxBuyableDef){
             def = world.maxBuyableDef;
         }
+        
+        threatLevel = (maxHealth + att + def + speed); //updates threatLevel
     }
 
     //Creates two new organisms and kills the OG
