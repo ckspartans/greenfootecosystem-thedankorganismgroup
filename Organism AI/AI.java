@@ -66,8 +66,38 @@ public class AI
             o.move(o.speed);
         }
 
-        //Consume any food you come across.
-        o.consumeFood(foodBeingEaten);
+    //Dhori's Code:
+    //public void attack(int enemy){
+    /*get the amount of organisms in the group
+     *calculate the total group power
+     *
+     *To be done v2:
+     *search for enemies
+     *check if enemy is worth attacking (check enemy threat level, enemy size, enemy position & check group threat level, group number, group position)
+     *if the enemy is worth attacking check to see how easy it is attacked, how many organisms the herd needs to kill the enemy, which organisms to use
+     *choose a tatic and attack!!
+     *
+     *
+     *fight until death
+     *if defender has first strike they attack first
+     *delete the loser
+     *if win return how many energy they get
+     */
+
+    /*int eX;
+    int eY;
+    int radius;
+
+    chosenEnemy(enemy); //choose which enemy to attack their chosenEnemy value, which enemy is it?
+    attackMode(true); //set your own attackmode to true
+    calculateAttack(); //figure out how badass your squad is
+
+    //move towards enemy
+    hit(enemy);
+
+    //surround enemy
+    //attack enemy at once
+
     }
 
     //Turn around if organism is at the edge of the map.

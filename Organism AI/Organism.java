@@ -180,6 +180,36 @@ public class Organism extends AbstOrganism {
                 }
             }
         }
+
+        //Caps maxhealth to max buyable health
+        if (maxHealth > world.maxBuyableMaxHealth){
+            maxHealth = world.maxBuyableMaxHealth;
+        }
+
+        //Caps health to the maximum health
+        if (health > maxHealth){
+            health = maxHealth;
+        }
+
+        //Caps speed to max buyable speed
+        if (speed > world.maxBuyableSpeed){
+            speed = world.maxBuyableSpeed;
+        }
+
+        //Caps sight to maxBuyableSight
+        if (sight > world.maxBuyableSight){
+            sight = world.maxBuyableSight;
+        }
+
+        //Caps attack to max buyable attack
+        if (att > world.maxBuyableAtt){
+            att = world.maxBuyableAtt;
+        }
+
+        //Caps defense to max buyable defense
+        if (def > world.maxBuyableDef){
+            def = world.maxBuyableDef;
+        }
     }
 
     //Creates two new organisms and kills the OG
