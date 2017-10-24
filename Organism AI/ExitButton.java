@@ -24,9 +24,7 @@ public class ExitButton extends Actor
     public void act() 
      {
         // Add your action code here.
-        if(world == null) {
-            world = (IntroScreen) getWorld();
-        }
+       
         if(Greenfoot.mouseClicked(this)) {
             System.exit(0);
         }

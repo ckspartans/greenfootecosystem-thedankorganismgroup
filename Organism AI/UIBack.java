@@ -18,7 +18,7 @@ public class UIBack extends Actor
    
    public UIBack() {
        UIBack = new GreenfootImage(width, height);
-       UIBack.setColor(new Color(0,255,0));
+       UIBack.setColor(new Color(119,221,119));
        UIBack.fill();
     }
    public void act() 

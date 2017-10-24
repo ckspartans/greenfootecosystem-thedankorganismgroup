@@ -69,9 +69,9 @@ public class MainWorld extends World {
   
   public void openUI() {
     UI = new UIBack(); // creates a reference to draw the back of the UI
-    pauseButton = new PauseButton(100,100);
+    pauseButton = new PauseButton(200,100);
     addObject(UI, 1920 - UI.width/2, 0 + UI.height/2); // spawning the ui back at the right hand side of the screen
-    addObject(pauseButton, UI.getX(),UI.getY());
+    addObject(pauseButton, UI.getX() -250,UI.getY() - 400);
     }
     public void pauseGame() {
         Greenfoot.setWorld(pause);
