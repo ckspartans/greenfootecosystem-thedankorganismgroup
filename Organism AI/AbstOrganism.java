@@ -17,12 +17,15 @@ public abstract class AbstOrganism extends Actor {
     public int health; //Health
     public int xp; //XP - allows for RPG-like store for mutation
     public int radius; //Based off health, to visually see health
-    public boolean attackMode = false; //if the organism is attacking
+    public Boolean attackMode; //if the organism is attacking
     public Boolean isAlive;
     public Boolean isAlpha;
+    
     public int attackTatic; //which attackTatic to use
     public int threatLevel;
-
+    public Organism chosenEnemy;
+    
+    
     //XP Upgradeable Variables
     public int maxHealth; //Maximum Health
     public int maxXp; //Max XP Storage
@@ -34,8 +37,6 @@ public abstract class AbstOrganism extends Actor {
     Family myFamily;
     public Color familyColor;
     public Color myColor;
-
-    public Organism chosenEnemy;
     
     MainWorld world;
     public abstract void drawOrganism(Color c, int rad);

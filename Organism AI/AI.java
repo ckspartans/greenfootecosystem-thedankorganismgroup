@@ -12,6 +12,7 @@ import java.util.*;
 public class AI
 {
     //Declare Lists/Variables to hold protected actor methods.
+    static List organismsNearby;
     static List foodNearby;
     static Food foodBeingEaten;
 
@@ -23,9 +24,10 @@ public class AI
     //static List totalEnemy;
 
     //This is the only called function by outside classes. This will choose what to do based on if statements.
-    public static void think(Organism o, List fn, Food fbe){//, List fams, List nMes){
+    public static void think(Organism o, List fn, List on, Food fbe){//, List fams, List nMes){
         //Set the values to what was given in by the upper class.
         foodNearby = fn;
+        organismsNearby = on;
         foodBeingEaten = fbe;
 
         //totalFamily = fams;
@@ -33,6 +35,8 @@ public class AI
 
         //These are the basic methods implemented till now.
         patrol(o, foodNearby);
+        choosePrey(o);
+        attackManager(o);
         stayAwayFromEdges(o);
     }
 
@@ -62,7 +66,7 @@ public class AI
         if (!o.isAlpha){
             Organism alpha = o.myFamily.alpha;
             int aSize = alpha.radius*4;
-            o.turnTowards(alpha.getX()-(Greenfoot.getRandomNumber(aSize)-aSize/2), alpha.getY()-(Greenfoot.getRandomNumber(aSize)-aSize/2));
+            o.turnTowards(alpha.getX(), alpha.getY());
             o.move(o.speed);
         }
 
@@ -73,30 +77,72 @@ public class AI
     //Turn around if organism is at the edge of the map.
     public static void stayAwayFromEdges(Organism o){
         if(o.isAtEdge()){
-            o.turn(180);
+            o.flee();
         }
         else if (o.getX() > 1000){
-            o.turn(180);
+            o.flee();
+        }
+    }
+    
+    public static void choosePrey(Organism o){
+        //Uzair Ahmed
+        Organism tempOrg;
+        Organism enemy;
+        for (int i = 0; i<organismsNearby.size(); i++){
+            tempOrg = (Organism) organismsNearby.get(i);
+            if (tempOrg.myFamily != o.myFamily){
+                if (tempOrg.threatLevel <= o.threatLevel){
+                    if(tempOrg.myFamily.getGroupPower() <=o.myFamily.getGroupPower()){
+                        o.chosenEnemy = tempOrg;
+                    }
+                    else{
+                        if (tempOrg.myFamily.getAvgGroupPower() <= o.myFamily.getAvgGroupPower()){
+                            o.chosenEnemy = tempOrg;
+                        }
+                        else{
+                            o.flee();
+                        }
+                    }
+                }
+                else{
+                    if(tempOrg.myFamily.getGroupPower() <=o.myFamily.getGroupPower()){
+                        o.chosenEnemy = tempOrg;
+                    }
+                    else{
+                        o.flee();
+                    }
+                }
+            }
+        }
+    }
+    
+    public static void attackManager(Organism o){
+        if (o.chosenEnemy != null){
+            attack(o,o.chosenEnemy, 0);
         }
     }
 
     // Dhoir's Code:
     public static void attack(Organism o, Organism enemy, int tatic){
-
-        o.chosenEnemy = enemy; //choose which enemy to attack their chosenEnemy value, which enemy is it?
-        o.attackMode = true; //set your own attackmode to true	
-        o.attackTatic = tatic;
-        calculateAttack(o); //figure out how badass your squad is (not used rn)
-        if (tatic == 0){ //basic group attack
-            while((enemy != null) && (o.touching(enemy) == false)){
-                //turn towards enemy (Uzair)
-                o.turnTowards(enemy.getX(), enemy.getY());
-                //move towards enemy (Uzair)
-                o.move(o.speed);
+            if(enemy.isAlive){
+            //o.chosenEnemy = enemy; //choose which enemy to attack their chosenEnemy value, which enemy is it?
+            //o.attackMode = true; //set your own attackmode to true  
+            o.attackTatic = tatic;
+            o.myFamily.getGroupPower(); //figure out how badass your squad is (not used rn)
+            if (tatic == 0){ //basic group attack
+                while((enemy != null) && (o.istouchingEnemy(enemy) == false)){
+                    //turn towards enemy (Uzair)
+                    o.turnTowards(enemy.getX(), enemy.getY());
+                    //move towards enemy (Uzair)
+                    o.move(o.speed);
+                }
+    
+                o.hit(enemy, true);
+                o.move(-o.speed); //take a step back after attacking
             }
-
-            o.hit(enemy, true);
-            o.move(-o.speed); //take a step back after attacking
+        }
+        else{
+            o.chosenEnemy = null;
         }
     }
 
@@ -117,17 +163,17 @@ public class AI
                 //turns away from bad dude
                 o.turnTowards((enemy.getX() + 180), (enemy.getY() + 180));
                 if(o.isAtEdge()){
-                    o.turn(180);
+                    o.flee();
                 }
                 else if (o.getX() > 1000){
-                    o.turn(180);
+                    o.flee();
                 }
                 //runs away
                 o.move(o.speed);
             }
         }
         else if (tatic == 1){ //Option 1: 1 vs 1 that dude
-            while((enemy != null) && (o.touching(enemy) == false)){
+            while((enemy != null) && (o.istouchingEnemy(enemy) == false)){
                 //turn towards enemy
                 o.turnTowards(enemy.getX(), enemy.getY());
                 //move towards enemy
@@ -144,33 +190,8 @@ public class AI
         }
     }
 
-    public static int calculateAttack(Organism o){
-        //This gets all the attack power of the organisms in the group
-        //needs uzair's code
-        int groupAtt = 0;
+    
 
-        for (int i = 0;i < (o.myFamily.familyList.size()); i++){
-            Organism tempOrg;
-            tempOrg = (Organism)o.myFamily.familyList.get(i);
-            groupAtt += tempOrg.att;
-        }
-
-        return groupAtt;
-    }
-
-    public static void checkGroupAttack(Organism o){ //checks if anyone in the group is attacking someone
-        for (int i = 0; i > o.myFamily.familyList.size(); i++){ 
-            Organism tempOrg;
-            tempOrg = (Organism)o.myFamily.familyList.get(i);
-            if (tempOrg.attackMode == true){ //if anyone in your family is attaccking someone
-                Organism enemy = tempOrg.chosenEnemy;
-
-                o.chosenEnemy = enemy; //using their chosenEnemy value, which enemy is it?
-                o.attackMode = true; //set your own attackmode to true
-                int tatic = o.attackTatic; //finds which tatic that organism is using
-                attack(o, enemy, tatic); //attack that enemy
-            }
-        }
-    }
+    
 
 }

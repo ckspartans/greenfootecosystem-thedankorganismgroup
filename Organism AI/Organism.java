@@ -23,15 +23,20 @@ public class Organism extends AbstOrganism {
         age = 0; //Time
         health = maxHealth; //Out of maxHealth
         xp = 0; //Out of maxXp
-        radius = health*2;
+        radius = (health*2);
         isAlive = true;
+        attackMode = false;
+        isAlpha = false;
+        threatLevel = (maxHealth + att + def + speed);
+        
 
         //Team Variables
         myFamily = fam;
         myFamily.addOrganism(this);
         familyColor = c;
         myColor = familyColor;
-        threatLevel = (maxHealth + att + def + speed);
+        
+        
         //Declares world class
         MainWorld world;
 
@@ -49,6 +54,8 @@ public class Organism extends AbstOrganism {
         List organismsNearby  = getObjectsInRange(sight, Organism.class);
         //Gets the food object it is touching
         Food foodBeingEaten = (Food) getOneIntersectingObject(Food.class);
+        
+        
 
         //Starts the timer for age.
         startTimer();
@@ -58,17 +65,21 @@ public class Organism extends AbstOrganism {
 
         //Runs Mutation Method
         mutate();
-
-        //Draws the organism
-        drawOrganism(myColor, radius);
-
+        
+        //if (isAlive){
+            //Draws the organism
+        drawOrganism(myColor, Math.abs(radius+1));
+        //}
         //Checks if the organism is alive, if not, return.
-        if (isAlive != true){
+        
+        if (!isAlive){
             return;
         }
-
-        //Runs the AI Method
-        AI.think(this, foodNearby, foodBeingEaten);
+        
+        if (isAlive){
+            //Runs the AI Method
+            AI.think(this, foodNearby, organismsNearby, foodBeingEaten);
+        }
 
     }
 
@@ -93,6 +104,11 @@ public class Organism extends AbstOrganism {
         else{
             isAlpha = false;
         }
+        
+        if (myFamily.familyAttackMode == true){
+            attackMode = true;
+            chosenEnemy = myFamily.targetEnemy;
+        }
         //Colors the organism to show a visual rep. of age
         //every 30 seconds of an organisms lifetime
         if ((getAge()%100)==30){
@@ -110,8 +126,14 @@ public class Organism extends AbstOrganism {
 
         //Updates the radius to match the size
         radius = health*2;
+        
+        threatLevel = (maxHealth + att + def + speed);
 
         //--------------------LIMITERS---------------------
+        if (health == 0){
+            die();
+        }
+        
         //Dies after exactly 120 seconds
         if (getAge() >= 120){
             die();
@@ -230,6 +252,9 @@ public class Organism extends AbstOrganism {
         isAlive = false;
         //removes organism from family
         myFamily.remOrganism(this);
+        
+        //moves it away from the world
+        setLocation(2000,1000);
         //removes the object from the world
         world.removeObject(this);
     }
@@ -259,37 +284,39 @@ public class Organism extends AbstOrganism {
         //and calculating based on an anerage 60 fps
         return age/60;
     }
+    
+    public void flee(){
+        turn(180);
+    }
 
     //Dhori's Code
     public void kill(Organism prey, boolean share){ //Calculates the energy gained & kills enemy
-        if (prey != null){ //if prey is alive
+        if (!prey.isAlive){ //if prey is alive
             if(share == true){ //sharing is true when they attack as a group
                 int energyGain = (prey.maxHealth/(myFamily.familyList.size())); //int energy gain is the xp gained by each team member (prey max health divided by amount of team mates)
                 for(int i = 0; i > (myFamily.familyList.size()); i++){ //distributes the energy gain between team members
                     Organism tempOrg; //creates a temp organism
                     tempOrg = (Organism)(myFamily.familyList.get(i)); //sets that temp organism as the "I" member of the family list
                     tempOrg.xp += energyGain/10; //adds xp to the member
+                    tempOrg.health += prey.maxHealth/myFamily.familyList.size();
                 }
             }
             else if (share == false){ //sharing is false when organism goes solo
                 int energyGain = prey.maxHealth; //organism gets all their health
                 xp+= energyGain; //xp increases
             }
-            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
-            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
-            prey.die(); //RUNS UZAIR'S DIE CODE UNFINSIED
-            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
-            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
+            prey.die();
         }
     }
 
     public void hit(Organism prey, boolean attackOrDefend){ //hits enemy
         if (prey != null) {//if prey is alive
-            if (touching(prey) == true){ //if touching the X organism in totalEnemy list
+            if (istouchingEnemy(prey) == true){ //if touching the X organism in totalEnemy list
                 if ((att - prey.def) > 0){ //if your attack is greater than their defense
                     prey.health -= (att - prey.def); //hits selected enemy for your attack - enemy defense
                 }
-                prey.def -= (prey.def*(att/prey.def)); //reduce their defensive power by your attack by dividing their defense percentage eg att-->1 def -->2 new def = 1
+                //This is giving problems --> prey.def -= (prey.def*(att/prey.def)); //reduce their defensive power by your attack by dividing their defense percentage eg att-->1 def -->2 new def = 1
+                prey.health -= (prey.def*(att/prey.def));
                 if(prey.health <=0){ //if their health goes below 0
                     kill(prey, attackOrDefend);
                 }
@@ -297,7 +324,7 @@ public class Organism extends AbstOrganism {
         }
     }
 
-    public boolean touching(Organism enemy){
+    public boolean istouchingEnemy(Organism enemy){
         if (isTouching(Organism.class) == true){ //if touching any organism
             Organism touchingOrganism; //creates a temp organism
             touchingOrganism = (Organism)(getOneIntersectingObject(Organism.class)); //sets that temp organism to the ogranism the this organism is touching
