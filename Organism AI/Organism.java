@@ -13,6 +13,7 @@ public class Organism extends AbstOrganism {
     public boolean attackMode = false; //if the organism is attacking
     public int attackTatic;
     public Organism chosenEnemy;
+
     public Organism(int smh, int smxp, int ss, int sa, int sd, int ssi, Family fam, Color c) {
         //XP Upgradeable Variables-------------------------------------------------
         maxHealth = smh; //Maximum Health
@@ -262,38 +263,47 @@ public class Organism extends AbstOrganism {
     }
 
     //Dhori's Code
-    public void kill(Organism prey){
-        if (prey != null){
-            //Remove the prey
-            int energyGain = (prey.maxHealth/(myFamily.familyList.size()));
-            //prey.die(); //runs uzair's die function on the prey
-            for(int i = 0; i > (myFamily.familyList.size()); i++){ //distributes the energy gain between team members
-                Organism tempOrg; 
-                tempOrg = (Organism)(myFamily.familyList.get(i));
-                tempOrg.xp += energyGain/10;
+    public void kill(Organism prey, boolean share){ //Calculates the energy gained & kills enemy
+        if (prey != null){ //if prey is alive
+            if(share == true){ //sharing is true when they attack as a group
+                int energyGain = (prey.maxHealth/(myFamily.familyList.size())); //int energy gain is the xp gained by each team member (prey max health divided by amount of team mates)
+                for(int i = 0; i > (myFamily.familyList.size()); i++){ //distributes the energy gain between team members
+                    Organism tempOrg; //creates a temp organism
+                    tempOrg = (Organism)(myFamily.familyList.get(i)); //sets that temp organism as the "I" member of the family list
+                    tempOrg.xp += energyGain/10; //adds xp to the member
+                }
             }
+            else if (share == false){ //sharing is false when organism goes solo
+                int energyGain = prey.maxHealth; //organism gets all their health
+                xp+= energyGain; //xp increases
+            }
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
+            prey.die(); //RUNS UZAIR'S DIE CODE UNFINSIED
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
         }
     }
 
-    public void hit(Organism prey){ //hits enemy
-        if (prey != null) {
+    public void hit(Organism prey, boolean attackOrDefend){ //hits enemy
+        if (prey != null) {//if prey is alive
             if (touching(prey) == true){ //if touching the X organism in totalEnemy list
-                if ((att - prey.def) > 0){
+                if ((att - prey.def) > 0){ //if your attack is greater than their defense
                     prey.health -= (att - prey.def); //hits selected enemy for your attack - enemy defense
                 }
                 prey.def -= (prey.def*(att/prey.def)); //reduce their defensive power by your attack by dividing their defense percentage eg att-->1 def -->2 new def = 1
-                if(prey.health <=0){
-                    kill(prey);
+                if(prey.health <=0){ //if their health goes below 0
+                    kill(prey, attackOrDefend);
                 }
             }
         }
     }
 
     public boolean touching(Organism enemy){
-        if (isTouching(Organism.class) == true){
-            Organism touchingOrganism;
-            touchingOrganism = (Organism)(getOneIntersectingObject(Organism.class));
-            if (touchingOrganism == enemy){
+        if (isTouching(Organism.class) == true){ //if touching any organism
+            Organism touchingOrganism; //creates a temp organism
+            touchingOrganism = (Organism)(getOneIntersectingObject(Organism.class)); //sets that temp organism to the ogranism the this organism is touching
+            if (touchingOrganism == enemy){ //if the touching organism is the enemy
                 return true;
             }
             else{
