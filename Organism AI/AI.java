@@ -83,7 +83,7 @@ public class AI
             o.flee();
         }
     }
-    
+
     public static void choosePrey(Organism o){
         //Uzair Ahmed
         Organism tempOrg;
@@ -115,7 +115,7 @@ public class AI
             }
         }
     }
-    
+
     public static void attackManager(Organism o){
         if (o.chosenEnemy != null){
             attack(o,o.chosenEnemy, 0);
@@ -124,7 +124,7 @@ public class AI
 
     // Dhoir's Code:
     public static void attack(Organism o, Organism enemy, int tatic){
-            if(enemy.isAlive){
+        if(enemy.isAlive){
             //o.chosenEnemy = enemy; //choose which enemy to attack their chosenEnemy value, which enemy is it?
             //o.attackMode = true; //set your own attackmode to true  
             o.attackTatic = tatic;
@@ -136,14 +136,14 @@ public class AI
                     //move towards enemy (Uzair)
                     o.move(o.speed);
                 }
-    
+
                 o.hit(enemy, true);
                 o.move(-o.speed); //take a step back after attacking
             }
         }
-        else{
-            o.chosenEnemy = null;
-        }
+        //else{
+        //    o.chosenEnemy = null;
+        //}
     }
 
     public static void defend(Organism o, Organism enemy, int tatic){
@@ -190,8 +190,6 @@ public class AI
         }
     }
 
-    
 
-    
 
 }

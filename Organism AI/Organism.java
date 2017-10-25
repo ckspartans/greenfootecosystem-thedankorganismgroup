@@ -10,7 +10,7 @@ import java.util.*;
  */
 
 public class Organism extends AbstOrganism {
-    public Organism(int smh, int smxp, int ss, int sa, int sd, int ssi, Family fam, Color c) {
+    public Organism(int smh, int smxp, int ss, int sa, int sd, int ssi, Family fam, Color c, int nameNum) {
         //XP Upgradeable Variables-------------------------------------------------
         maxHealth = smh; //Maximum Health
         maxXp = smxp; //Max XP Storage
@@ -28,15 +28,14 @@ public class Organism extends AbstOrganism {
         attackMode = false;
         isAlpha = false;
         threatLevel = (maxHealth + att + def + speed);
-        
 
         //Team Variables
         myFamily = fam;
         myFamily.addOrganism(this);
         familyColor = c;
         myColor = familyColor;
-        
-        
+        name = nameNum;
+
         //Declares world class
         MainWorld world;
 
@@ -54,8 +53,7 @@ public class Organism extends AbstOrganism {
         List organismsNearby  = getObjectsInRange(sight, Organism.class);
         //Gets the food object it is touching
         Food foodBeingEaten = (Food) getOneIntersectingObject(Food.class);
-        
-        
+
 
         //Starts the timer for age.
         startTimer();
@@ -65,17 +63,17 @@ public class Organism extends AbstOrganism {
 
         //Runs Mutation Method
         mutate();
-        
+
         //if (isAlive){
-            //Draws the organism
+        //Draws the organism
         drawOrganism(myColor, Math.abs(radius+1));
         //}
         //Checks if the organism is alive, if not, return.
-        
+
         if (!isAlive){
             return;
         }
-        
+
         if (isAlive){
             //Runs the AI Method
             AI.think(this, foodNearby, organismsNearby, foodBeingEaten);
@@ -104,7 +102,7 @@ public class Organism extends AbstOrganism {
         else{
             isAlpha = false;
         }
-        
+
         if (myFamily.familyAttackMode == true){
             attackMode = true;
             chosenEnemy = myFamily.targetEnemy;
@@ -126,14 +124,14 @@ public class Organism extends AbstOrganism {
 
         //Updates the radius to match the size
         radius = health*2;
-        
+
         threatLevel = (maxHealth + att + def + speed);
 
         //--------------------LIMITERS---------------------
         if (health == 0){
             die();
         }
-        
+
         //Dies after exactly 120 seconds
         if (getAge() >= 120){
             die();
@@ -229,15 +227,15 @@ public class Organism extends AbstOrganism {
         if (def > world.maxBuyableDef){
             def = world.maxBuyableDef;
         }
-        
+
         threatLevel = (maxHealth + att + def + speed); //updates threatLevel
     }
 
     //Creates two new organisms and kills the OG
     public void reproduce() {
         //Creates a temporary organism with the same traits as its parent.
-        Organism tempOrg1 = new Organism(maxHealth, xp,speed, att, def, sight, myFamily, familyColor);
-        Organism tempOrg2 = new Organism(maxHealth, xp,speed, att, def, sight, myFamily, familyColor);
+        Organism tempOrg1 = new Organism(maxHealth, xp,speed, att, def, sight, myFamily, familyColor, name+1);
+        Organism tempOrg2 = new Organism(maxHealth, xp,speed, att, def, sight, myFamily, familyColor, name+2);
 
         //Adds it to myWorld
         world.addObject(tempOrg1,(getX()+Greenfoot.getRandomNumber(30)-15),(getY()+Greenfoot.getRandomNumber(30)-15));
@@ -252,7 +250,7 @@ public class Organism extends AbstOrganism {
         isAlive = false;
         //removes organism from family
         myFamily.remOrganism(this);
-        
+
         //moves it away from the world
         setLocation(2000,1000);
         //removes the object from the world
@@ -284,7 +282,7 @@ public class Organism extends AbstOrganism {
         //and calculating based on an anerage 60 fps
         return age/60;
     }
-    
+
     public void flee(){
         turn(180);
     }
@@ -306,12 +304,13 @@ public class Organism extends AbstOrganism {
                 xp+= energyGain; //xp increases
             }
             prey.die();
+            chosenEnemy = null;
         }
     }
 
     public void hit(Organism prey, boolean attackOrDefend){ //hits enemy
-        if (prey != null) {//if prey is alive
-            if (istouchingEnemy(prey) == true){ //if touching the X organism in totalEnemy list
+        if (prey.isAlive) {//if prey is alive
+            if (istouchingEnemy(prey)){ //if touching the X organism in totalEnemy list
                 if ((att - prey.def) > 0){ //if your attack is greater than their defense
                     prey.health -= (att - prey.def); //hits selected enemy for your attack - enemy defense
                 }
@@ -325,17 +324,39 @@ public class Organism extends AbstOrganism {
     }
 
     public boolean istouchingEnemy(Organism enemy){
+        System.out.println("Running isTouchingEnemy");
         if (isTouching(Organism.class) == true){ //if touching any organism
-            Organism touchingOrganism; //creates a temp organism
-            touchingOrganism = (Organism)(getOneIntersectingObject(Organism.class)); //sets that temp organism to the ogranism the this organism is touching
-            if (touchingOrganism == enemy){ //if the touching organism is the enemy
-                return true;
+            Organism touchingOrganism;
+            System.out.println("Created temp Organism");
+            
+            //creates a temp organism
+            if (isAlive){
+                System.out.println("Setting temp Organism to intersecting");
+                touchingOrganism = (Organism)(getOneIntersectingObject(Organism.class));
+                System.out.println("Finsihed setting Organism");
+                //sets that temp organism to the ogranism the this organism is touching
+                System.out.println("I am touching: " + touchingOrganism.name);
+                System.out.println("My chosen enemy is: " + chosenEnemy.name);
+                System.out.println("I am atttacking: " + enemy.name);
+                enemy.myColor = new Color(227,37,107);
+                
+                if (touchingOrganism == enemy){ //if the touching organism is the enemy
+                    System.out.println("touching enemy");
+                    return true;
+                }
+                else{
+                    System.out.println("touching organism is NOT enemy");
+                    return false;
+                }
             }
             else{
+                System.out.println("Imma KMS");
+                die();
                 return false;
             }
         }
         else{
+            System.out.println("not touching");
             return false;
         }
     }
