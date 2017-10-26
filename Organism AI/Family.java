@@ -32,7 +32,6 @@ public class Family extends Actor
         if (tempOrganism.age > tempAge){
           tempAge = tempOrganism.age;
           alpha = tempOrganism;
-          alpha.myColor = Color.WHITE;
         }
       }
     }

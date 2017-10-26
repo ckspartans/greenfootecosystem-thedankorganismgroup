@@ -49,6 +49,9 @@ public class Organism extends AbstOrganism {
         List organismsNearby  = getObjectsInRange(sight, Organism.class);
         //Gets the food object it is touching
         Food foodBeingEaten = (Food) getOneIntersectingObject(Food.class);
+        
+        Boolean isTouchingOrg = isTouching(Organism.class);
+        List touchingOrgs = getIntersectingObjects(Organism.class);
 
         //Starts the timer for age.
         startTimer();
@@ -68,7 +71,7 @@ public class Organism extends AbstOrganism {
         }
 
         //Runs the AI Method
-        AI.think(this, foodNearby, foodBeingEaten);
+        AI.think(this, foodNearby, foodBeingEaten, touchingOrgs, isTouchingOrg);
 
     }
 
