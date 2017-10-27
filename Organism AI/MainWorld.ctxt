@@ -4,7 +4,16 @@ comment0.text=\r\n\ Main\ GameState\r\n\ \r\n\ @author\ Class\r\n\ @author\ Uzai
 comment1.params=
 comment1.target=MainWorld()
 comment2.params=
+<<<<<<< HEAD
 comment2.target=void\ act()
 comment3.params=
 comment3.target=void\ openUI()
 numComments=4
+=======
+comment2.target=void\ checkButtons()
+comment3.params=
+comment3.target=void\ openUI()
+comment4.params=
+comment4.target=void\ act()
+numComments=5
+>>>>>>> UI

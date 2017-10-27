@@ -36,7 +36,13 @@ public class MainWorld extends World {
 
     static int startingFood = 50;
 
-    //ACTUAL CODE--------------------------------------------------------
+  //ACTUAL CODE--------------------------------------------------------
+  IntroScreen intro;
+  MyOrganism player;
+  EnemyOrganism enemy;
+  UIBack UI;
+  Button pauseButton;
+  PauseWorld pause;
 
     //Initializes classes
     IntroScreen intro;
@@ -58,6 +64,14 @@ public class MainWorld extends World {
         intro = new IntroScreen(this);
         pause = new PauseWorld();
 
+    
+    
+    addObject(player, 0, 0);
+    addObject(enemy, 100, 0);
+    openUI();
+
+    for (int i = 0; i < 100; i++) {
+    addObject(new Food(), Greenfoot.getRandomNumber(getWidth() -  UI.width), Greenfoot.getRandomNumber(getHeight()));
         //Sets the world to Introscreen
         Greenfoot.setWorld(intro);
 
@@ -98,20 +112,28 @@ public class MainWorld extends World {
         }
 
     }
+  }
+  
+  public void checkButtons() {
 
-    public void act(){
-        //10% chance of new food being spawned
+      if(pauseButton.active) {
+          Greenfoot.setWorld(pause);
+          pauseButton.setActive(false);
+        }
+   }
+  public void openUI() {
+    UI = new UIBack(); // creates a reference to draw the back of the UI
+    pauseButton = new Button(200,100, this);
+    addObject(UI, 1920 - UI.width/2, 0 + UI.height/2); // spawning the ui back at the right hand side of the screen
+    addObject(pauseButton, UI.getX() -250,UI.getY() - 400);
+
         if (Greenfoot.getRandomNumber(100)<10){
             addObject(new Food(), Greenfoot.getRandomNumber(1000), Greenfoot.getRandomNumber(1000));
         }
+        //10% chance of new food being spawned
     }
-
-    //UI Method
-    public void openUI() {
-        UI = new UIBack(); // creates a reference to draw the back of the UI
-        pauseButton = new PauseButton(this, pause, 100,100);
-        addObject(UI, 1920 - UI.width/2, 0 + UI.height/2); // spawning the ui back at the right hand side of the screen
-        addObject(pauseButton, UI.getX(),UI.getY());
+ public void act() {
+        checkButtons();
     }
 
 }
