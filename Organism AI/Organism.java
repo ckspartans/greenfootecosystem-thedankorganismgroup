@@ -10,7 +10,7 @@ import java.util.*;
  */
 
 public class Organism extends AbstOrganism {
-    public Organism(int smh, int smxp, int ss, int sa, int sd, int ssi, Family fam, Color c) {
+    public Organism(int smh, double smxp, int ss, int sa, int sd, int ssi, Family fam, Color c) {
         //XP Upgradeable Variables-------------------------------------------------
         maxHealth = smh; //Maximum Health
         maxXp = smxp; //Max XP Storage
@@ -113,6 +113,7 @@ public class Organism extends AbstOrganism {
 
         //Updates the radius to match the size
         radius = health*2;
+        xp = myFamily.familyXp/myFamily.familyList.size();
 
         //--------------------LIMITERS---------------------
         //Dies after exactly 120 seconds
@@ -185,8 +186,8 @@ public class Organism extends AbstOrganism {
     //Creates two new organisms and kills the OG
     public void reproduce() {
         //Creates a temporary organism with the same traits as its parent.
-        Organism tempOrg1 = new Organism(maxHealth, xp,speed, att, def, sight, myFamily, familyColor);
-        Organism tempOrg2 = new Organism(maxHealth, xp,speed, att, def, sight, myFamily, familyColor);
+        Organism tempOrg1 = new Organism(maxHealth, maxXp, speed, att, def, sight, myFamily, familyColor);
+        Organism tempOrg2 = new Organism(maxHealth, maxXp, speed, att, def, sight, myFamily, familyColor);
 
         //Adds it to myWorld
         world.addObject(tempOrg1,(getX()+Greenfoot.getRandomNumber(30)-15),(getY()+Greenfoot.getRandomNumber(30)-15));
@@ -213,7 +214,7 @@ public class Organism extends AbstOrganism {
             removeTouching(Food.class);
             //Gets the mass of the food and adds it to xp.
             int foodConsumed = foodBeingEaten.foodMass;
-            xp+=foodConsumed/10;
+            myFamily.familyXp+=foodConsumed/10;
             health++;
         }
     }

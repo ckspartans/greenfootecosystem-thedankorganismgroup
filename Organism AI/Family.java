@@ -5,15 +5,17 @@ import java.util.*;
  * Family Class
  *
  * @author Uzair Ahmed
- * @version 0.1
+ * @version 0.5
  */
 public class Family extends Actor
 {
     public List familyList = new ArrayList();
     public Organism alpha;
+    public double familyXp; 
+    public double familyHealth;
 
     public Family() {
-
+        //
     }
 
     public void addOrganism(Organism o){
