@@ -3,7 +3,7 @@ import java.util.*;
 
 /**
  * Abstract Organism, this is the base class for Organism
- * 
+ *
  * @author Class
  * @author Uzair Ahmed
  * @author Ethan Gale
@@ -15,21 +15,20 @@ public abstract class AbstOrganism extends Actor {
     //"Live" Variables
     public int age; //Time in seconds
     public int health; //Health
-    public int xp; //XP - allows for RPG-like store for mutation
+    public double xp; //XP - allows for RPG-like store for mutation
     public int radius; //Based off health, to visually see health
     public Boolean isAlive;
+    public Boolean isAlpha;
 
     //XP Upgradeable Variables
     public int maxHealth; //Maximum Health
-    public int maxXp; //Max XP Storage
+    public double maxXp; //Max XP Storage
     public int speed; //Nuff Said
     public int att; //Attck power
     public int def; //defensive power
     public int sight; //how far it can see
 
-    public List family;
-    public List enemies ;
-    public int myTeam;
+    Family myFamily;
     public Color familyColor;
     public Color myColor;
 
@@ -42,8 +41,6 @@ public abstract class AbstOrganism extends Actor {
     public abstract void mutate();
 
     public abstract void updateandCapVariables();
-
-    public abstract void distinguishOrganisms();
 
     public abstract void reproduce();
 

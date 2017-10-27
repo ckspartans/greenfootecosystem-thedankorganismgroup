@@ -4,16 +4,13 @@ import java.util.*;
 /**
  * Extends off AbstOrganism to create a basic organism that reproduces, and moves around the screen.
  *
- * KNOWN BUGS TO ASK ABOUT:
- * - lines 111, 114. Organism does not stop at adding itself once.
- *
  * @author Uzair Ahmed
  * @author Ethan Gale
  * @version 1.7
  */
 
 public class Organism extends AbstOrganism {
-    public Organism(int smh, int smxp, int ss, int sa, int sd, int ssi, int t, Color c) {
+    public Organism(int smh, double smxp, int ss, int sa, int sd, int ssi, Family fam, Color c) {
         //XP Upgradeable Variables-------------------------------------------------
         maxHealth = smh; //Maximum Health
         maxXp = smxp; //Max XP Storage
@@ -30,14 +27,10 @@ public class Organism extends AbstOrganism {
         isAlive = true;
 
         //Team Variables
-        family = new ArrayList<Organism>();
-        enemies = new ArrayList<Organism>();
-        myTeam = t;
+        myFamily = fam;
+        myFamily.addOrganism(this);
         familyColor = c;
         myColor = familyColor;
-
-        //Adds [this] to lifeForms team
-        MainWorld.lifeForms.get(myTeam-1).add(this);
 
         //Declares world class
         MainWorld world;
@@ -56,11 +49,14 @@ public class Organism extends AbstOrganism {
         List organismsNearby  = getObjectsInRange(sight, Organism.class);
         //Gets the food object it is touching
         Food foodBeingEaten = (Food) getOneIntersectingObject(Food.class);
+        
+        Boolean isTouchingOrg = isTouching(Organism.class);
+        List touchingOrgs = getIntersectingObjects(Organism.class);
 
         //Starts the timer for age.
         startTimer();
 
-        //Updates Variables like Size and Color, and caps variables like speed. 
+        //Updates Variables like Size and Color, and caps variables like speed.
         updateandCapVariables();
 
         //Runs Mutation Method
@@ -74,11 +70,8 @@ public class Organism extends AbstOrganism {
             return;
         }
 
-        //Checks for friends or enemies.
-        distinguishOrganisms();             
-
         //Runs the AI Method
-        AI.think(this, foodNearby, family, enemies, foodBeingEaten);
+        AI.think(this, foodNearby, foodBeingEaten, touchingOrgs, isTouchingOrg);
 
     }
 
@@ -97,6 +90,12 @@ public class Organism extends AbstOrganism {
     //As the name suggests, updates values like size and age, and limits values like age...
     public void updateandCapVariables(){
         //--------------------UPDATERS---------------------
+        if (myFamily.alpha == this){
+          isAlpha = true;
+        }
+        else{
+          isAlpha = false;
+        }
         //Colors the organism to show a visual rep. of age
         //every 30 seconds of an organisms lifetime
         if ((getAge()%100)==30){
@@ -114,6 +113,7 @@ public class Organism extends AbstOrganism {
 
         //Updates the radius to match the size
         radius = health*2;
+        xp = myFamily.familyXp/myFamily.familyList.size();
 
         //--------------------LIMITERS---------------------
         //Dies after exactly 120 seconds
@@ -121,7 +121,7 @@ public class Organism extends AbstOrganism {
             die();
         }
 
-        //Caps maxhealth to max buyable health  
+        //Caps maxhealth to max buyable health
         if (maxHealth > world.maxBuyableMaxHealth){
             maxHealth = world.maxBuyableMaxHealth;
         }
@@ -150,7 +150,7 @@ public class Organism extends AbstOrganism {
         if (def > world.maxBuyableDef){
             def = world.maxBuyableDef;
         }
-    }    
+    }
 
     public void mutate(){
         //Created by Ethan Gale
@@ -177,7 +177,7 @@ public class Organism extends AbstOrganism {
                     else if (chosenMutation == 5){ //max health
                         def +=2;
                     }
-                    xp = 0;
+                    myFamily.familyXp-=xp;               
                 }
             }
         }
@@ -186,8 +186,8 @@ public class Organism extends AbstOrganism {
     //Creates two new organisms and kills the OG
     public void reproduce() {
         //Creates a temporary organism with the same traits as its parent.
-        Organism tempOrg1 = new Organism(maxHealth, xp,speed, att, def, sight, myTeam, familyColor);
-        Organism tempOrg2 = new Organism(maxHealth, xp,speed, att, def, sight, myTeam, familyColor);
+        Organism tempOrg1 = new Organism(maxHealth, maxXp, speed, att, def, sight, myFamily, familyColor);
+        Organism tempOrg2 = new Organism(maxHealth, maxXp, speed, att, def, sight, myFamily, familyColor);
 
         //Adds it to myWorld
         world.addObject(tempOrg1,(getX()+Greenfoot.getRandomNumber(30)-15),(getY()+Greenfoot.getRandomNumber(30)-15));
@@ -198,32 +198,12 @@ public class Organism extends AbstOrganism {
 
     //Kills the Organism
     public void die() {
-        //Untested, need to do some garbage collection tests.
         //sets isalive to false
         isAlive = false;
+        //removes organism from family
+        myFamily.remOrganism(this);
         //removes the object from the world
         world.removeObject(this);
-    }
-
-    //Distinguishes all organisms and adds them to a respective List
-    public void distinguishOrganisms(){
-        //Go through each team in lifeforms
-        for (int l = 0; l < world.lifeForms.size(); l++){
-            //Go through each object in the team in question
-            for (int o = 0; o < world.lifeForms.get(l).size();o++){
-                //Creates a temporary organism for the object in question
-                Organism org = (Organism) world.lifeForms.get(l).get(o);
-                //Compares the myTeam variable of the org, and [this]
-                //If it's the same add to the family list
-                if (org.myTeam == myTeam){
-                    family.add(org);
-                }
-                //Otherwise, if it's different, add to the enemies list
-                else if (org.myTeam != myTeam){
-                    enemies.add(org);
-                }
-            }
-        }
     }
 
     //Removes the food it touches, and adds the mass to xp
@@ -234,7 +214,7 @@ public class Organism extends AbstOrganism {
             removeTouching(Food.class);
             //Gets the mass of the food and adds it to xp.
             int foodConsumed = foodBeingEaten.foodMass;
-            xp+=foodConsumed/10;
+            myFamily.familyXp+=foodConsumed/10;
             health++;
         }
     }
