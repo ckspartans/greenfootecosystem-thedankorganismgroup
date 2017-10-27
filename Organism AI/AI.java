@@ -57,7 +57,9 @@ public class AI
           }
       }
       if (!o.isAlpha){
-        familyHuddle(o);
+          if(o.myFamily.alpha.isAlive){
+              familyHuddle(o);
+            }
       }
 
       //Consume any food you come across.
