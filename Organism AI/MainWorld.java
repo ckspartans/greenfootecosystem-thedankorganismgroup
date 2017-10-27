@@ -36,13 +36,18 @@ public class MainWorld extends World {
   IntroScreen intro;
   MyOrganism player;
   EnemyOrganism enemy;
+  UIBack UI;
+  Button pauseButton;
+  PauseWorld pause;
+
 
   public MainWorld() {
 
-    super(1000,1000, 1);
+    super(1920,1080, 1);
     intro = new IntroScreen(this);
+    pause = new PauseWorld(this);
     Greenfoot.setWorld(intro);
-
+    
     setPaintOrder(Actor.class);
 
     player = new MyOrganism(startingMaxHealth, startingMaxXp, startingSpeed,
@@ -51,17 +56,32 @@ public class MainWorld extends World {
     enemy = new EnemyOrganism(startingMaxHealth, startingMaxXp, startingSpeed,
                             startingAttackPower, startingDefensePower, startingSight, attackMultiplier);
 
+    
+    
     addObject(player, 0, 0);
     addObject(enemy, 100, 0);
+    openUI();
 
     for (int i = 0; i < 100; i++) {
-      addObject(new Food(), Greenfoot.getRandomNumber(getWidth()), Greenfoot.getRandomNumber(getHeight()));
-        UI = new UIBack(); // creates a reference to draw the back of the UI
-        pause = new PauseButton();
-        addObject(UI, 1920 - UI.width/2, 0 + UI.height/2); // spawning the ui back at the right hand side of the screen
-        addObject(pause, UI.getX(), UI.getY());
-    UIBack UI;
-    PauseButton pause;
+    addObject(new Food(), Greenfoot.getRandomNumber(getWidth() -  UI.width), Greenfoot.getRandomNumber(getHeight()));
     }
   }
+  
+  public void checkButtons() {
+
+      if(pauseButton.active) {
+          Greenfoot.setWorld(pause);
+          pauseButton.setActive(false);
+        }
+   }
+  public void openUI() {
+    UI = new UIBack(); // creates a reference to draw the back of the UI
+    pauseButton = new Button(200,100, this);
+    addObject(UI, 1920 - UI.width/2, 0 + UI.height/2); // spawning the ui back at the right hand side of the screen
+    addObject(pauseButton, UI.getX() -250,UI.getY() - 400);
+
+    }
+ public void act() {
+        checkButtons();
+    }
 }
