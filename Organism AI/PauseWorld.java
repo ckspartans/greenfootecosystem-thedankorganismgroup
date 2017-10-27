@@ -14,9 +14,9 @@ public class PauseWorld extends World
      * 
      */
     GreenfootImage bg;
-    ResumeButton r;
+    Button r;
     MainWorld game;
-    ExitButton e;
+    Button e;
     public PauseWorld(MainWorld g)
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
@@ -26,13 +26,21 @@ public class PauseWorld extends World
         bg.fill();
         setBackground(bg);
         game = g;
-        r = new ResumeButton(400,100, game);
-        e = new ExitButton(400,100);
+        r = new Button(400,100, game);
+        e = new Button(400,100, game);
         addObject(r, 1920/2, 1080/2 - 100);
         addObject(e, 1920/2, 1080/2 + 100);
     }
     
     public void  act() {
+        if(e.getActive()) {
+            System.exit(0);
+            e.setActive(false);
+        }
+        if(r.getActive()) {
+            Greenfoot.setWorld(game);
+            r.setActive(false);
+        }
         setBackground(bg);
         
     }

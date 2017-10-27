@@ -11,8 +11,8 @@ public class IntroScreen extends World {
   MainWorld world;
   GreenfootImage bg;
 
-  StartButton start;
-  ExitButton exit;
+  Button start;
+  Button exit;
   public IntroScreen() {
     super(1920, 1080, 1);
   }
@@ -25,15 +25,19 @@ public class IntroScreen extends World {
         bg = new GreenfootImage(1920,1080);
         bg.setColor(new Color(119, 221, 119));
         bg.fill();
-        start = new StartButton(400,100, w);
-        exit = new ExitButton(400,100);
+        start = new Button(400,100, w);
+        exit = new Button(400,100, w);
         addObject(start, 1920/2, 1080/2 - 100);
         addObject(exit, 1920/2, 1080/2 + 100);
     }
 
   public void act() {
-    if (Greenfoot.mouseClicked(start)) {
+    if (start.getActive()) {
       Greenfoot.setWorld(world);
+      start.setActive(false);
+    }
+    if(exit.getActive()) {
+        System.exit(0);
     }
     draw();
 }
