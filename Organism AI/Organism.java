@@ -177,7 +177,7 @@ public class Organism extends AbstOrganism {
                     else if (chosenMutation == 5){ //max health
                         def +=2;
                     }
-                    xp = 0;
+                    myFamily.familyXp-=xp;               
                 }
             }
         }
