@@ -8,27 +8,47 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Parasite extends AbstParasite
 {
-    /**
-     * Act - do whatever the Parasite wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
-     */
+    public Parasite(Organism o, int bmh, int bs, int ba, int bd, int bsi, int mr, int p, int sr, boolean crazy, boolean oi){
+
+        //Base Variables
+        mutateRate = mr;
+        power = p;
+        siphonRate = sr;
+        host = 0;
+
+        //Boost Variables
+        attBoost = bmh;
+        defBoost = bd;
+        maxHealthBoost = bmh;
+        speedBoost = bs;
+        sightBoost = bsi;
+
+        //Behaviour booleans
+        organismInfections = oi;
+        attackAllies = crazy;
+
+    }
+
     public void act() 
     {
-        // Add your action code here.
     }
+
     public  void reproduce(){
-        
+        if(host.touchingOrganism() == true){
+            
+        }
+
     };
 
-    public  void mutate(){
-        
-    };
+    public void mutate(){
+        //Mutation.mutate(this);
+    }
 
     public  void siphonEnergy(){
-        
+
     };
 
     public  void die(){
-        
+
     };
 }
