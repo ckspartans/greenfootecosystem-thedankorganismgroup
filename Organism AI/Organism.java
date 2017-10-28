@@ -64,7 +64,7 @@ public class Organism extends AbstOrganism {
         updateandCapVariables();
 
         //Runs Mutation Method
-        mutate();
+        Mutation.mutate(this);
 
         //if (isAlive){
         //Draws the organism
@@ -175,69 +175,7 @@ public class Organism extends AbstOrganism {
         }
     }
 
-    public void mutate(){
-        //Ethan Gale
-
-        if (xp >= 10){
-            if (Greenfoot.getRandomNumber(5) == 1){ //mutation rate
-                if (Greenfoot.getRandomNumber(5) == 1){
-                    reproduce();
-                    xp = 0;
-                }
-                else{
-                    int chosenMutation = Greenfoot.getRandomNumber(5);
-                    if (chosenMutation == 1){ //attack
-                        maxHealth += 5;
-                    }
-                    else if (chosenMutation == 2){ //defense
-                        speed += 1;
-                    }
-                    else if (chosenMutation == 3){ //speed
-                        sight += 2;
-                    }
-                    else if (chosenMutation == 4){ //sight range
-                        att += 10;
-                    }
-                    else if (chosenMutation == 5){ //max health
-                        def +=2;
-                    }
-                    myFamily.familyXp-=xp;
-                }
-            }
-        }
-
-        //Caps maxhealth to max buyable health
-        if (maxHealth > world.maxBuyableMaxHealth){
-            maxHealth = world.maxBuyableMaxHealth;
-        }
-
-        //Caps health to the maximum health
-        if (health > maxHealth){
-            health = maxHealth;
-        }
-
-        //Caps speed to max buyable speed
-        if (speed > world.maxBuyableSpeed){
-            speed = world.maxBuyableSpeed;
-        }
-
-        //Caps sight to maxBuyableSight
-        if (sight > world.maxBuyableSight){
-            sight = world.maxBuyableSight;
-        }
-
-        //Caps attack to max buyable attack
-        if (att > world.maxBuyableAtt){
-            att = world.maxBuyableAtt;
-        }
-
-        //Caps defense to max buyable defense
-        if (def > world.maxBuyableDef){
-            def = world.maxBuyableDef;
-        }
-
-        threatLevel = (maxHealth + att + def + speed); //updates threatLevel
-    }
+    
 
     //Creates two new organisms and kills the OG
     public void reproduce() {

@@ -18,8 +18,12 @@ class.IntroScreen.image=sand.jpg
 class.IntroScreen.superclass=greenfoot.World
 class.MainWorld.image=Untitledj.png
 class.MainWorld.superclass=greenfoot.World
+<<<<<<< HEAD
 class.MyOrganism.image=spider.png
 class.MyOrganism.superclass=Organism
+=======
+class.Mutation.superclass=
+>>>>>>> mutation
 class.MyWorld.image=corkboard.jpg
 class.MyWorld.superclass=greenfoot.World
 class.Organism.superclass=AbstOrganism
@@ -35,7 +39,11 @@ dependency1.from=Organism
 dependency1.to=Food
 dependency1.type=UsesDependency
 dependency10.from=AbstOrganism
+<<<<<<< HEAD
 dependency10.to=Organism
+=======
+dependency10.to=Family
+>>>>>>> mutation
 dependency10.type=UsesDependency
 dependency11.from=MainWorld
 dependency11.to=IntroScreen
@@ -43,6 +51,7 @@ dependency11.type=UsesDependency
 dependency12.from=MainWorld
 dependency12.to=Food
 dependency12.type=UsesDependency
+<<<<<<< HEAD
 <<<<<<< HEAD
 dependency13.from=PauseWorld
 dependency13.to=Button
@@ -70,6 +79,14 @@ dependency13.type=UsesDependency
 dependency14.from=MainWorld
 dependency14.to=Button
 dependency14.type=UsesDependency
+=======
+dependency13.from=MainWorld
+dependency13.to=UIBack
+dependency13.type=UsesDependency
+dependency14.from=MainWorld
+dependency14.to=Button
+dependency14.type=UsesDependency
+>>>>>>> mutation
 dependency15.from=MainWorld
 dependency15.to=PauseButton
 dependency15.type=UsesDependency
@@ -83,12 +100,16 @@ dependency18.from=MainWorld
 dependency18.to=Family
 dependency18.type=UsesDependency
 dependency19.from=IntroScreen
+<<<<<<< HEAD
 >>>>>>> Attack&Defend
+=======
+>>>>>>> mutation
 dependency19.to=MainWorld
 dependency19.type=UsesDependency
 dependency2.from=Organism
 dependency2.to=MainWorld
 dependency2.type=UsesDependency
+<<<<<<< HEAD
 <<<<<<< HEAD
 dependency20.from=AI
 dependency20.to=Food
@@ -134,9 +155,34 @@ dependency26.to=MainWorld
 dependency26.type=UsesDependency
 dependency27.from=PauseButton
 dependency27.to=PauseWorld
+=======
+dependency20.from=Button
+dependency20.to=MainWorld
+dependency20.type=UsesDependency
+dependency21.from=Button
+dependency21.to=PauseButton
+dependency21.type=UsesDependency
+dependency22.from=Button
+dependency22.to=PauseWorld
+dependency22.type=UsesDependency
+dependency23.from=Family
+dependency23.to=Organism
+dependency23.type=UsesDependency
+dependency24.from=Mutation
+dependency24.to=Organism
+dependency24.type=UsesDependency
+dependency25.from=PauseButton
+dependency25.to=MainWorld
+dependency25.type=UsesDependency
+dependency26.from=PauseButton
+dependency26.to=PauseWorld
+dependency26.type=UsesDependency
+dependency27.from=Food
+dependency27.to=MainWorld
+>>>>>>> mutation
 dependency27.type=UsesDependency
 dependency28.from=Food
-dependency28.to=MainWorld
+dependency28.to=AbstOrganism
 dependency28.type=UsesDependency
 dependency29.from=Food
 dependency29.to=AbstOrganism
@@ -144,6 +190,7 @@ dependency29.type=UsesDependency
 dependency3.from=Organism
 dependency3.to=AI
 dependency3.type=UsesDependency
+<<<<<<< HEAD
 <<<<<<< HEAD
 dependency30.from=MyOrganism
 dependency30.to=MainWorld
@@ -218,6 +265,40 @@ mainWindow.y=-8
 package.numDependencies=27
 package.numTargets=13
 >>>>>>> Attack&Defend
+=======
+dependency4.from=Organism
+dependency4.to=Family
+dependency4.type=UsesDependency
+dependency5.from=Organism
+dependency5.to=Mutation
+dependency5.type=UsesDependency
+dependency6.from=AI
+dependency6.to=Food
+dependency6.type=UsesDependency
+dependency7.from=AI
+dependency7.to=Organism
+dependency7.type=UsesDependency
+dependency8.from=AbstOrganism
+dependency8.to=MainWorld
+dependency8.type=UsesDependency
+dependency9.from=AbstOrganism
+dependency9.to=Food
+dependency9.type=UsesDependency
+editor.fx.0.height=1047
+editor.fx.0.width=974
+editor.fx.0.x=-7
+editor.fx.0.y=0
+editor.fx.1.height=1047
+editor.fx.1.width=974
+editor.fx.1.x=953
+editor.fx.1.y=0
+mainWindow.height=1010
+mainWindow.width=1296
+mainWindow.x=239
+mainWindow.y=0
+package.numDependencies=28
+package.numTargets=14
+>>>>>>> mutation
 project.charset=UTF-8
 readme.height=58
 readme.name=@README
@@ -248,7 +329,11 @@ target10.width=80
 target10.x=0
 target10.y=0
 target11.height=50
+<<<<<<< HEAD
 target11.name=PauseButton
+=======
+target11.name=Mutation
+>>>>>>> mutation
 target11.naviview.expanded=true
 target11.showInterface=false
 target11.type=ClassTarget
@@ -257,21 +342,29 @@ target11.width=190
 target11.x=0
 target11.y=0
 target12.height=50
+<<<<<<< HEAD
 target12.name=AbstParasite
+=======
+target12.name=PauseButton
+>>>>>>> mutation
 target12.naviview.expanded=true
 target12.showInterface=false
 target12.type=AbstractTarget
 target12.typeParameters=
+<<<<<<< HEAD
 target12.width=90
+=======
+target12.width=190
+>>>>>>> mutation
 target12.x=0
 target12.y=0
 target13.height=50
-target13.name=Food
+target13.name=AbstParasite
 target13.naviview.expanded=true
 target13.showInterface=false
-target13.type=ClassTarget
+target13.type=AbstractTarget
 target13.typeParameters=
-target13.width=80
+target13.width=90
 target13.x=0
 target13.y=0
 target14.height=50

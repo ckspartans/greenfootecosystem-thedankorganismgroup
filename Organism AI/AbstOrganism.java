@@ -46,7 +46,6 @@ public abstract class AbstOrganism extends Actor {
 
     public abstract void consumeFood(Food foodBeingEaten);
 
-    public abstract void mutate();
 
     public abstract void updateandCapVariables();
 
