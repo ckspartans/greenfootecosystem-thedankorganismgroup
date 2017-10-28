@@ -19,6 +19,7 @@ public abstract class AbstOrganism extends Actor {
     public int radius; //Based off health, to visually see health
     public Boolean attackMode; //if the organism is attacking
     public Boolean isAlive;
+    public Boolean isTouchingEnemy;
     public Boolean isAlpha;
     
     public int attackTatic; //which attackTatic to use

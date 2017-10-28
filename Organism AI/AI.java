@@ -37,6 +37,8 @@ public class AI
         patrol(o, foodNearby);
         choosePrey(o);
         attackManager(o);
+        o.checkIfAttacking();
+        o.checkDefend();
         stayAwayFromEdges(o);
     }
 
@@ -88,11 +90,11 @@ public class AI
         //Uzair Ahmed
         Organism tempOrg;
         Organism enemy;
-        for (int i = 0; i<organismsNearby.size(); i++){
+        for (int i = 0; i< organismsNearby.size(); i++){
             tempOrg = (Organism) organismsNearby.get(i);
             if (tempOrg.myFamily != o.myFamily){
                 if (tempOrg.threatLevel <= o.threatLevel){
-                    if(tempOrg.myFamily.getGroupPower() <=o.myFamily.getGroupPower()){
+                    if(tempOrg.getGroupThreatLevel() <=o.getGroupThreatLevel()){
                         o.chosenEnemy = tempOrg;
                     }
                     else{
@@ -105,7 +107,7 @@ public class AI
                     }
                 }
                 else{
-                    if(tempOrg.myFamily.getGroupPower() <=o.myFamily.getGroupPower()){
+                    if(tempOrg.getGroupThreatLevel() <=o.getGroupThreatLevel()){
                         o.chosenEnemy = tempOrg;
                     }
                     else{
@@ -122,13 +124,16 @@ public class AI
         }
     }
 
-    // Dhoir's Code:
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~////~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~////~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~Dhori's Code~~~~~~~~~~~~~~~~~~~~~~~~~~////~~~~~~~~~~~~~~~~~~~~~~~~~~Dhori's Code~~~~~~~~~~~~~~~~~~~~~~~~~~////~~~~~~~~~~~~~~~~~~~~~~~~~~Dhori's Code~~~~~~~~~~~~~~~~~~~~~~~~~~//
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~////~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~////~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
+
     public static void attack(Organism o, Organism enemy, int tatic){
         if(enemy.isAlive){
             //o.chosenEnemy = enemy; //choose which enemy to attack their chosenEnemy value, which enemy is it?
             //o.attackMode = true; //set your own attackmode to true  
             o.attackTatic = tatic;
-            o.myFamily.getGroupPower(); //figure out how badass your squad is (not used rn)
+            o.getGroupThreatLevel(); //figure out how badass your squad is (not used rn)
             if (tatic == 0){ //basic group attack
                 while((enemy != null) && (o.istouchingEnemy(enemy) == false)){
                     //turn towards enemy (Uzair)
@@ -189,7 +194,4 @@ public class AI
             }
         }
     }
-
-
-
 }
