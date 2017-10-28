@@ -25,6 +25,8 @@ public class Food extends Actor {
 
     //Draws the food
     public void drawFood(int m, GreenfootImage i){
+        //Uzair Ahmed
+
         //Gets a random angle between a range of 35-55
         int num = Greenfoot.getRandomNumber(10)+15;
         //turns and moves accordingly

@@ -8,7 +8,7 @@ import java.util.*;
  * @author Uzair Ahmed
  * @author Cameron Dickie
  * @author Laura Balofsky
- * @version 1.0
+ * @version 1.3
  */
 
 public class MainWorld extends World {
@@ -30,26 +30,22 @@ public class MainWorld extends World {
 
     static int startingFood = 50;
 
-  //ACTUAL CODE--------------------------------------------------------
-  IntroScreen intro;
-  MyOrganism player;
-  EnemyOrganism enemy;
-  UIBack UI;
-  Button pauseButton;
-  PauseWorld pause;
+    //ACTUAL CODE--------------------------------------------------------
 
     //Initializes classes
     IntroScreen intro;
 
     UIBack UI;
-    PauseButton pauseButton;
+    Button pauseButton;
     PauseWorld pause;
 
+    //Declares players
     Organism player1;
     Organism player2;
     Organism player3;
     Organism player4;
 
+    //Declares Families
     Family fam1;
     Family fam2;
     Family fam3;
@@ -61,16 +57,8 @@ public class MainWorld extends World {
 
         //Instantiates other world classes
         intro = new IntroScreen(this);
-        pause = new PauseWorld();
+        pause = new PauseWorld(this);
 
-    
-    
-    addObject(player, 0, 0);
-    addObject(enemy, 100, 0);
-    openUI();
-
-    for (int i = 0; i < 100; i++) {
-    addObject(new Food(), Greenfoot.getRandomNumber(getWidth() -  UI.width), Greenfoot.getRandomNumber(getHeight()));
         //Sets the world to Introscreen
         Greenfoot.setWorld(intro);
 
@@ -95,6 +83,7 @@ public class MainWorld extends World {
         addObject(player3, 10, 990);
         addObject(player4, 990, 990);
 
+        //Adds the family to the world
         addObject(fam1, 10,10);
         addObject(fam2, 990,10);
         addObject(fam3, 10,990);
@@ -103,34 +92,32 @@ public class MainWorld extends World {
         //Runs UI method
         openUI();
 
-        //Adds initial food
+        // Spawns the initial food
         for (int i = 0; i < startingFood; i++) {
             addObject(new Food(), Greenfoot.getRandomNumber(1000), Greenfoot.getRandomNumber(1000));
         }
-
     }
-  }
-  
-  public void checkButtons() {
 
-      if(pauseButton.active) {
-          Greenfoot.setWorld(pause);
-          pauseButton.setActive(false);
+    public void checkButtons() {
+        if(pauseButton.active) {
+            Greenfoot.setWorld(pause);
+            pauseButton.setActive(false);
         }
-   }
-  public void openUI() {
-    UI = new UIBack(); // creates a reference to draw the back of the UI
-    pauseButton = new Button(200,100, this);
-    addObject(UI, 1920 - UI.width/2, 0 + UI.height/2); // spawning the ui back at the right hand side of the screen
-    addObject(pauseButton, UI.getX() -250,UI.getY() - 400);
+    }
 
+    public void openUI() {
+        UI = new UIBack(); // creates a reference to draw the back of the UI
+        pauseButton = new Button(200,100, this);
+        addObject(UI, 1920 - UI.width/2, 0 + UI.height/2); // spawning the ui back at the right hand side of the screen
+        addObject(pauseButton, UI.getX() -250,UI.getY() - 400);
+    }
+
+    public void act() {
+        checkButtons();
         if (Greenfoot.getRandomNumber(100)<10){
             addObject(new Food(), Greenfoot.getRandomNumber(1000), Greenfoot.getRandomNumber(1000));
         }
         //10% chance of new food being spawned
-    }
- public void act() {
-        checkButtons();
     }
 
 }

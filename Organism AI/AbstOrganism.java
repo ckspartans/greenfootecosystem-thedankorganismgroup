@@ -8,7 +8,7 @@ import java.util.*;
  * @author Uzair Ahmed
  * @author Ethan Gale
  * @author Josh Dhori
- * @version 1.0
+ * @version 1.1
  */
 public abstract class AbstOrganism extends Actor {
 
@@ -28,9 +28,9 @@ public abstract class AbstOrganism extends Actor {
     public int def; //defensive power
     public int sight; //how far it can see
 
-    Family myFamily;
-    public Color familyColor;
-    public Color myColor;
+    Family myFamily; //Variable to FamilyReference
+    public Color familyColor; //Color Variable at spawn
+    public Color myColor; //current color
 
     MainWorld world;
 

@@ -6,7 +6,7 @@ import java.util.*;
  *
  * @author Uzair Ahmed
  * @author Ethan Gale
- * @version 1.7
+ * @version 1.9
  */
 
 public class Organism extends AbstOrganism {
@@ -49,7 +49,7 @@ public class Organism extends AbstOrganism {
         List organismsNearby  = getObjectsInRange(sight, Organism.class);
         //Gets the food object it is touching
         Food foodBeingEaten = (Food) getOneIntersectingObject(Food.class);
-        
+
         Boolean isTouchingOrg = isTouching(Organism.class);
         List touchingOrgs = getIntersectingObjects(Organism.class);
 
@@ -77,6 +77,8 @@ public class Organism extends AbstOrganism {
 
     //Draws the organism
     public void drawOrganism(Color c, int rad){
+        //Uzair Ahmed
+
         //Creates new greenfoot image
         GreenfootImage img = new GreenfootImage(rad, rad);
         //Sets the color, draws an oval, and fills it.
@@ -89,6 +91,8 @@ public class Organism extends AbstOrganism {
 
     //As the name suggests, updates values like size and age, and limits values like age...
     public void updateandCapVariables(){
+        //Uzair Ahmed
+
         //--------------------UPDATERS---------------------
         if (myFamily.alpha == this){
           isAlpha = true;
@@ -153,7 +157,8 @@ public class Organism extends AbstOrganism {
     }
 
     public void mutate(){
-        //Created by Ethan Gale
+        //Ethan Gale
+
         if (xp >= 10){
             if (Greenfoot.getRandomNumber(5) == 1){ //mutation rate
                 if (Greenfoot.getRandomNumber(5) == 1){
@@ -177,7 +182,7 @@ public class Organism extends AbstOrganism {
                     else if (chosenMutation == 5){ //max health
                         def +=2;
                     }
-                    myFamily.familyXp-=xp;               
+                    myFamily.familyXp-=xp;
                 }
             }
         }
@@ -185,6 +190,8 @@ public class Organism extends AbstOrganism {
 
     //Creates two new organisms and kills the OG
     public void reproduce() {
+        //Uzair Ahmed
+
         //Creates a temporary organism with the same traits as its parent.
         Organism tempOrg1 = new Organism(maxHealth, maxXp, speed, att, def, sight, myFamily, familyColor);
         Organism tempOrg2 = new Organism(maxHealth, maxXp, speed, att, def, sight, myFamily, familyColor);
@@ -198,6 +205,8 @@ public class Organism extends AbstOrganism {
 
     //Kills the Organism
     public void die() {
+        //Uzair Ahmed
+
         //sets isalive to false
         isAlive = false;
         //removes organism from family
@@ -208,6 +217,8 @@ public class Organism extends AbstOrganism {
 
     //Removes the food it touches, and adds the mass to xp
     public void consumeFood(Food foodBeingEaten){
+        //Uzair Ahmed
+
         //Check if the organism is currently on top of something
         if (foodBeingEaten != null){
             //Remove the food
@@ -221,12 +232,16 @@ public class Organism extends AbstOrganism {
 
     //Simple frame counter timer.
     public void startTimer(){
+        //Uzair Ahmed
+
         //Frame counter
         age++;
     }
 
     //Returns the Age in seconds
     public int getAge() {
+        //Uzair Ahmed
+
         //Calculates the age in time, by taking the frames
         //and calculating based on an anerage 60 fps
         return age/60;
