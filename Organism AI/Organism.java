@@ -60,7 +60,7 @@ public class Organism extends AbstOrganism {
         updateandCapVariables();
 
         //Runs Mutation Method
-        mutate();
+        Mutation.mutate(this);
 
         //Draws the organism
         drawOrganism(myColor, radius);
@@ -151,36 +151,7 @@ public class Organism extends AbstOrganism {
         }
     }
 
-    public void mutate(){
-        //Created by Ethan Gale
-        if (xp >= 10){
-            if (Greenfoot.getRandomNumber(5) == 1){ //mutation rate
-                if (Greenfoot.getRandomNumber(5) == 1){
-                    reproduce();
-                    xp = 0;
-                }
-                else{
-                    int chosenMutation = Greenfoot.getRandomNumber(5);
-                    if (chosenMutation == 1){ //attack
-                        maxHealth += 5;
-                    }
-                    else if (chosenMutation == 2){ //defense
-                        speed += 1;
-                    }
-                    else if (chosenMutation == 3){ //speed
-                        sight += 2;
-                    }
-                    else if (chosenMutation == 4){ //sight range
-                        att += 10;
-                    }
-                    else if (chosenMutation == 5){ //max health
-                        def +=2;
-                    }
-                    xp = 0;
-                }
-            }
-        }
-    }
+    
 
     //Creates two new organisms and kills the OG
     public void reproduce() {
