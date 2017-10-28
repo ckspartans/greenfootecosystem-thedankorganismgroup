@@ -17,6 +17,8 @@ public class Family extends Actor
     public double familyXp;
     //create a summed health value
     public double familyHealth;
+    public Organism targetEnemy;
+    public Boolean familyAttackMode = false;
 
     public Family() {
         //
@@ -57,9 +59,17 @@ public class Family extends Actor
           //sets the new alpha to the current organism
           alpha = tempOrganism;
         }
-      }
     }
 
+    public int getAvgGroupPower(){
+        int avgGroupAtt = 0;
+        for (int i = 0;i < (familyList.size()); i++){
+            Organism tempOrg = (Organism)familyList.get(i);
+            avgGroupAtt += tempOrg.att;
+        }
+        return (int) avgGroupAtt/familyList.size();
+    }
+    
 
     public void act()
     {

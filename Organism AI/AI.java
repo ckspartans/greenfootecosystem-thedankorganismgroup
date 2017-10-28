@@ -12,6 +12,7 @@ public class AI
 {
     //Declare Lists/Variables to hold protected actor methods.
     //Gets a list of all food nearby
+    static List organismsNearby;
     static List foodNearby;
     //Gets Food Object that is currently being eaten
     static Food foodBeingEaten;
@@ -26,12 +27,17 @@ public class AI
 
         //Set the values to what was given in by the upper class.
         foodNearby = fn;
+        organismsNearby = on;
         foodBeingEaten = fbe;
         touchingOrganisms = to;
         isTouchingOrganism = ito;
 
         //Think Functions
         patrol(o, foodNearby);
+        choosePrey(o);
+        attackManager(o);
+        o.checkIfAttacking();
+        o.checkDefend();
         stayAwayFromEdges(o);
         whoDis(o);
     }
@@ -81,12 +87,12 @@ public class AI
         //If it is at the edge
         if(o.isAtEdge()){
             //Turn around
-            o.turn(180);
+            o.flee();
         }
         //If its at the egde of the UI
         else if (o.getX() >= 1000){
             //Turn Around
-            o.turn(180);
+            o.flee();
         }
     }
 
@@ -100,11 +106,46 @@ public class AI
         o.turnTowards(alpha.getX(), alpha.getY());
         //And moves
         o.move(o.speed);
+    public static void choosePrey(Organism o){
+        //Uzair Ahmed
+        Organism tempOrg;
+        Organism enemy;
+        for (int i = 0; i< organismsNearby.size(); i++){
+            tempOrg = (Organism) organismsNearby.get(i);
+            if (tempOrg.myFamily != o.myFamily){
+                if (tempOrg.threatLevel <= o.threatLevel){
+                    if(tempOrg.getGroupThreatLevel() <=o.getGroupThreatLevel()){
+                        o.chosenEnemy = tempOrg;
+                    }
+                    else{
+                        if (tempOrg.myFamily.getAvgGroupPower() <= o.myFamily.getAvgGroupPower()){
+                            o.chosenEnemy = tempOrg;
+                        }
+                        else{
+                            o.flee();
+                        }
+                    }
+                }
+                else{
+                    if(tempOrg.getGroupThreatLevel() <=o.getGroupThreatLevel()){
+                        o.chosenEnemy = tempOrg;
+                    }
+                    else{
+                        o.flee();
+                    }
+                }
+            }
+        }
     }
 
     //Checks if the nearby organism is a friend or foe
     public static void whoDis(Organism o){
         //Uzair Ahmed
+    public static void attackManager(Organism o){
+        if (o.chosenEnemy != null){
+            attack(o,o.chosenEnemy, 0);
+        }
+    }
 
         //Checks if its touching the organism
         if (isTouchingOrganism){
@@ -124,10 +165,35 @@ public class AI
             }
         }
     }
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~////~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~////~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~Dhori's Code~~~~~~~~~~~~~~~~~~~~~~~~~~////~~~~~~~~~~~~~~~~~~~~~~~~~~Dhori's Code~~~~~~~~~~~~~~~~~~~~~~~~~~////~~~~~~~~~~~~~~~~~~~~~~~~~~Dhori's Code~~~~~~~~~~~~~~~~~~~~~~~~~~//
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~////~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~////~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
+
+    public static void attack(Organism o, Organism enemy, int tatic){
+        if(enemy.isAlive){
+            //o.chosenEnemy = enemy; //choose which enemy to attack their chosenEnemy value, which enemy is it?
+            //o.attackMode = true; //set your own attackmode to true  
+            o.attackTatic = tatic;
+            o.getGroupThreatLevel(); //figure out how badass your squad is (not used rn)
+            if (tatic == 0){ //basic group attack
+                while((enemy != null) && (o.istouchingEnemy(enemy) == false)){
+                    //turn towards enemy (Uzair)
+                    o.turnTowards(enemy.getX(), enemy.getY());
+                    //move towards enemy (Uzair)
+                    o.move(o.speed);
+                }
 
     //Prevents the organisms from overlapping each other
     public static void bounceOff(Organism o, Organism touchingOrganism){
         //Uzair Ahmed
+                o.hit(enemy, true);
+                o.move(-o.speed); //take a step back after attacking
+            }
+        }
+        //else{
+        //    o.chosenEnemy = null;
+        //}
+    }
 
         //Set x and y values for the organism it touches
         int bx = touchingOrganism.getX();
@@ -148,6 +214,48 @@ public class AI
             o.turnTowards(bx+addedRadiix, by+addedRadiiy);
             //Move
             o.move(o.speed);
+        }
+    public static void defend(Organism o, Organism enemy, int tatic){
+        /*search for the amount of enemies in sight range (this needs to be constantly run so the defender knows if more enemies are coming)
+         *check the enemies coming at you (threat level and position)
+         *determine the best strategy to use
+         *Tatics:
+         *A) Run like hell away
+         *B) Attack closest enemy //NEW TATIC 1vs1
+         *C) Attack enemies based on position, threat level //NEW TATIC team vs that guy
+         *
+         *keep track of all the energy they gain by eating the bodies
+         *eat the bodies (if they win at the end)
+         */
+        if(tatic == 0){//Option 0: RUN!!!!
+            while((enemy != null)){
+                //turns away from bad dude
+                o.turnTowards((enemy.getX() + 180), (enemy.getY() + 180));
+                if(o.isAtEdge()){
+                    o.flee();
+                }
+                else if (o.getX() > 1000){
+                    o.flee();
+                }
+                //runs away
+                o.move(o.speed);
+            }
+        }
+        else if (tatic == 1){ //Option 1: 1 vs 1 that dude
+            while((enemy != null) && (o.istouchingEnemy(enemy) == false)){
+                //turn towards enemy
+                o.turnTowards(enemy.getX(), enemy.getY());
+                //move towards enemy
+                o.move(o.speed);
+            }
+            //hit enemy
+            o.hit(enemy, false);
+            o.move(-o.speed); //take a step back after attacking
+        }
+        else if (tatic == 2){ //Option 3: Straight up attack that guy
+            while((enemy != null)){
+                attack(o, enemy, 0);
+            }
         }
     }
 }
