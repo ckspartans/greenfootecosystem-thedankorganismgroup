@@ -11,6 +11,8 @@ public class Family extends Actor
 {
     public List familyList = new ArrayList();
     public Organism alpha;
+    public Organism targetEnemy;
+    public Boolean familyAttackMode = false;
 
     public Family() {
 
@@ -26,17 +28,27 @@ public class Family extends Actor
     }
 
     public void setAlpha(){
-      int tempAge=0;
-      for (int i = 0; i < familyList.size(); i++){
-        Organism tempOrganism = (Organism)familyList.get(i);
-        if (tempOrganism.age > tempAge){
-          tempAge = tempOrganism.age;
-          alpha = tempOrganism;
-          alpha.myColor = Color.WHITE;
+        int tempAge=0;
+        for (int i = 0; i < familyList.size(); i++){
+            Organism tempOrganism = (Organism)familyList.get(i);
+            if (tempOrganism.age > tempAge){
+                tempAge = tempOrganism.age;
+                alpha = tempOrganism;
+                alpha.myColor = Color.WHITE;
+            }
         }
-      }
+    }
+
+    public int getAvgGroupPower(){
+        int avgGroupAtt = 0;
+        for (int i = 0;i < (familyList.size()); i++){
+            Organism tempOrg = (Organism)familyList.get(i);
+            avgGroupAtt += tempOrg.att;
+        }
+        return (int) avgGroupAtt/familyList.size();
     }
     
+
     public void act()
     {
         setAlpha();
