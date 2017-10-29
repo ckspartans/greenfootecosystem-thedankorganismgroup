@@ -38,4 +38,5 @@ public class Food extends Actor {
         //Set the class image to the image created above.
         setImage(i);
     }
+    
 }

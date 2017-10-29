@@ -41,6 +41,38 @@ public class Organism extends AbstOrganism {
 
     }
 
+    public Organism(int smh, int smxp, int ss, int sa, int sd, int ssi, Family fam, Color c, int nameNum, Parasite p) {
+        //XP Upgradeable Variables-------------------------------------------------
+        maxXp = smxp; //Max XP Storage
+        maxHealth = smh + p.maxHealthBoost; //Maximum Health
+        speed = ss + p.speedBoost; //Nuff Said
+        att = sa + p.attBoost; //Attack power
+        def = sd + p.defBoost; //Defensive power
+        sight = ssi + p.sightBoost; //Sight
+
+
+        //"Live" Variables. ----------------------------------------------------
+        age = 0; //Time
+        health = maxHealth; //Out of maxHealth
+        xp = 0; //Out of maxXp
+        radius = (health*2);
+        isAlive = true;
+        attackMode = false;
+        isAlpha = false;
+        threatLevel = (maxHealth + att + def + speed);
+
+        //Team Variables
+        myFamily = fam;
+        myFamily.addOrganism(this);
+        familyColor = c;
+        myColor = familyColor;
+        name = nameNum; //Debugging varaiable
+
+        //Declares world class
+        MainWorld world;
+
+    }
+
     public void act(){
 
         //Instantiates world class
@@ -233,8 +265,8 @@ public class Organism extends AbstOrganism {
     //Creates two new organisms and kills the OG
     public void reproduce() {
         //Creates a temporary organism with the same traits as its parent.
-        Organism tempOrg1 = new Organism(maxHealth, xp,speed, att, def, sight, myFamily, familyColor, name+1);
-        Organism tempOrg2 = new Organism(maxHealth, xp,speed, att, def, sight, myFamily, familyColor, name+2);
+        Organism tempOrg1 = new Organism(maxHealth, xp, speed, att, def, sight, myFamily, familyColor, name+1);
+        Organism tempOrg2 = new Organism(maxHealth, xp, speed, att, def, sight, myFamily, familyColor, name+2);
 
         //Adds it to myWorld
         world.addObject(tempOrg1,(getX()+Greenfoot.getRandomNumber(30)-15),(getY()+Greenfoot.getRandomNumber(30)-15));
@@ -338,6 +370,7 @@ public class Organism extends AbstOrganism {
                     touchingOrganism = (Organism)temp.get(i);
                     if (touchingOrganism == enemy){ //if the touching organism is the enemy
                         System.out.println("touching enemy");
+                        
                         return true;
                     }
                     else{
@@ -418,25 +451,25 @@ public class Organism extends AbstOrganism {
         }
         return groupThreatLevel;
     }
-    
+
     /* This is stupid, wont use this
     public int getFamilyThreat(){ //gets family threat level based on if THEY can see YOU
-        int famThreat = 0; //fam threat level
+    int famThreat = 0; //fam threat level
 
-        List fams = myFamily.familyList; //creates a new list equal to the family list
-        List famSight; //creates a list that will be used to hold the sight range of family members
-        Organism fam; //creates an organism that will hold a certain family member
-        for (int i = 0; i > fams.size(); i++){
-            fam = (Organism)fams.get(i); //fam is the "i" organism in the family list
-            famSight = fam.getObjectsInRange(fam.sight, Organism.class); //gets all the organisms in fam's sight range, sets it to the list famSight
-            for (int j = 0; j > fams.size(); j++){
-                if ((Organism)famSight.get(j) == this){ //if the fam's sight has this in it
-                    famThreat += fam.threatLevel; //add
-                }
-            }
-
-        }
-        return famThreat;
+    List fams = myFamily.familyList; //creates a new list equal to the family list
+    List famSight; //creates a list that will be used to hold the sight range of family members
+    Organism fam; //creates an organism that will hold a certain family member
+    for (int i = 0; i > fams.size(); i++){
+    fam = (Organism)fams.get(i); //fam is the "i" organism in the family list
+    famSight = fam.getObjectsInRange(fam.sight, Organism.class); //gets all the organisms in fam's sight range, sets it to the list famSight
+    for (int j = 0; j > fams.size(); j++){
+    if ((Organism)famSight.get(j) == this){ //if the fam's sight has this in it
+    famThreat += fam.threatLevel; //add
     }
-    */
+    }
+
+    }
+    return famThreat;
+    }
+     */
 }
