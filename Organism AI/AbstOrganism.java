@@ -21,11 +21,12 @@ public abstract class AbstOrganism extends Actor {
     public Boolean isAlive;
     public Boolean isTouchingEnemy;
     public Boolean isAlpha;
+    public Boolean infected;
     
     public int attackTatic; //which attackTatic to use
     public int threatLevel;
     public Organism chosenEnemy;
-    
+    public Parasite parasite;
     
     //XP Upgradeable Variables
     public int maxHealth; //Maximum Health
@@ -34,6 +35,7 @@ public abstract class AbstOrganism extends Actor {
     public int att; //Attck power
     public int def; //defensive power
     public int sight; //how far it can see
+    public int parasiteResistance;
 
     Family myFamily;
     public Color familyColor;

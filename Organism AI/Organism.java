@@ -50,7 +50,6 @@ public class Organism extends AbstOrganism {
         def = sd + p.defBoost; //Defensive power
         sight = ssi + p.sightBoost; //Sight
 
-
         //"Live" Variables. ----------------------------------------------------
         age = 0; //Time
         health = maxHealth; //Out of maxHealth
@@ -277,6 +276,9 @@ public class Organism extends AbstOrganism {
 
     //Kills the Organism
     public void die() {
+        //kills parasite
+        parasite.die();
+        
         //sets isalive to false
         isAlive = false;
         //removes organism from family
@@ -293,6 +295,10 @@ public class Organism extends AbstOrganism {
         //Check if the organism is currently on top of something
         if (foodBeingEaten != null){
             //Remove the food
+            if (!infected && foodBeingEaten.infected){
+                infected = true;
+                parasite = new Parasite(this);
+            }
             removeTouching(Food.class);
             //Gets the mass of the food and adds it to xp.
             int foodConsumed = foodBeingEaten.foodMass;
@@ -321,7 +327,11 @@ public class Organism extends AbstOrganism {
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~////~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~////~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
     //~~~~~~~~~~~~~~~~~~~~~~~~~~Dhori's Code~~~~~~~~~~~~~~~~~~~~~~~~~~////~~~~~~~~~~~~~~~~~~~~~~~~~~Dhori's Code~~~~~~~~~~~~~~~~~~~~~~~~~~////~~~~~~~~~~~~~~~~~~~~~~~~~~Dhori's Code~~~~~~~~~~~~~~~~~~~~~~~~~~//
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~////~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~////~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
-
+    
+    public List getNearby(){
+        List temp = getObjectsInRange(sight, Organism.class);
+        return temp;
+    }
     public void kill(Organism prey, boolean share){ //Calculates the energy gained & kills enemy
         if (prey.isAlive){ //if prey is alive
             if(share == true){ //sharing is true when they attack as a group
@@ -370,7 +380,7 @@ public class Organism extends AbstOrganism {
                     touchingOrganism = (Organism)temp.get(i);
                     if (touchingOrganism == enemy){ //if the touching organism is the enemy
                         System.out.println("touching enemy");
-                        
+
                         return true;
                     }
                     else{
@@ -451,25 +461,21 @@ public class Organism extends AbstOrganism {
         }
         return groupThreatLevel;
     }
-
-    /* This is stupid, wont use this
-    public int getFamilyThreat(){ //gets family threat level based on if THEY can see YOU
-    int famThreat = 0; //fam threat level
-
-    List fams = myFamily.familyList; //creates a new list equal to the family list
-    List famSight; //creates a list that will be used to hold the sight range of family members
-    Organism fam; //creates an organism that will hold a certain family member
-    for (int i = 0; i > fams.size(); i++){
-    fam = (Organism)fams.get(i); //fam is the "i" organism in the family list
-    famSight = fam.getObjectsInRange(fam.sight, Organism.class); //gets all the organisms in fam's sight range, sets it to the list famSight
-    for (int j = 0; j > fams.size(); j++){
-    if ((Organism)famSight.get(j) == this){ //if the fam's sight has this in it
-    famThreat += fam.threatLevel; //add
+    
+    //Dhori's parasite code
+    public void infect(){
+        if(isTouching(Organism.class)){
+            List touchingOrganisms = getIntersectingObjects(Organism.class);
+            Organism touchingOrg;
+            
+            for (int i = 0; i > touchingOrganisms.size(); i++) {
+                touchingOrg = (Organism)touchingOrganisms.get(i);
+                if((!touchingOrg.infected) && (parasite.infectionChance()) && (parasite.organismInfections) && (parasite.power >= touchingOrg.parasiteResistance)){
+                    parasite.infect(touchingOrg);
+                }
+            }
+            
+        }
+        
     }
-    }
-
-    }
-    return famThreat;
-    }
-     */
 }

@@ -91,7 +91,7 @@ public class MainWorld extends World {
 
         //Adds initial food
         for (int i = 0; i < startingFood; i++) {
-            addObject(new Food(), Greenfoot.getRandomNumber(1000), Greenfoot.getRandomNumber(1000));
+            addObject(new Food(Greenfoot.getRandomNumber(100)), Greenfoot.getRandomNumber(1000), Greenfoot.getRandomNumber(1000));
         }
 
     }
@@ -99,7 +99,7 @@ public class MainWorld extends World {
     public void act(){
       //10% chance of new food being spawned
       if (Greenfoot.getRandomNumber(100)<10){
-          addObject(new Food(), Greenfoot.getRandomNumber(1000), Greenfoot.getRandomNumber(1000));
+          addObject(new Food(Greenfoot.getRandomNumber(100)), Greenfoot.getRandomNumber(1000), Greenfoot.getRandomNumber(1000));
       }
     }
 
