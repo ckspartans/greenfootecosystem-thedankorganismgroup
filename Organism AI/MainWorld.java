@@ -70,7 +70,6 @@ public class MainWorld extends World {
         fam2 = new Family();
         fam3 = new Family();
         fam4 = new Family();
-
         //Instantiates players
         player1 = new Organism(startingMaxHealth, startingMaxXp, startingSpeed, startingAttackPower, startingDefensePower, startingSight, fam1 , Color.RED, 1);
         player2 = new Organism(startingMaxHealth, startingMaxXp, startingSpeed, startingAttackPower, startingDefensePower, startingSight, fam2, Color.BLUE, 2);

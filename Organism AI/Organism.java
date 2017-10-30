@@ -10,7 +10,7 @@ import java.util.*;
  */
 
 public class Organism extends AbstOrganism {
-    public Organism(int smh, int smxp, int ss, int sa, int sd, int ssi, Family fam, Color c, int nameNum) {
+    public Organism(int smh, double smxp, int ss, int sa, int sd, int ssi, Family fam, Color c, int nameNum) {
         //XP Upgradeable Variables-------------------------------------------------
         maxHealth = smh; //Maximum Health
         maxXp = smxp; //Max XP Storage
@@ -78,7 +78,7 @@ public class Organism extends AbstOrganism {
 
         if (isAlive){
             //Runs the AI Method
-            AI.think(this, foodNearby, organismsNearby, foodBeingEaten);
+            AI.think(this, foodNearby, foodBeingEaten, organismsNearby, touchingOrgs, isTouchingOrg);
         }
 
     }

@@ -20,9 +20,10 @@ public class AI
     static Boolean isTouchingOrganism;
     //Gets a list of all organisms it touches
     static List touchingOrganisms;
+    
 
     //This is the only called function by outside classes. This will choose what to think
-    public static void think(Organism o, List fn, Food fbe, List to, Boolean ito){
+    public static void think(Organism o, List fn, Food fbe, List on, List to, Boolean ito){
         //Uzair Ahmed
 
         //Set the values to what was given in by the upper class.
@@ -44,40 +45,40 @@ public class AI
 
     //Moves in a random motion, until it sees food or organism in its perimeter.
     public static void patrol(Organism o, List thingsNearby){
-      //Uzair Ahmed
+        //Uzair Ahmed
 
-      //If the organism in question is an alpha
-      if (o.isAlpha){
-          //If theres "the thing" near it.
-          if ((thingsNearby.size()) > 0){
-              //Move towards it.
-              o.move(o.speed);
-              //Get the first instance of nearby Food.
-              Food nearest = (Food) thingsNearby.get(0);
-              //Turn towards it.
-              o.turnTowards(nearest.getX(),nearest.getY());
-          }
-          //If there's nothing near it
-          else{
-              //Move in original direction
-              o.move(o.speed);
-              //25% chance to turn
-              if (Greenfoot.getRandomNumber(100) < 25){
-                  //within 45 degrees on either side of of the direction im facing
-                  o.turn(Greenfoot.getRandomNumber(90)-45);
-              }
-          }
-      }
-      //if the organism in question is not an alpha
-      if (!o.isAlpha){
-          //if the alpha is alive
-          if(o.myFamily.alpha.isAlive){
-              //Follow the alpha
-              familyHuddle(o);
+        //If the organism in question is an alpha
+        if (o.isAlpha){
+            //If theres "the thing" near it.
+            if ((thingsNearby.size()) > 0){
+                //Move towards it.
+                o.move(o.speed);
+                //Get the first instance of nearby Food.
+                Food nearest = (Food) thingsNearby.get(0);
+                //Turn towards it.
+                o.turnTowards(nearest.getX(),nearest.getY());
             }
-      }
-      //Consume any food you come across.
-      o.consumeFood(foodBeingEaten);
+            //If there's nothing near it
+            else{
+                //Move in original direction
+                o.move(o.speed);
+                //25% chance to turn
+                if (Greenfoot.getRandomNumber(100) < 25){
+                    //within 45 degrees on either side of of the direction im facing
+                    o.turn(Greenfoot.getRandomNumber(90)-45);
+                }
+            }
+        }
+        //if the organism in question is not an alpha
+        if (!o.isAlpha){
+            //if the alpha is alive
+            if(o.myFamily.alpha.isAlive){
+                //Follow the alpha
+                familyHuddle(o);
+            }
+        }
+        //Consume any food you come across.
+        o.consumeFood(foodBeingEaten);
     }
 
     //Turn around if organism is at the edge of the map.
@@ -106,6 +107,8 @@ public class AI
         o.turnTowards(alpha.getX(), alpha.getY());
         //And moves
         o.move(o.speed);
+    }
+
     public static void choosePrey(Organism o){
         //Uzair Ahmed
         Organism tempOrg;
@@ -141,12 +144,6 @@ public class AI
     //Checks if the nearby organism is a friend or foe
     public static void whoDis(Organism o){
         //Uzair Ahmed
-    public static void attackManager(Organism o){
-        if (o.chosenEnemy != null){
-            attack(o,o.chosenEnemy, 0);
-        }
-    }
-
         //Checks if its touching the organism
         if (isTouchingOrganism){
             //For each organism its touching
@@ -165,6 +162,13 @@ public class AI
             }
         }
     }
+
+    public static void attackManager(Organism o){
+        if (o.chosenEnemy != null){
+            attack(o,o.chosenEnemy, 0);
+        }
+    }
+
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~////~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~////~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
     //~~~~~~~~~~~~~~~~~~~~~~~~~~Dhori's Code~~~~~~~~~~~~~~~~~~~~~~~~~~////~~~~~~~~~~~~~~~~~~~~~~~~~~Dhori's Code~~~~~~~~~~~~~~~~~~~~~~~~~~////~~~~~~~~~~~~~~~~~~~~~~~~~~Dhori's Code~~~~~~~~~~~~~~~~~~~~~~~~~~//
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~////~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~////~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
@@ -183,18 +187,17 @@ public class AI
                     o.move(o.speed);
                 }
 
-    //Prevents the organisms from overlapping each other
-    public static void bounceOff(Organism o, Organism touchingOrganism){
-        //Uzair Ahmed
+                //Prevents the organisms from overlapping each other
                 o.hit(enemy, true);
                 o.move(-o.speed); //take a step back after attacking
             }
         }
-        //else{
-        //    o.chosenEnemy = null;
-        //}
     }
-
+    //else{
+    //    o.chosenEnemy = null;
+    //}
+    public static void bounceOff(Organism o, Organism touchingOrganism){
+        //Uzair Ahmed
         //Set x and y values for the organism it touches
         int bx = touchingOrganism.getX();
         int by = touchingOrganism.getY();
@@ -215,6 +218,8 @@ public class AI
             //Move
             o.move(o.speed);
         }
+    }
+
     public static void defend(Organism o, Organism enemy, int tatic){
         /*search for the amount of enemies in sight range (this needs to be constantly run so the defender knows if more enemies are coming)
          *check the enemies coming at you (threat level and position)

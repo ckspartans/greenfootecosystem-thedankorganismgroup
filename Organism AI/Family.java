@@ -44,20 +44,21 @@ public class Family extends Actor
 
     //Sets the alpha (leader) of the family
     public void setAlpha(){
-      //Uzair Ahmed
+        //Uzair Ahmed
 
-      //creates a temporary age
-      int tempAge=0;
-      //goes through each organism in the familyList
-      for (int i = 0; i < familyList.size(); i++){
-        //creates a temporary Organism
-        Organism tempOrganism = (Organism)familyList.get(i);
-        //checks if the age of the current organism is greater than the max
-        if (tempOrganism.age > tempAge){
-          //Sets the new max to the organisms age
-          tempAge = tempOrganism.age;
-          //sets the new alpha to the current organism
-          alpha = tempOrganism;
+        //creates a temporary age
+        int tempAge=0;
+        //goes through each organism in the familyList
+        for (int i = 0; i < familyList.size(); i++){
+            //creates a temporary Organism
+            Organism tempOrganism = (Organism)familyList.get(i);
+            //checks if the age of the current organism is greater than the max
+            if (tempOrganism.age > tempAge){
+                //Sets the new max to the organisms age
+                tempAge = tempOrganism.age;
+                //sets the new alpha to the current organism
+                alpha = tempOrganism;
+            }
         }
     }
 
@@ -69,7 +70,6 @@ public class Family extends Actor
         }
         return (int) avgGroupAtt/familyList.size();
     }
-    
 
     public void act()
     {
@@ -77,3 +77,4 @@ public class Family extends Actor
         setAlpha();
     }
 }
+
