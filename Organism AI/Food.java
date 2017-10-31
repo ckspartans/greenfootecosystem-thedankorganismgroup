@@ -41,7 +41,7 @@ public class Food extends Actor {
         //Uzair Ahmed
 
         //Gets a random angle between a range of 35-55
-        int num = Greenfoot.getRandomNumber(50)+50;
+        int num = Greenfoot.getRandomNumber(10)+15;
         //turns and moves accordingly
         turn(num);
         move(1);
@@ -65,7 +65,7 @@ public class Food extends Actor {
         //Uzair Ahmed
 
         setRotation(Greenfoot.getRandomNumber(360));
-        move((Greenfoot.getRandomNumber(50)+10));
+        move((Greenfoot.getRandomNumber(50)+50));
         spawning = false;
     }
 }

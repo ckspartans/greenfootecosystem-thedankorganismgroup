@@ -35,10 +35,10 @@ public class AI
 
         //Think Functions
         patrol(o, foodNearby);
-        //choosePrey(o);
-        //attackManager(o);
-        //o.checkIfAttacking();
-        //o.checkDefend();
+        choosePrey(o);
+        attackManager(o);
+        o.checkIfAttacking();
+        o.checkDefend();
         stayAwayFromEdges(o);
         whoDis(o);
     }
