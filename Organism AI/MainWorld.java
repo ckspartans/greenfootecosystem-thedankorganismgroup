@@ -14,14 +14,14 @@ import java.util.*;
 public class MainWorld extends World {
 
     //VARIABLES ---------------------------------------------------------
-    static int startingMaxHealth = 10;
+    static int startingMaxHealth = 100;
     static int startingMaxXp = 10;
     static int startingSpeed = 3;
     static int startingAttackPower = 1;
     static int startingDefensePower = 1;
     static int startingSight = 100;
 
-    static int maxBuyableMaxHealth = 100;
+    static int maxBuyableMaxHealth = 1000;
     static int maxBuyableMaxXp = 100;
     static int maxBuyableSpeed = 30;
     static int maxBuyableAtt = 10;

@@ -2,7 +2,7 @@
 comment0.target=AbstOrganism
 comment0.text=\r\n\ Abstract\ Organism,\ this\ is\ the\ base\ class\ for\ Organism\r\n\r\n\ @author\ Class\r\n\ @author\ Uzair\ Ahmed\r\n\ @author\ Ethan\ Gale\r\n\ @author\ Josh\ Dhori\r\n\ @version\ 1.1\r\n
 comment1.params=c\ rad
-comment1.target=void\ drawOrganism(greenfoot.Color,\ int)
+comment1.target=void\ drawOrganism(greenfoot.Color,\ double)
 comment2.params=foodBeingEaten
 comment2.target=void\ consumeFood(Food)
 comment3.params=

@@ -20,7 +20,7 @@ public class AI
     static Boolean isTouchingOrganism;
     //Gets a list of all organisms it touches
     static List touchingOrganisms;
-    
+
 
     //This is the only called function by outside classes. This will choose what to think
     public static void think(Organism o, List fn, Food fbe, List on, List to, Boolean ito){
@@ -37,7 +37,7 @@ public class AI
         patrol(o, foodNearby);
         choosePrey(o);
         attackManager(o);
-        o.checkIfAttacking();
+        //o.checkIfAttacking();
         o.checkDefend();
         stayAwayFromEdges(o);
         whoDis(o);
@@ -47,9 +47,7 @@ public class AI
     public static void patrol(Organism o, List thingsNearby){
         //Uzair Ahmed
 
-        //If the organism in question is an alpha
-        if (o.isAlpha){
-            //If theres "the thing" near it.
+        //If theres "the thing" near it.
             if ((thingsNearby.size()) > 0){
                 //Move towards it.
                 o.move(o.speed);
@@ -68,15 +66,6 @@ public class AI
                     o.turn(Greenfoot.getRandomNumber(90)-45);
                 }
             }
-        }
-        //if the organism in question is not an alpha
-        if (!o.isAlpha){
-            //if the alpha is alive
-            if(o.myFamily.alpha.isAlive){
-                //Follow the alpha
-                familyHuddle(o);
-            }
-        }
         //Consume any food you come across.
         o.consumeFood(foodBeingEaten);
     }
@@ -98,11 +87,9 @@ public class AI
     }
 
     //Moves the family together
-    public static void familyHuddle(Organism o){
+    public static void assemble(Organism o, Organism alpha){
         //Uzair Ahmed
 
-        //Creates temp organism of alpha
-        Organism alpha = o.myFamily.alpha;
         //Turns towards the alpha
         o.turnTowards(alpha.getX(), alpha.getY());
         //And moves
@@ -157,8 +144,9 @@ public class AI
                 }
                 //If the organism is an enemy
                 else if (touchingOrganism.myFamily != o.myFamily){
-                    //Enemy
+                    o.isTouchingEnemy = true;
                 }
+                
             }
         }
     }
@@ -169,41 +157,14 @@ public class AI
         }
     }
 
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~////~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~////~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~Dhori's Code~~~~~~~~~~~~~~~~~~~~~~~~~~////~~~~~~~~~~~~~~~~~~~~~~~~~~Dhori's Code~~~~~~~~~~~~~~~~~~~~~~~~~~////~~~~~~~~~~~~~~~~~~~~~~~~~~Dhori's Code~~~~~~~~~~~~~~~~~~~~~~~~~~//
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~////~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~////~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
-
-    public static void attack(Organism o, Organism enemy, int tatic){
-        if(enemy.isAlive){
-            //o.chosenEnemy = enemy; //choose which enemy to attack their chosenEnemy value, which enemy is it?
-            //o.attackMode = true; //set your own attackmode to true  
-            o.attackTatic = tatic;
-            o.getGroupThreatLevel(); //figure out how badass your squad is (not used rn)
-            if (tatic == 0){ //basic group attack
-                while((enemy != null) && (o.istouchingEnemy(enemy) == false)){
-                    //turn towards enemy (Uzair)
-                    o.turnTowards(enemy.getX(), enemy.getY());
-                    //move towards enemy (Uzair)
-                    o.move(o.speed);
-                }
-
-                //Prevents the organisms from overlapping each other
-                o.hit(enemy, true);
-                o.move(-o.speed); //take a step back after attacking
-            }
-        }
-    }
-    //else{
-    //    o.chosenEnemy = null;
-    //}
     public static void bounceOff(Organism o, Organism touchingOrganism){
         //Uzair Ahmed
         //Set x and y values for the organism it touches
         int bx = touchingOrganism.getX();
         int by = touchingOrganism.getY();
         //Create x and y values for added radii
-        int addedRadiix = (o.radius/2)+(touchingOrganism.radius/2);
-        int addedRadiiy = (o.radius/2)+(touchingOrganism.radius/2);
+        int addedRadiix = (int) ((o.radius/2)+(touchingOrganism.radius/2));
+        int addedRadiiy = (int) ((o.radius/2)+(touchingOrganism.radius/2));
         //If the current organism is older than the other (to choose one organism)
         if (o.myFamily.familyList.indexOf(o)>o.myFamily.familyList.indexOf(touchingOrganism)){
             //move it to the proper side of the other organism in the x andd y directions
@@ -219,6 +180,34 @@ public class AI
             o.move(o.speed);
         }
     }
+
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~////~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~////~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~Dhori's Code~~~~~~~~~~~~~~~~~~~~~~~~~~////~~~~~~~~~~~~~~~~~~~~~~~~~~Dhori's Code~~~~~~~~~~~~~~~~~~~~~~~~~~////~~~~~~~~~~~~~~~~~~~~~~~~~~Dhori's Code~~~~~~~~~~~~~~~~~~~~~~~~~~//
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~////~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~////~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
+
+    public static void attack(Organism o, Organism enemy, int tatic){
+        if(enemy.isAlive){
+            //o.chosenEnemy = enemy; //choose which enemy to attack their chosenEnemy value, which enemy is it?
+            //o.attackMode = true; //set your own attackmode to true
+            o.attackTatic = tatic;
+            o.getGroupThreatLevel(); //figure out how badass your squad is (not used rn)
+            if (tatic == 0){ //basic group attack
+                //while((enemy != null) && (o.isTouchingEnemy == false)){
+                    //turn towards enemy (Uzair)
+                    o.turnTowards(enemy.getX(), enemy.getY());
+                    //move towards enemy (Uzair)
+                    o.move(o.speed);
+                //}
+
+                //Prevents the organisms from overlapping each other
+                o.hit(enemy, true);
+                o.move(-o.speed); //take a step back after attacking
+            }
+        }
+    }
+    //else{
+    //    o.chosenEnemy = null;
+    //}
 
     public static void defend(Organism o, Organism enemy, int tatic){
         /*search for the amount of enemies in sight range (this needs to be constantly run so the defender knows if more enemies are coming)
@@ -247,7 +236,7 @@ public class AI
             }
         }
         else if (tatic == 1){ //Option 1: 1 vs 1 that dude
-            while((enemy != null) && (o.istouchingEnemy(enemy) == false)){
+            while((enemy != null) && (o.isTouchingEnemy == false)){
                 //turn towards enemy
                 o.turnTowards(enemy.getX(), enemy.getY());
                 //move towards enemy
