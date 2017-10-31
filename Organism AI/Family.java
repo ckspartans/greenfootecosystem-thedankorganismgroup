@@ -13,8 +13,6 @@ public class Family extends Actor
     public List familyList = new ArrayList();
     //Creates an alpha
     public Organism alpha;
-    //Creates a shared xp
-    public double familyXp;
     //create a summed health value
     public double familyHealth;
     public Organism targetEnemy;

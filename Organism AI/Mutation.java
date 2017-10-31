@@ -9,7 +9,7 @@ import java.util.*;
 public class Mutation{
     public static void mutate(Organism o){
         if (o.xp%10 == 0 && o.xp != 0){
-            if (Greenfoot.getRandomNumber(5) == 1){
+            if (Greenfoot.getRandomNumber(3) == 1){
                 o.reproduce();
                 int chosenMutation = Greenfoot.getRandomNumber(1000);
                 if (chosenMutation <= 250){

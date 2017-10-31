@@ -10,7 +10,7 @@ import java.util.*;
  */
 
 public class Organism extends AbstOrganism {
-    public Organism(int smh, double smxp, int ss, int sa, int sd, int ssi, Family fam, Color c, int nameNum) {
+    public Organism(double smh, double smxp, int ss, int sa, int sd, int ssi, Family fam, Color c, int nameNum) {
         //XP Upgradeable Variables-------------------------------------------------
         maxHealth = smh; //Maximum Health
         maxXp = smxp; //Max XP Storage
@@ -23,10 +23,11 @@ public class Organism extends AbstOrganism {
         age = 0; //Time
         health = maxHealth; //Out of maxHealth
         xp = 0; //Out of maxXp
-        radius = (health*2);
+        radius = (health/10);
         isAlive = true;
         attackMode = false;
         isAlpha = false;
+        isTouchingEnemy = false;
         threatLevel = (maxHealth + att + def + speed);
 
         //Team Variables
@@ -84,9 +85,10 @@ public class Organism extends AbstOrganism {
     }
 
     //Draws the organism
-    public void drawOrganism(Color c, int rad){
+    public void drawOrganism(Color c, double r){
         //Uzair Ahmed
-
+        
+        int rad = (int)r;
         //Creates new greenfoot image
         GreenfootImage img = new GreenfootImage(rad, rad);
         //Sets the color, draws an oval, and fills it.
@@ -129,8 +131,7 @@ public class Organism extends AbstOrganism {
         }
 
         //Updates the radius to match the size
-        radius = health*2;
-        xp = myFamily.familyXp/myFamily.familyList.size();
+        radius = health/5;
 
         threatLevel = (maxHealth + att + def + speed);
 
@@ -175,7 +176,7 @@ public class Organism extends AbstOrganism {
         }
     }
 
-    
+
 
     //Creates two new organisms and kills the OG
     public void reproduce() {
@@ -217,7 +218,7 @@ public class Organism extends AbstOrganism {
             removeTouching(Food.class);
             //Gets the mass of the food and adds it to xp.
             int foodConsumed = foodBeingEaten.foodMass;
-            myFamily.familyXp+=foodConsumed/10;
+            xp+=foodConsumed/10;
             health++;
         }
     }
@@ -250,7 +251,7 @@ public class Organism extends AbstOrganism {
     public void kill(Organism prey, boolean share){ //Calculates the energy gained & kills enemy
         if (prey.isAlive){ //if prey is alive
             if(share == true){ //sharing is true when they attack as a group
-                int energyGain = (prey.maxHealth/(myFamily.familyList.size())); //int energy gain is the xp gained by each team member (prey max health divided by amount of team mates)
+                double energyGain = (prey.maxHealth/(myFamily.familyList.size())); //int energy gain is the xp gained by each team member (prey max health divided by amount of team mates)
                 for(int i = 0; i > (myFamily.familyList.size()); i++){ //distributes the energy gain between team members
                     Organism tempOrg; //creates a temp organism
                     tempOrg = (Organism)(myFamily.familyList.get(i)); //sets that temp organism as the "I" member of the family list
@@ -259,7 +260,7 @@ public class Organism extends AbstOrganism {
                 }
             }
             else if (share == false){ //sharing is false when organism goes solo
-                int energyGain = prey.maxHealth; //organism gets all their health
+                double energyGain = prey.maxHealth; //organism gets all their health
                 xp+= energyGain; //xp increases
             }
             prey.die();
@@ -269,7 +270,7 @@ public class Organism extends AbstOrganism {
 
     public void hit(Organism prey, boolean attackOrDefend){ //hits enemy
         if (prey.isAlive) {//if prey is alive
-            if (istouchingEnemy(prey)){ //if touching the X organism in totalEnemy list
+            if (isTouchingEnemy){ //if touching the X organism in totalEnemy list
                 if ((att - prey.def) > 0){ //if your attack is greater than their defense
                     prey.health -= (att - prey.def); //hits selected enemy for your attack - enemy defense
                 }
@@ -282,16 +283,14 @@ public class Organism extends AbstOrganism {
         }
     }
 
-    public boolean istouchingEnemy(Organism enemy){
-        System.out.println("Running isTouchingEnemy");
+    /*public boolean istouchingEnemy(Organism enemy){
         if (isTouching(Organism.class) == true){ //if touching any organism
             Organism touchingOrganism;
-            System.out.println("Created temp Organism");
 
             //creates a temp organism
             if (isAlive){
                 List temp = getIntersectingObjects(Organism.class);
-                for (int i = 0 ; i > temp.size(); i++) {
+                for (int i = 0 ; i < temp.size(); i++) {
                     touchingOrganism = (Organism)temp.get(i);
                     if (touchingOrganism == enemy){ //if the touching organism is the enemy
                         System.out.println("touching enemy");
@@ -303,44 +302,32 @@ public class Organism extends AbstOrganism {
                     }
                 }
             }
-            else{
-                System.out.println("Imma KMS");
-                die();
-                return false;
-            }
-        }
-        else{
-            System.out.println("not touching");
-            return false;
         }
         return false;
-    }
+    }*/
 
     public void checkIfAttacking(){ //checks if anyone in the group is attacking someone
+        //Josh Dhori, Edited by Uzair Ahmed
+
         List tempList = getObjectsInRange(sight, Organism.class); //
+        Organism tempOrg;
         for(int j = 0; j > tempList.size(); j++){
-            if (tempList.get(j) == myFamily.familyList.get(j)){
-                Organism tempOrg;
-                for (int i = 0; i > myFamily.familyList.size(); i++){
-                    tempOrg = (Organism)myFamily.familyList.get(i);
-                    if (tempOrg.attackMode == true){ //if anyone in your family is attaccking someone
-                        Organism enemy = tempOrg.chosenEnemy;
-
-                        chosenEnemy = enemy; //using their chosenEnemy value, which enemy is it?
-                        attackMode = true; //set your own attackmode to true
-                        int tatic = tempOrg.attackTatic; //finds which tatic that organism is using
-                        AI.attack(this, enemy, tatic); //attack that enemy
-                    }
-                }
+            tempOrg = (Organism)tempList.get(j);
+            if ((tempOrg.myFamily == myFamily) && (tempOrg.attackMode == true)){
+                Organism enemy = tempOrg.chosenEnemy;
+                chosenEnemy = enemy; //using their chosenEnemy value, which enemy is it?
+                attackMode = true; //set your own attackmode to true
+                int tatic = tempOrg.attackTatic; //finds which tatic that organism is using
+                AI.assemble(this, enemy);
+                AI.attack(this, enemy, tatic); //attack that enemy
             }
-
         }
     }
 
     public void checkDefend(){ //Check if it is under attack
         List tempList = getObjectsInRange(sight, Organism.class); //creates a list of organisms in sight range
         Organism tempOrg; //creates a temp organism
-        for (int i = 0; i > tempList.size(); i++){ 
+        for (int i = 0; i > tempList.size(); i++){
             tempOrg = (Organism)tempList.get(i); //sets the temp organism to "i" organism in the sight range list
             if(tempOrg.attackMode == true){ //if that organism has it's attackMode set to true
                 if (tempOrg.chosenEnemy == this){ //if that organism is attacking this organism
@@ -365,7 +352,7 @@ public class Organism extends AbstOrganism {
 
         List organismClose = getObjectsInRange(sight, Organism.class); //gets a list of organisms nearby
         Organism tempOrg; //creates temp organism
-        for (int i = 0; i > myFamily.familyList.size(); i++){ 
+        for (int i = 0; i > myFamily.familyList.size(); i++){
             tempOrg = (Organism)organismClose.get(i); //sets the temp org to "i" organism in the sight range
             for (int j = 0; j > myFamily.familyList.size(); j++){ //goes through family list
                 if(tempOrg == (Organism)myFamily.familyList.get(j)){ //checks if the "i" organism is in the family list
@@ -375,7 +362,7 @@ public class Organism extends AbstOrganism {
         }
         return groupThreatLevel;
     }
-    
+
     /* This is stupid, wont use this
     public int getFamilyThreat(){ //gets family threat level based on if THEY can see YOU
         int famThreat = 0; //fam threat level
