@@ -2,16 +2,17 @@ import greenfoot.*; // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.*;
 /**
  * Food for the organism to eat.
- *
- * CHANGLOG Oct 10, 2017
- *  - Added trippy movement to food
- *  - Added pseudocode
-
  * @author Uzair Ahmed
- * @version 0.1.4
+ * @version 1.0
  */
 
 public class Food extends Actor {
+    MainWorld world;
+
+    int reprodRate = 2;
+
+    boolean spawning = true;
+
     //The size of the food. Other classes *should* be able to see this.
     static int foodMass = 10;
     //GreenfootImage to store the picture to create.
@@ -19,8 +20,20 @@ public class Food extends Actor {
 
     public void act()
     {
+        //Uzair Ahmed
+
+        if (world == null){
+            world = (MainWorld) getWorld();
+        }
+
         //Draws food.
         drawFood(foodMass, img);
+        if (spawning){
+            spawnShift();
+        }
+        if (Greenfoot.getRandomNumber(500) == 1){
+            reproduce();
+        }
     }
 
     //Draws the food
@@ -39,5 +52,20 @@ public class Food extends Actor {
         i.fillOval(0,0,m,m);
         //Set the class image to the image created above.
         setImage(i);
+    }
+
+    public void reproduce(){
+        //Uzair Ahmed
+        for (int i = 0; i < reprodRate; i++){
+            world.addObject(new Food(), getX(), getY());
+        }
+    }
+
+    public void spawnShift(){
+        //Uzair Ahmed
+
+        setRotation(Greenfoot.getRandomNumber(360));
+        move((Greenfoot.getRandomNumber(50)+50));
+        spawning = false;
     }
 }

@@ -113,9 +113,6 @@ public class MainWorld extends World {
 
     public void act() {
         checkButtons();
-        if (Greenfoot.getRandomNumber(100)<10){
-            addObject(new Food(), Greenfoot.getRandomNumber(1000), Greenfoot.getRandomNumber(1000));
-        }
         //10% chance of new food being spawned
     }
 

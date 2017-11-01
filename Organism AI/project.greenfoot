@@ -53,6 +53,7 @@ dependency14.type=UsesDependency
 dependency15.from=IntroScreen
 dependency15.to=MainWorld
 dependency15.type=UsesDependency
+<<<<<<< HEAD
 dependency16.from=IntroScreen
 dependency16.to=Button
 dependency16.type=UsesDependency
@@ -64,10 +65,24 @@ dependency18.to=PauseWorld
 dependency18.type=UsesDependency
 dependency19.from=AI
 dependency19.to=Food
+=======
+dependency16.from=Button
+dependency16.to=MainWorld
+dependency16.type=UsesDependency
+dependency17.from=Button
+dependency17.to=PauseWorld
+dependency17.type=UsesDependency
+dependency18.from=AI
+dependency18.to=Food
+dependency18.type=UsesDependency
+dependency19.from=AI
+dependency19.to=Organism
+>>>>>>> PlantReprod
 dependency19.type=UsesDependency
 dependency2.from=MainWorld
 dependency2.to=Food
 dependency2.type=UsesDependency
+<<<<<<< HEAD
 dependency20.from=AI
 dependency20.to=Organism
 dependency20.type=UsesDependency
@@ -94,6 +109,34 @@ dependency27.to=MainWorld
 dependency27.type=UsesDependency
 dependency28.from=Food
 dependency28.to=AbstOrganism
+=======
+dependency20.from=Family
+dependency20.to=Organism
+dependency20.type=UsesDependency
+dependency21.from=Mutation
+dependency21.to=Organism
+dependency21.type=UsesDependency
+dependency22.from=AbstOrganism
+dependency22.to=MainWorld
+dependency22.type=UsesDependency
+dependency23.from=AbstOrganism
+dependency23.to=Food
+dependency23.type=UsesDependency
+dependency24.from=AbstOrganism
+dependency24.to=Family
+dependency24.type=UsesDependency
+dependency25.from=AbstOrganism
+dependency25.to=Organism
+dependency25.type=UsesDependency
+dependency26.from=Food
+dependency26.to=MainWorld
+dependency26.type=UsesDependency
+dependency27.from=Food
+dependency27.to=AbstOrganism
+dependency27.type=UsesDependency
+dependency28.from=Food
+dependency28.to=Organism
+>>>>>>> PlantReprod
 dependency28.type=UsesDependency
 dependency29.from=PauseButton
 dependency29.to=PauseWorld
@@ -145,16 +188,27 @@ dependency9.to=MainWorld
 dependency9.type=UsesDependency
 editor.fx.0.height=739
 editor.fx.0.width=816
+<<<<<<< HEAD
 editor.fx.0.x=-1214
 editor.fx.0.y=70
+=======
+editor.fx.0.x=-1267
+editor.fx.0.y=42
+>>>>>>> PlantReprod
 editor.fx.1.height=1047
 editor.fx.1.width=974
 editor.fx.1.x=953
 editor.fx.1.y=0
 mainWindow.height=1010
+<<<<<<< HEAD
 mainWindow.width=1296
 mainWindow.x=-1288
 mainWindow.y=-87
+=======
+mainWindow.width=1295
+mainWindow.x=-1288
+mainWindow.y=-79
+>>>>>>> PlantReprod
 package.numDependencies=28
 package.numTargets=11
 project.charset=UTF-8
@@ -163,7 +217,11 @@ readme.name=@README
 readme.width=47
 readme.x=10
 readme.y=10
+<<<<<<< HEAD
 simulation.speed=62
+=======
+simulation.speed=49
+>>>>>>> PlantReprod
 target1.height=50
 target1.name=MainWorld
 target1.naviview.expanded=true
