@@ -143,7 +143,7 @@ public class Organism extends AbstOrganism {
     //As the name suggests, updates values like size and age, and limits values like age...
     public void updateandCapVariables(){
         //Uzair Ahmed
-
+        
         //--------------------UPDATERS---------------------
         if (myFamily.alpha == this){
             isAlpha = true;

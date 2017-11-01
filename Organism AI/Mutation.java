@@ -12,6 +12,7 @@ public class Mutation{
             o.xp = 0;
             if (Greenfoot.getRandomNumber(10) == 1){ //repro chance
                 o.reproduce();
+            }
                 int chosenMutation = Greenfoot.getRandomNumber(1000); //choose mutation
                 if (chosenMutation <= 250){ //attack
                     o.att += 2;
@@ -27,14 +28,14 @@ public class Mutation{
                 else if((chosenMutation > 751) && (chosenMutation <= 1000)){ //sight range
                     o.sight += 10;
                 }
-            }
+            
         }
     }
 
     public static void mutate(Parasite p){
         if (p.xp >= p.mutateRate){
             //mutate the parasite
-            int chosenMutation = Greenfoot.getRandomNumber(3);
+            int chosenMutation = Greenfoot.getRandomNumber(4);
             if (chosenMutation == 1){ //attack
                 p.attBoost += 2;
             }
@@ -45,7 +46,7 @@ public class Mutation{
             else if(chosenMutation == 3){ //speed
                 p.speedBoost += 2;
             }
-            else if(chosenMutation == 0){ //sight range
+            else if(chosenMutation == 4){ //sight range
                 p.sightBoost += 10;
             }
             chosenMutation = Greenfoot.getRandomNumber(10000);

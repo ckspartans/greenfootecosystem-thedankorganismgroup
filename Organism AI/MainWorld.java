@@ -63,7 +63,7 @@ public class MainWorld extends World {
         Greenfoot.setWorld(intro);
 
         //Sets paint order
-        setPaintOrder(Actor.class);
+        setPaintOrder(Button.class, Family.class, UIBack.class, Parasite.class, Organism.class, Food.class);
 
         //Instantiates Families
         fam1 = new Family();
