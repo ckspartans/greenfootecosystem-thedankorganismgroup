@@ -386,7 +386,7 @@ public class Organism extends AbstOrganism {
             Organism touchingOrg;
             for (int i = 0; i < touchingOrganisms.size(); i++) {
                 touchingOrg = (Organism)touchingOrganisms.get(i);
-                if((!touchingOrg.infected) && (parasite.infectionChance()) && (parasite.organismInfections) && (parasite.power >= touchingOrg.parasiteResistance)){
+                if((!touchingOrg.infected) && (parasite.infectionChance()) && (parasite.power >= touchingOrg.parasiteResistance)){
                     parasite.infect(touchingOrg);
                 }
             }
