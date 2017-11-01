@@ -14,15 +14,17 @@ public class Food extends Actor {
     boolean spawning = true;
 
     public boolean infected;
-    public Food(int rand){
-        if(rand != 100){
-            infected = false;
-        }
-        else{
+    
+    public Food(boolean parentInfected){
+        int infectedChance = Greenfoot.getRandomNumber(1000);
+        
+        if(infectedChance == 666 || parentInfected){
             infected = true;
         }
+        else{
+            infected = false;
+        }
     }
-
     //The size of the food. Other classes *should* be able to see this.
     static int foodMass = 10;
     //GreenfootImage to store the picture to create.
@@ -73,7 +75,7 @@ public class Food extends Actor {
     public void reproduce(){
         //Uzair Ahmed
         for (int i = 0; i < reprodRate; i++){
-            world.addObject(new Food(), getX(), getY());
+            world.addObject(new Food(infected), getX(), getY());
         }
     }
     

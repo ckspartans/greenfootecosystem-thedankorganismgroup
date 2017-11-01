@@ -33,7 +33,7 @@ public class Mutation{
     public static void mutate(Parasite p){
         if (p.xp >= p.mutateRate){
             //mutate the parasite
-            int choenMutation = Greenfoot.getRandomNumber(3);
+            int chosenMutation = Greenfoot.getRandomNumber(3);
             if (chosenMutation == 1){ //attack
                 p.attBoost += 2;
             }
@@ -48,7 +48,7 @@ public class Mutation{
                 p.sightBoost += 10;
             }
             chosenMutation = Greenfoot.getRandomNumber(10000);
-            if (chosenMutation = 69){
+            if (chosenMutation == 69){
 
             }
         }

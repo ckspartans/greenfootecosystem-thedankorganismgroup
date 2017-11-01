@@ -103,7 +103,7 @@ public class Parasite extends Actor{
             host.die(); //kills the host
         }
         else{ //if the host is still alive
-            xp += (siphonRate); //convert the amount of health stolen from the host to xp for this parasite
+            xp += siphonRate(); //convert the amount of health stolen from the host to xp for this parasite
         }
     }
 

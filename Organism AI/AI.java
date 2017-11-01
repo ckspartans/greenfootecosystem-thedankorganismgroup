@@ -40,7 +40,7 @@ public class AI
         o.checkDefend();
         marcoPolo(o);
         whoDis(o);
-        
+
         //Parasite
         if (o.infected){
             o.parasite.update();
@@ -53,15 +53,15 @@ public class AI
         //Uzair Ahmed
 
         //If theres "the thing" near it.
-            if ((thingsNearby.size()) > 0){
-                //Move towards it.
-                o.move((int)(o.speed*1.5));
-                //Get the first instance of nearby Food.
-                Food nearest = (Food) thingsNearby.get(0);
-                //Turn towards it.
-                o.turnTowards(nearest.getX(),nearest.getY());
-            }
+        if ((thingsNearby.size()) > 0){
+            //Move towards it.
+            o.move((int)(o.speed*1.5));
+            //Get the first instance of nearby Food.
+            Food nearest = (Food) thingsNearby.get(0);
+            //Turn towards it.
+            o.turnTowards(nearest.getX(),nearest.getY());
         }
+
         //Consume any food you come across.
         o.consumeFood(foodBeingEaten);
     }
@@ -79,14 +79,14 @@ public class AI
         else if (posX >= 1000){
             posX = 1;
         }
-        
+
         if(posY <= 0){
             posY = 999;
         }
         else if (posY >= 1000){
             posY = 1;
         }
-        
+
         o.setLocation(posX, posY);
     }
 
@@ -208,10 +208,10 @@ public class AI
             o.getGroupThreatLevel(); //figure out how badass your squad is (not used rn)
             if (tatic == 0){ //basic group attack
                 //while((enemy != null) && (o.isTouchingEnemy == false)){
-                    //turn towards enemy (Uzair)
-                    o.turnTowards(enemy.getX(), enemy.getY());
-                    //move towards enemy (Uzair)
-                    o.move(o.speed*2);
+                //turn towards enemy (Uzair)
+                o.turnTowards(enemy.getX(), enemy.getY());
+                //move towards enemy (Uzair)
+                o.move(o.speed*2);
                 //}
 
                 //Prevents the organisms from overlapping each other
