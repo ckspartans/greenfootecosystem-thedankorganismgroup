@@ -86,14 +86,14 @@ public class AI
         if(posX <= 0){
             posX = 999;
         }
-        else if (posX >= 1000){
+        else if (posX >= 1080){
             posX = 1;
         }
 
         if(posY <= 0){
             posY = 999;
         }
-        else if (posY >= 1000){
+        else if (posY >= 1080){
             posY = 1;
         }
 
@@ -238,16 +238,7 @@ public class AI
         //Josh Dhori
         if(tatic == 0){//Option 0: RUN!!!!
             while((enemy != null)){
-                //turns away from bad dude
-                o.turnTowards((enemy.getX() + 180), (enemy.getY() + 180));
-                if(o.isAtEdge()){
-                    o.flee();
-                }
-                else if (o.getX() > 1000){
-                    o.flee();
-                }
-                //runs away
-                o.move(o.speed);
+                o.flee();
             }
         }
         else if (tatic == 1){ //Option 1: 1 vs 1 that dude

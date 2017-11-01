@@ -85,16 +85,16 @@ public class Food extends Actor {
 
         //If it is at the edge
         if(posX <= 0){
-            posX = 999;
+            posX = 1079;
         }
-        else if (posX >= 1000){
+        else if (posX >= 1080){
             posX = 1;
         }
         
         if(posY <= 0){
-            posY = 999;
+            posY = 1079;
         }
-        else if (posY >= 1000){
+        else if (posY >= 1080){
             posY = 1;
         }
         
