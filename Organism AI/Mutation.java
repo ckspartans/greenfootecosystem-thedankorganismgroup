@@ -29,10 +29,28 @@ public class Mutation{
             }
         }
     }
-    
+
     public static void mutate(Parasite p){
-        
+        if (p.xp >= p.mutateRate){
+            //mutate the parasite
+            int choenMutation = Greenfoot.getRandomNumber(3);
+            if (chosenMutation == 1){ //attack
+                p.attBoost += 2;
+            }
+            else if(chosenMutation == 2){ //tankiness
+                p.defBoost += 1;
+                p.maxHealthBoost += 5;
+            }
+            else if(chosenMutation == 3){ //speed
+                p.speedBoost += 2;
+            }
+            else if(chosenMutation == 0){ //sight range
+                p.sightBoost += 10;
+            }
+            chosenMutation = Greenfoot.getRandomNumber(10000);
+            if (chosenMutation = 69){
+
+            }
+        }
     }
-        
-    
-}
+}	
