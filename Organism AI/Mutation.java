@@ -28,4 +28,8 @@ public class Mutation{
             }
         }
     }
+    
+    public static void mutate(Parasite p){
+       
+    }
 }

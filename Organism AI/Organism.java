@@ -118,7 +118,7 @@ public class Organism extends AbstOrganism {
     //Draws the organism
     public void drawOrganism(Color c, double r){
         //Uzair Ahmed
-        
+
         int rad = (int)r;
         //Creates new greenfoot image
         GreenfootImage img = new GreenfootImage(rad, rad);
@@ -207,8 +207,6 @@ public class Organism extends AbstOrganism {
         }
     }
 
-
-
     //Creates two new organisms and kills the OG
     public void reproduce() {
         //Uzair Ahmed
@@ -230,7 +228,7 @@ public class Organism extends AbstOrganism {
 
         //kills parasite
         parasite.die();
-        
+
         //sets isalive to false
         isAlive = false;
         //removes organism from family
@@ -285,11 +283,12 @@ public class Organism extends AbstOrganism {
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~////~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~////~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
     //~~~~~~~~~~~~~~~~~~~~~~~~~~Dhori's Code~~~~~~~~~~~~~~~~~~~~~~~~~~////~~~~~~~~~~~~~~~~~~~~~~~~~~Dhori's Code~~~~~~~~~~~~~~~~~~~~~~~~~~////~~~~~~~~~~~~~~~~~~~~~~~~~~Dhori's Code~~~~~~~~~~~~~~~~~~~~~~~~~~//
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~////~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~////~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
-    
+
     public List getNearby(){
         List temp = getObjectsInRange(sight, Organism.class);
         return temp;
     }
+
     public void kill(Organism prey, boolean share){ //Calculates the energy gained & kills enemy
         if (prey.isAlive){ //if prey is alive
             if(share == true){ //sharing is true when they attack as a group
@@ -325,37 +324,13 @@ public class Organism extends AbstOrganism {
         }
     }
 
-    /*public boolean istouchingEnemy(Organism enemy){
-        if (isTouching(Organism.class) == true){ //if touching any organism
-            Organism touchingOrganism;
-
-            //creates a temp organism
-            if (isAlive){
-                List temp = getIntersectingObjects(Organism.class);
-                for (int i = 0 ; i < temp.size(); i++) {
-                    touchingOrganism = (Organism)temp.get(i);
-                    if (touchingOrganism == enemy){ //if the touching organism is the enemy
-                        System.out.println("touching enemy");
-
-                        return true;
-                    }
-                    else{
-                        System.out.println("touching organism " + i + "is NOT enemy");
-                        return false;
-                    }
-                }
-            }
-        }
-        return false;
-    }*/
-
     public void checkIfAttacking(){ //checks if anyone in the group is attacking someone
         //Josh Dhori, Edited by Uzair Ahmed
 
-        List tempList = getObjectsInRange(sight, Organism.class); //
+        List organismsInSight = getObjectsInRange(sight, Organism.class); //
         Organism tempOrg;
-        for(int j = 0; j > tempList.size(); j++){
-            tempOrg = (Organism)tempList.get(j);
+        for(int j = 0; j < organismsInSight.size(); j++){
+            tempOrg = (Organism)organismsInSight.get(j);
             if ((tempOrg.myFamily == myFamily) && (tempOrg.attackMode == true)){
                 Organism enemy = tempOrg.chosenEnemy;
                 chosenEnemy = enemy; //using their chosenEnemy value, which enemy is it?
@@ -370,7 +345,7 @@ public class Organism extends AbstOrganism {
     public void checkDefend(){ //Check if it is under attack
         List tempList = getObjectsInRange(sight, Organism.class); //creates a list of organisms in sight range
         Organism tempOrg; //creates a temp organism
-        for (int i = 0; i > tempList.size(); i++){
+        for (int i = 0; i < tempList.size(); i++){
             tempOrg = (Organism)tempList.get(i); //sets the temp organism to "i" organism in the sight range list
             if(tempOrg.attackMode == true){ //if that organism has it's attackMode set to true
                 if (tempOrg.chosenEnemy == this){ //if that organism is attacking this organism
@@ -395,31 +370,26 @@ public class Organism extends AbstOrganism {
 
         List organismClose = getObjectsInRange(sight, Organism.class); //gets a list of organisms nearby
         Organism tempOrg; //creates temp organism
-        for (int i = 0; i > myFamily.familyList.size(); i++){
+        for (int i = 0; i < organismClose; i++){
             tempOrg = (Organism)organismClose.get(i); //sets the temp org to "i" organism in the sight range
-            for (int j = 0; j > myFamily.familyList.size(); j++){ //goes through family list
-                if(tempOrg == (Organism)myFamily.familyList.get(j)){ //checks if the "i" organism is in the family list
-                    groupThreatLevel += tempOrg.threatLevel; //if it is add its attackLevel to groupThreatLevel
-                }
+            if(tempOrg.myFamily == myFamily){ //if the touching Organism's family is this organism's family
+                groupThreatLevel += tempOrg.threatLevel; //add its attackLevel to groupThreatLevel
             }
         }
         return groupThreatLevel;
     }
-    
+
     //Dhori's parasite code
     public void infect(){
         if(isTouching(Organism.class)){
             List touchingOrganisms = getIntersectingObjects(Organism.class);
             Organism touchingOrg;
-            
-            for (int i = 0; i > touchingOrganisms.size(); i++) {
+            for (int i = 0; i < touchingOrganisms.size(); i++) {
                 touchingOrg = (Organism)touchingOrganisms.get(i);
                 if((!touchingOrg.infected) && (parasite.infectionChance()) && (parasite.organismInfections) && (parasite.power >= touchingOrg.parasiteResistance)){
                     parasite.infect(touchingOrg);
                 }
             }
-            
         }
-        
     }
 }

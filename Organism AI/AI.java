@@ -21,7 +21,6 @@ public class AI
     //Gets a list of all organisms it touches
     static List touchingOrganisms;
 
-
     //This is the only called function by outside classes. This will choose what to think
     public static void think(Organism o, List fn, Food fbe, List on, List to, Boolean ito){
         //Uzair Ahmed
@@ -37,10 +36,16 @@ public class AI
         patrol(o, foodNearby);
         choosePrey(o);
         attackManager(o);
-        //o.checkIfAttacking();
+        o.checkIfAttacking();
         o.checkDefend();
         stayAwayFromEdges(o);
         whoDis(o);
+        
+        //Parasite
+        if (o.infected){
+            o.parasite.update();
+            o.infect();
+        }
     }
 
     //Moves in a random motion, until it sees food or organism in its perimeter.
@@ -48,24 +53,24 @@ public class AI
         //Uzair Ahmed
 
         //If theres "the thing" near it.
-            if ((thingsNearby.size()) > 0){
-                //Move towards it.
-                o.move(o.speed);
-                //Get the first instance of nearby Food.
-                Food nearest = (Food) thingsNearby.get(0);
-                //Turn towards it.
-                o.turnTowards(nearest.getX(),nearest.getY());
+        if ((thingsNearby.size()) > 0){
+            //Move towards it.
+            o.move(o.speed);
+            //Get the first instance of nearby Food.
+            Food nearest = (Food) thingsNearby.get(0);
+            //Turn towards it.
+            o.turnTowards(nearest.getX(),nearest.getY());
+        }
+        //If there's nothing near it
+        else{
+            //Move in original direction
+            o.move(o.speed);
+            //25% chance to turn
+            if (Greenfoot.getRandomNumber(100) < 25){
+                //within 45 degrees on either side of of the direction im facing
+                o.turn(Greenfoot.getRandomNumber(90)-45);
             }
-            //If there's nothing near it
-            else{
-                //Move in original direction
-                o.move(o.speed);
-                //25% chance to turn
-                if (Greenfoot.getRandomNumber(100) < 25){
-                    //within 45 degrees on either side of of the direction im facing
-                    o.turn(Greenfoot.getRandomNumber(90)-45);
-                }
-            }
+        }
         //Consume any food you come across.
         o.consumeFood(foodBeingEaten);
     }
@@ -146,7 +151,7 @@ public class AI
                 else if (touchingOrganism.myFamily != o.myFamily){
                     o.isTouchingEnemy = true;
                 }
-                
+
             }
         }
     }
@@ -204,10 +209,10 @@ public class AI
             o.getGroupThreatLevel(); //figure out how badass your squad is (not used rn)
             if (tatic == 0){ //basic group attack
                 //while((enemy != null) && (o.isTouchingEnemy == false)){
-                    //turn towards enemy (Uzair)
-                    o.turnTowards(enemy.getX(), enemy.getY());
-                    //move towards enemy (Uzair)
-                    o.move(o.speed);
+                //turn towards enemy (Uzair)
+                o.turnTowards(enemy.getX(), enemy.getY());
+                //move towards enemy (Uzair)
+                o.move(o.speed);
                 //}
 
                 //Prevents the organisms from overlapping each other
@@ -216,9 +221,6 @@ public class AI
             }
         }
     }
-    //else{
-    //    o.chosenEnemy = null;
-    //}
 
     public static void defend(Organism o, Organism enemy, int tatic){
         /*search for the amount of enemies in sight range (this needs to be constantly run so the defender knows if more enemies are coming)

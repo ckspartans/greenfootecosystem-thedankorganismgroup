@@ -80,9 +80,9 @@ public class Parasite extends Actor{
     }
 
     public  void siphonHealth(){
-        int h1 = host.health;
+        double h1 = host.health;
         host.health -= siphonRate();
-        int h2 = host.health;
+        double h2 = host.health;
 
         if(host.health <= 0){
             host.die();
