@@ -42,7 +42,7 @@ public class AI
         whoDis(o);
 
         //Parasite
-        if (o.infected){
+        if (o.infected == true){
             o.parasite.update();
             o.infect();
         }

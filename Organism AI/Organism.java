@@ -10,20 +10,21 @@ import java.util.*;
  */
 
 public class Organism extends AbstOrganism {
-    public Organism(double smh, double smxp, int ss, int sa, int sd, int ssi, Family fam, Color c, int nameNum, Parasite p) {
+    public Organism(Organism parent) {
         //XP Upgradeable Variables-------------------------------------------------
-        maxXp = smxp; //Max XP Storage
-        maxHealth = smh; //Maximum Health
-        speed = ss; //Nuff Said
-        att = sa; //Attack power
-        def = sd; //Defensive power
-        sight = ssi; //Sight
-        if (p != null) {
-            maxHealth += p.maxHealthBoost; //Maximum Health
-            speed += p.speedBoost; //Nuff Said
-            att += p.attBoost; //Attack power
-            def += sd + p.defBoost; //Defensive power
-            sight += ssi + p.sightBoost; //Sight
+        maxXp = parent.maxXp; //Max XP Storage
+        maxHealth = parent.maxHealth; //Maximum Health
+        speed = parent.speed; //Nuff Said
+        att = parent.att; //Attack power
+        def = parent.def; //Defensive power
+        sight = parent.sight; //Sight
+        if (parent.infected == true) {
+            infected = true;
+            maxHealth += parent.parasite.maxHealthBoost; //Maximum Health
+            speed += parent.parasite.speedBoost; //Nuff Said
+            att += parent.parasite.attBoost; //Attack power
+            def += parent.parasite.defBoost; //Defensive power
+            sight += parent.parasite.sightBoost; //Sight
         }
 
         //"Live" Variables. ----------------------------------------------------
@@ -35,17 +36,46 @@ public class Organism extends AbstOrganism {
         attackMode = false;
         isAlpha = false;
         threatLevel = (maxHealth + att + def + speed);
+        infected = false;
+
+        //Team Variables
+        myFamily = parent.myFamily;
+        myFamily.addOrganism(this);
+        familyColor = parent.familyColor;
+        myColor = familyColor;
+
+        //Declares world class
+        MainWorld world;
+
+    }
+
+    public Organism(double smh, int smx, int ss, int sa, int sd, int ssi, Family fam , Color c){
+        maxXp = smx; //Max XP Storage
+        maxHealth = smh; //Maximum Health
+        speed = ss; //Nuff Said
+        att = sa; //Attack power
+        def = sd; //Defensive power
+        sight = ssi; //Sight
+
+        //"Live" Variables. ----------------------------------------------------
+        age = 0; //Time
+        health = maxHealth; //Out of maxHealth
+        xp = 0; //Out of maxXp
+        radius = (health*2);
+        isAlive = true;
+        attackMode = false;
+        isAlpha = false;
+        threatLevel = (maxHealth + att + def + speed);
+        infected = false;
 
         //Team Variables
         myFamily = fam;
         myFamily.addOrganism(this);
         familyColor = c;
         myColor = familyColor;
-        name = nameNum; //Debugging varaiable
 
         //Declares world class
         MainWorld world;
-
     }
 
     public void act(){
@@ -98,6 +128,9 @@ public class Organism extends AbstOrganism {
         GreenfootImage img = new GreenfootImage(rad, rad);
         //Sets the color, draws an oval, and fills it.
         img.setColor(c);
+        if(infected == true) {
+            img.setColor(Color.GREEN);
+        }
         img.drawOval(0,0,rad,rad);
         img.fillOval(0,0,rad,rad);
         //Sets the objects image to the created image.
@@ -188,8 +221,8 @@ public class Organism extends AbstOrganism {
         //Uzair Ahmed
 
         //Creates a temporary organism with the same traits as its parent.
-        Organism tempOrg1 = new Organism(maxHealth, xp, speed, att, def, sight, myFamily, familyColor, name+1, this.parasite);
-        Organism tempOrg2 = new Organism(maxHealth, xp, speed, att, def, sight, myFamily, familyColor, name+2, this.parasite);
+        Organism tempOrg1 = new Organism(this);
+        Organism tempOrg2 = new Organism(this);
 
         //Adds it to myWorld
         world.addObject(tempOrg1,(getX()+Greenfoot.getRandomNumber(30)-15),(getY()+Greenfoot.getRandomNumber(30)-15));
@@ -201,9 +234,10 @@ public class Organism extends AbstOrganism {
     //Kills the Organism
     public void die() {
         //Uzair Ahmed
-
         //kills parasite
-        parasite.die();
+        if (parasite != null){
+            parasite.die();
+        }
 
         //sets isalive to false
         isAlive = false;
@@ -290,7 +324,7 @@ public class Organism extends AbstOrganism {
     public void hit(Organism prey, boolean attackOrDefend){ //hits enemy
         //Josh Dhori
         if (prey.isAlive) {//if prey is alive
-            if (isTouchingEnemy){ //if touching the X organism in totalEnemy list
+            if (intersects(prey) == true){ //if touching the X organism in totalEnemy list
                 if ((att - prey.def) > 0){ //if your attack is greater than their defense
                     prey.health -= (att - prey.def); //hits selected enemy for your attack - enemy defense
                 }
