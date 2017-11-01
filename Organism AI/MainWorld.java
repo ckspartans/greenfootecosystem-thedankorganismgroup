@@ -78,22 +78,22 @@ public class MainWorld extends World {
 
         //Adds player to world
         addObject(player1, 200, 200);
-        addObject(player2, 800, 200);
-        addObject(player3, 200, 800);
-        addObject(player4, 800, 800);
+        addObject(player2, 880, 200);
+        addObject(player3, 200, 880);
+        addObject(player4, 880, 880);
 
         //Adds the family to the world
-        addObject(fam1, 10,10);
-        addObject(fam2, 990,10);
-        addObject(fam3, 10,990);
-        addObject(fam4, 990,990);
+        addObject(fam1, 1780,1060);
+        addObject(fam2, 1820,1060);
+        addObject(fam3, 1860,1060);
+        addObject(fam4, 1900,1060);
 
         //Runs UI method
         openUI();
 
         // Spawns the initial food
         for (int i = 0; i < startingFood; i++) {
-            addObject(new Food(), Greenfoot.getRandomNumber(1000), Greenfoot.getRandomNumber(1000));
+            addObject(new Food(), Greenfoot.getRandomNumber(1080), Greenfoot.getRandomNumber(1080));
         }
     }
 
