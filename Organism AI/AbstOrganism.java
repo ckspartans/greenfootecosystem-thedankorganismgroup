@@ -8,33 +8,43 @@ import java.util.*;
  * @author Uzair Ahmed
  * @author Ethan Gale
  * @author Josh Dhori
- * @version 1.0
+ * @version 1.1
  */
 public abstract class AbstOrganism extends Actor {
 
     //"Live" Variables
     public int age; //Time in seconds
-    public int health; //Health
-    public int xp; //XP - allows for RPG-like store for mutation
-    public int radius; //Based off health, to visually see health
+    public double health; //Health
+    public double xp; //XP - allows for RPG-like store for mutation
+    public double radius; //Based off health, to visually see health
+    public Boolean attackMode; //if the organism is attacking
     public Boolean isAlive;
+    public Boolean isTouchingEnemy;
     public Boolean isAlpha;
-
+    public Boolean infected;
+    
+    public int attackTatic; //which attackTatic to use
+    public double threatLevel;
+    public Organism chosenEnemy;
+    public Parasite parasite;
+    
     //XP Upgradeable Variables
-    public int maxHealth; //Maximum Health
-    public int maxXp; //Max XP Storage
+    public double maxHealth; //Maximum Health
+    public double maxXp; //Max XP Storage
     public int speed; //Nuff Said
     public int att; //Attck power
     public int def; //defensive power
     public int sight; //how far it can see
+    public int parasiteResistance;
 
-    Family myFamily;
-    public Color familyColor;
-    public Color myColor;
+    Family myFamily; //Variable to FamilyReference
+    public Color familyColor; //Color Variable at spawn
+    public Color myColor; //current color
+
+    public int name;
 
     MainWorld world;
-
-    public abstract void drawOrganism(Color c, int rad);
+    public abstract void drawOrganism(Color c, double rad);
 
     public abstract void consumeFood(Food foodBeingEaten);
 
@@ -48,5 +58,4 @@ public abstract class AbstOrganism extends Actor {
     public abstract int getAge();
 
     public abstract void die();
-
 }

@@ -9,24 +9,38 @@ import java.util.*;
 
 public class Button extends Actor
 {
-    GreenfootImage img;
-    MainWorld world;
-    PauseWorld pause;
-    PauseButton p;
+    public GreenfootImage img;
+    public MainWorld game;
+    public boolean active = false;
 
-    public Button(MainWorld w, int width, int height) {
+    public Button(int width, int height, MainWorld w) {
         img = new GreenfootImage(width, height);
         img.setColor(new Color(200,200,200));
         img.fill();
         setImage(img); //assigning the color and size of the square
-        world = w; // creates a reference to the mainworld
+        game = w; // setting the reference to the world
+
     }
 
     public void act() 
     {
         // Add your action code here.
-        if(Greenfoot.mouseClicked(this)) {
-            //onclick method
-        }
+        checkActive();
     }    
+
+    public void checkActive() {
+        if(Greenfoot.mouseClicked(this)) {
+            active =  true;
+        }
+    }
+
+    public boolean setActive(boolean n) {
+        active = n;
+        return active;
+    }
+
+    public boolean getActive() {
+        return active;
+    }
+
 }
