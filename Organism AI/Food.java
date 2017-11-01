@@ -42,7 +42,7 @@ public class Food extends Actor {
         if (spawning){
             spawnShift();
         }
-        if (Greenfoot.getRandomNumber(750) == 1){
+        if (Greenfoot.getRandomNumber(500) == 1){
             reproduce();
         }
         marcoPolo();

@@ -20,6 +20,7 @@ public class Organism extends AbstOrganism {
         sight = parent.sight; //Sight
         if (parent.infected == true) {
             infected = true;
+            new Parasite (this, parent.parasite);
             maxHealth += parent.parasite.maxHealthBoost; //Maximum Health
             speed += parent.parasite.speedBoost; //Nuff Said
             att += parent.parasite.attBoost; //Attack power
@@ -128,11 +129,13 @@ public class Organism extends AbstOrganism {
         GreenfootImage img = new GreenfootImage(rad, rad);
         //Sets the color, draws an oval, and fills it.
         img.setColor(c);
-        if(infected == true) {
-            img.setColor(Color.GREEN);
-        }
         img.drawOval(0,0,rad,rad);
         img.fillOval(0,0,rad,rad);
+        if(infected == true) {
+            img.setColor(Color.GREEN);
+            img.fillOval(0,0,(rad-5),(rad-5));
+        }
+
         //Sets the objects image to the created image.
         setImage(img);
     }
