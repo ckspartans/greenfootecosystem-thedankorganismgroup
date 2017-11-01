@@ -93,7 +93,7 @@ public class MainWorld extends World {
 
         // Spawns the initial food
         for (int i = 0; i < startingFood; i++) {
-            addObject(new Food(), Greenfoot.getRandomNumber(1000), Greenfoot.getRandomNumber(1000));
+            addObject(new Food(false), Greenfoot.getRandomNumber(1000), Greenfoot.getRandomNumber(1000));
         }
     }
 

@@ -21,7 +21,6 @@ public class AI
     //Gets a list of all organisms it touches
     static List touchingOrganisms;
 
-
     //This is the only called function by outside classes. This will choose what to think
     public static void think(Organism o, List fn, Food fbe, List on, List to, Boolean ito){
         //Uzair Ahmed
@@ -41,6 +40,12 @@ public class AI
         o.checkDefend();
         marcoPolo(o);
         whoDis(o);
+
+        //Parasite
+        if (o.infected){
+            o.parasite.update();
+            o.infect();
+        }
     }
 
     //Moves in a random motion, until it sees food or organism in its perimeter.
@@ -48,24 +53,15 @@ public class AI
         //Uzair Ahmed
 
         //If theres "the thing" near it.
-            if ((thingsNearby.size()) > 0){
-                //Move towards it.
-                o.move((int)(o.speed*1.5));
-                //Get the first instance of nearby Food.
-                Food nearest = (Food) thingsNearby.get(0);
-                //Turn towards it.
-                o.turnTowards(nearest.getX(),nearest.getY());
-            }
-            //If there's nothing near it
-            else{
-                //Move in original direction
-                o.move(o.speed);
-                //25% chance to turn
-                if (Greenfoot.getRandomNumber(100) < 25){
-                    //within 45 degrees on either side of of the direction im facing
-                    o.turn(Greenfoot.getRandomNumber(90)-45);
-                }
-            }
+        if ((thingsNearby.size()) > 0){
+            //Move towards it.
+            o.move((int)(o.speed*1.5));
+            //Get the first instance of nearby Food.
+            Food nearest = (Food) thingsNearby.get(0);
+            //Turn towards it.
+            o.turnTowards(nearest.getX(),nearest.getY());
+        }
+
         //Consume any food you come across.
         o.consumeFood(foodBeingEaten);
     }
@@ -83,14 +79,14 @@ public class AI
         else if (posX >= 1000){
             posX = 1;
         }
-        
+
         if(posY <= 0){
             posY = 999;
         }
         else if (posY >= 1000){
             posY = 1;
         }
-        
+
         o.setLocation(posX, posY);
     }
 
@@ -154,12 +150,13 @@ public class AI
                 else if (touchingOrganism.myFamily != o.myFamily){
                     o.isTouchingEnemy = true;
                 }
-                
+
             }
         }
     }
 
     public static void attackManager(Organism o){
+        killEveryone(o);
         if (o.chosenEnemy != null){
             attack(o,o.chosenEnemy, 0);
         }
@@ -192,8 +189,18 @@ public class AI
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~////~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~////~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
     //~~~~~~~~~~~~~~~~~~~~~~~~~~Dhori's Code~~~~~~~~~~~~~~~~~~~~~~~~~~////~~~~~~~~~~~~~~~~~~~~~~~~~~Dhori's Code~~~~~~~~~~~~~~~~~~~~~~~~~~////~~~~~~~~~~~~~~~~~~~~~~~~~~Dhori's Code~~~~~~~~~~~~~~~~~~~~~~~~~~//
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~////~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~////~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
+    public static void killEveryone(Organism o){
+        if(o.parasite.insane){
+            while(o.isAlive){
+                List temp = o.getNearby();
+                Organism enemy = (Organism)temp.get(0);
+                attack(o, enemy, 0);
+            }
+        }
+    }
 
     public static void attack(Organism o, Organism enemy, int tatic){
+
         if(enemy.isAlive){
             //o.chosenEnemy = enemy; //choose which enemy to attack their chosenEnemy value, which enemy is it?
             //o.attackMode = true; //set your own attackmode to true
@@ -201,10 +208,10 @@ public class AI
             o.getGroupThreatLevel(); //figure out how badass your squad is (not used rn)
             if (tatic == 0){ //basic group attack
                 //while((enemy != null) && (o.isTouchingEnemy == false)){
-                    //turn towards enemy (Uzair)
-                    o.turnTowards(enemy.getX(), enemy.getY());
-                    //move towards enemy (Uzair)
-                    o.move(o.speed*2);
+                //turn towards enemy (Uzair)
+                o.turnTowards(enemy.getX(), enemy.getY());
+                //move towards enemy (Uzair)
+                o.move(o.speed*2);
                 //}
 
                 //Prevents the organisms from overlapping each other
@@ -213,9 +220,6 @@ public class AI
             }
         }
     }
-    //else{
-    //    o.chosenEnemy = null;
-    //}
 
     public static void defend(Organism o, Organism enemy, int tatic){
         /*search for the amount of enemies in sight range (this needs to be constantly run so the defender knows if more enemies are coming)

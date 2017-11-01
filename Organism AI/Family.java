@@ -62,7 +62,7 @@ public class Family extends Actor
 
     public int getAvgGroupPower(){
         int avgGroupAtt = 0;
-        for (int i = 0;i < (familyList.size()); i++){
+        for (int i = 0; i < (familyList.size()); i++){
             Organism tempOrg = (Organism)familyList.get(i);
             avgGroupAtt += tempOrg.att;
         }
