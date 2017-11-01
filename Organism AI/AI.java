@@ -38,7 +38,7 @@ public class AI
         attackManager(o);
         o.checkIfAttacking();
         o.checkDefend();
-        stayAwayFromEdges(o);
+        marcoPolo(o);
         whoDis(o);
         
         //Parasite
@@ -53,22 +53,13 @@ public class AI
         //Uzair Ahmed
 
         //If theres "the thing" near it.
-        if ((thingsNearby.size()) > 0){
-            //Move towards it.
-            o.move(o.speed);
-            //Get the first instance of nearby Food.
-            Food nearest = (Food) thingsNearby.get(0);
-            //Turn towards it.
-            o.turnTowards(nearest.getX(),nearest.getY());
-        }
-        //If there's nothing near it
-        else{
-            //Move in original direction
-            o.move(o.speed);
-            //25% chance to turn
-            if (Greenfoot.getRandomNumber(100) < 25){
-                //within 45 degrees on either side of of the direction im facing
-                o.turn(Greenfoot.getRandomNumber(90)-45);
+            if ((thingsNearby.size()) > 0){
+                //Move towards it.
+                o.move((int)(o.speed*1.5));
+                //Get the first instance of nearby Food.
+                Food nearest = (Food) thingsNearby.get(0);
+                //Turn towards it.
+                o.turnTowards(nearest.getX(),nearest.getY());
             }
         }
         //Consume any food you come across.
@@ -76,19 +67,27 @@ public class AI
     }
 
     //Turn around if organism is at the edge of the map.
-    public static void stayAwayFromEdges(Organism o){
+    public static void marcoPolo(Organism o){
         //Uzair Ahmed
+        int posX = o.getX();
+        int posY = o.getY();
 
         //If it is at the edge
-        if(o.isAtEdge()){
-            //Turn around
-            o.flee();
+        if(posX <= 0){
+            posX = 999;
         }
-        //If its at the egde of the UI
-        else if (o.getX() >= 1000){
-            //Turn Around
-            o.flee();
+        else if (posX >= 1000){
+            posX = 1;
         }
+        
+        if(posY <= 0){
+            posY = 999;
+        }
+        else if (posY >= 1000){
+            posY = 1;
+        }
+        
+        o.setLocation(posX, posY);
     }
 
     //Moves the family together
@@ -209,10 +208,10 @@ public class AI
             o.getGroupThreatLevel(); //figure out how badass your squad is (not used rn)
             if (tatic == 0){ //basic group attack
                 //while((enemy != null) && (o.isTouchingEnemy == false)){
-                //turn towards enemy (Uzair)
-                o.turnTowards(enemy.getX(), enemy.getY());
-                //move towards enemy (Uzair)
-                o.move(o.speed);
+                    //turn towards enemy (Uzair)
+                    o.turnTowards(enemy.getX(), enemy.getY());
+                    //move towards enemy (Uzair)
+                    o.move(o.speed*2);
                 //}
 
                 //Prevents the organisms from overlapping each other

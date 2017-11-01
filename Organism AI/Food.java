@@ -2,16 +2,17 @@ import greenfoot.*; // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.*;
 /**
  * Food for the organism to eat.
- *
- * CHANGLOG Oct 10, 2017
- *  - Added trippy movement to food
- *  - Added pseudocode
-
  * @author Uzair Ahmed
- * @version 0.1.4
+ * @version 1.0
  */
 
 public class Food extends Actor {
+    MainWorld world;
+
+    int reprodRate = 2;
+
+    boolean spawning = true;
+
     public boolean infected;
     public Food(int rand){
         if(rand != 100){
@@ -29,8 +30,21 @@ public class Food extends Actor {
 
     public void act()
     {
+        //Uzair Ahmed
+
+        if (world == null){
+            world = (MainWorld) getWorld();
+        }
+
         //Draws food.
         drawFood(foodMass, img);
+        if (spawning){
+            spawnShift();
+        }
+        if (Greenfoot.getRandomNumber(750) == 1){
+            reproduce();
+        }
+        marcoPolo();
     }
 
     //Draws the food
@@ -56,4 +70,41 @@ public class Food extends Actor {
         setImage(i);
     }
 
+    public void reproduce(){
+        //Uzair Ahmed
+        for (int i = 0; i < reprodRate; i++){
+            world.addObject(new Food(), getX(), getY());
+        }
+    }
+    
+    public void marcoPolo(){
+        //Uzair Ahmed
+        int posX = getX();
+        int posY = getY();
+
+        //If it is at the edge
+        if(posX <= 0){
+            posX = 999;
+        }
+        else if (posX >= 1000){
+            posX = 1;
+        }
+        
+        if(posY <= 0){
+            posY = 999;
+        }
+        else if (posY >= 1000){
+            posY = 1;
+        }
+        
+        setLocation(posX, posY);
+    }
+
+    public void spawnShift(){
+        //Uzair Ahmed
+
+        setRotation(Greenfoot.getRandomNumber(360));
+        move((Greenfoot.getRandomNumber(30)+50));
+        spawning = false;
+    }
 }

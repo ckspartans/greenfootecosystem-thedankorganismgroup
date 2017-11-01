@@ -163,7 +163,9 @@ public class Organism extends AbstOrganism {
 
         //Updates the radius to match the size
         radius = health/5;
-
+        if(!attackMode){
+            health += 0.1;
+        }
         threatLevel = (maxHealth + att + def + speed);
 
         //--------------------LIMITERS---------------------
@@ -206,6 +208,7 @@ public class Organism extends AbstOrganism {
             def = world.maxBuyableDef;
         }
     }
+
 
     //Creates two new organisms and kills the OG
     public void reproduce() {
@@ -293,7 +296,7 @@ public class Organism extends AbstOrganism {
         if (prey.isAlive){ //if prey is alive
             if(share == true){ //sharing is true when they attack as a group
                 double energyGain = (prey.maxHealth/(myFamily.familyList.size())); //int energy gain is the xp gained by each team member (prey max health divided by amount of team mates)
-                for(int i = 0; i > (myFamily.familyList.size()); i++){ //distributes the energy gain between team members
+                for(int i = 0; i < (myFamily.familyList.size()); i++){ //distributes the energy gain between team members
                     Organism tempOrg; //creates a temp organism
                     tempOrg = (Organism)(myFamily.familyList.get(i)); //sets that temp organism as the "I" member of the family list
                     tempOrg.xp += energyGain/10; //adds xp to the member
@@ -370,7 +373,7 @@ public class Organism extends AbstOrganism {
 
         List organismClose = getObjectsInRange(sight, Organism.class); //gets a list of organisms nearby
         Organism tempOrg; //creates temp organism
-        for (int i = 0; i < organismClose; i++){
+        for (int i = 0; i < organismClose.size(); i++){
             tempOrg = (Organism)organismClose.get(i); //sets the temp org to "i" organism in the sight range
             if(tempOrg.myFamily == myFamily){ //if the touching Organism's family is this organism's family
                 groupThreatLevel += tempOrg.threatLevel; //add its attackLevel to groupThreatLevel

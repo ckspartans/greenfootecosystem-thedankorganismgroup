@@ -1,10 +1,14 @@
 #BlueJ class context
 comment0.target=Food
-comment0.text=\r\n\ Food\ for\ the\ organism\ to\ eat.\r\n\r\n\ CHANGLOG\ Oct\ 10,\ 2017\r\n\ \ -\ Added\ trippy\ movement\ to\ food\r\n\ \ -\ Added\ pseudocode\r\n\r\n\ @author\ Uzair\ Ahmed\r\n\ @version\ 0.1.4\r\n
-comment1.params=rand
-comment1.target=Food(int)
-comment2.params=
-comment2.target=void\ act()
-comment3.params=m\ i
-comment3.target=void\ drawFood(int,\ greenfoot.GreenfootImage)
-numComments=4
+comment0.text=\r\n\ Food\ for\ the\ organism\ to\ eat.\r\n\ @author\ Uzair\ Ahmed\r\n\ @version\ 1.0\r\n
+comment1.params=
+comment1.target=void\ act()
+comment2.params=m\ i
+comment2.target=void\ drawFood(int,\ greenfoot.GreenfootImage)
+comment3.params=
+comment3.target=void\ reproduce()
+comment4.params=
+comment4.target=void\ marcoPolo()
+comment5.params=
+comment5.target=void\ spawnShift()
+numComments=6

@@ -77,10 +77,10 @@ public class MainWorld extends World {
         player4 = new Organism(startingMaxHealth, startingMaxXp, startingSpeed, startingAttackPower, startingDefensePower, startingSight, fam4, Color.YELLOW, 4);
 
         //Adds player to world
-        addObject(player1, 10, 10);
-        addObject(player2, 990, 10);
-        addObject(player3, 10, 990);
-        addObject(player4, 990, 990);
+        addObject(player1, 200, 200);
+        addObject(player2, 800, 200);
+        addObject(player3, 200, 800);
+        addObject(player4, 800, 800);
 
         //Adds the family to the world
         addObject(fam1, 10,10);
@@ -113,9 +113,6 @@ public class MainWorld extends World {
 
     public void act() {
         checkButtons();
-        if (Greenfoot.getRandomNumber(100)<10){
-            addObject(new Food(Greenfoot.getRandomNumber(1000)), Greenfoot.getRandomNumber(1000), Greenfoot.getRandomNumber(1000));
-        }
         //10% chance of new food being spawned
     }
 
