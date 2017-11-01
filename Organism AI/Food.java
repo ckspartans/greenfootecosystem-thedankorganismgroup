@@ -42,7 +42,7 @@ public class Food extends Actor {
         if (spawning){
             spawnShift();
         }
-        if (Greenfoot.getRandomNumber(500) == 1){
+        if (Greenfoot.getRandomNumber(1000) == 1){
             reproduce();
         }
         marcoPolo();
@@ -60,7 +60,7 @@ public class Food extends Actor {
 
         //Set the color to black, draw an empty oval, fill the oval
         if (infected){
-            i.setColor(Color.GREEN);
+            i.setColor(Color.WHITE);
         }
         else if (!infected){
             i.setColor(Color.BLACK);
