@@ -61,6 +61,16 @@ public class AI
             //Turn towards it.
             o.turnTowards(nearest.getX(),nearest.getY());
         }
+        else{
+            //Move in original direction
+            o.move(o.speed);
+            
+            //25% chance to turn
+            if (Greenfoot.getRandomNumber(100) < 25){
+                //within 45 degrees on either side of of the direction im facing
+                o.turn(Greenfoot.getRandomNumber(90)-45);
+            }
+        }
 
         //Consume any food you come across.
         o.consumeFood(foodBeingEaten);
@@ -190,6 +200,7 @@ public class AI
     //~~~~~~~~~~~~~~~~~~~~~~~~~~Dhori's Code~~~~~~~~~~~~~~~~~~~~~~~~~~////~~~~~~~~~~~~~~~~~~~~~~~~~~Dhori's Code~~~~~~~~~~~~~~~~~~~~~~~~~~////~~~~~~~~~~~~~~~~~~~~~~~~~~Dhori's Code~~~~~~~~~~~~~~~~~~~~~~~~~~//
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~////~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~////~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
     public static void killEveryone(Organism o){
+        //Josh Dhori
         if(o.parasite.insane){
             while(o.isAlive){
                 List temp = o.getNearby();
@@ -200,7 +211,7 @@ public class AI
     }
 
     public static void attack(Organism o, Organism enemy, int tatic){
-
+        //Josh Dhori
         if(enemy.isAlive){
             //o.chosenEnemy = enemy; //choose which enemy to attack their chosenEnemy value, which enemy is it?
             //o.attackMode = true; //set your own attackmode to true
@@ -222,17 +233,7 @@ public class AI
     }
 
     public static void defend(Organism o, Organism enemy, int tatic){
-        /*search for the amount of enemies in sight range (this needs to be constantly run so the defender knows if more enemies are coming)
-         *check the enemies coming at you (threat level and position)
-         *determine the best strategy to use
-         *Tatics:
-         *A) Run like hell away
-         *B) Attack closest enemy //NEW TATIC 1vs1
-         *C) Attack enemies based on position, threat level //NEW TATIC team vs that guy
-         *
-         *keep track of all the energy they gain by eating the bodies
-         *eat the bodies (if they win at the end)
-         */
+        //Josh Dhori
         if(tatic == 0){//Option 0: RUN!!!!
             while((enemy != null)){
                 //turns away from bad dude

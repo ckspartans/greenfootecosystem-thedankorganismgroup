@@ -31,11 +31,13 @@ public class Parasite extends Actor{
     MainWorld world;
 
     public Parasite(Organism o){
+        //Josh Dhori
         //Used when host is infected by a plant
         host = o;
     }
 
     public Parasite(Organism o, int bmh, int bs, int ba, int bd, int bsi, int mr, int p, int sr, int ic, boolean crazy, boolean oi){
+        //Josh Dhori
         //This is used when the host infects another organism
 
         //Base Variables
@@ -59,6 +61,7 @@ public class Parasite extends Actor{
     }
 
     public void update(){ //updates the parasite
+        //Josh Dhori
         siphonHealth(); //siphons the health from host
         if (xp >= mutateRate){ //if xp has reached mutation threshold then mutate
             mutate();
@@ -66,17 +69,20 @@ public class Parasite extends Actor{
     }
 
     public  void infect(Organism o){ //spawns a parasite in "o" organism
+        //Josh Dhori
         //if the organism reproduces or touches another organism parasite has a chance to infect
         o.parasite = new Parasite(o, maxHealthBoost, speedBoost, attBoost, defBoost, sightBoost, mutateRate, power, baseSiphonRate, infectChance, insane, organismInfections); //sets the parasite in "o" organism to be a duplicate to this
         o.parasite.mutate(); //mutates the new parasite
     }
 
     public void mutate(){
+        //Josh Dhori
         xp = 0; //sets xp to 0
         Mutation.mutate(this); //runs Ethan's parasite mutation code
     }
 
     public int siphonRate(){ //calculates the siphon rate of this parasite
+        //Josh Dhori
         //Laura needs to edit these values to balance it
         int rate = baseSiphonRate; //This returns "rate" which is orginally set to base siphon rate 
         rate += (attBoost/10); //adds attBoost / 10 to rate
@@ -98,6 +104,7 @@ public class Parasite extends Actor{
     }
 
     public  void siphonHealth(){ //main function that siphons the health of it's host organism
+        //Josh Dhori
         host.health -= siphonRate(); //subtract this parasite's siphonRate from it's host's health
         if(host.health <= 0){ //if the host's health is below or equal 0
             host.die(); //kills the host
@@ -108,12 +115,14 @@ public class Parasite extends Actor{
     }
 
     public  void die(){ //parasite die function
+        //Josh Dhori
         host.infected = false; //switches the host infected boolean to false
         host.parasite = null; //sets the host's parasite to null (no parasite)
         world.removeObject(this); //remove this object from world
     }
 
     public void boost(boolean mhb, boolean sb,boolean ab,boolean db,boolean sib){ //boost functions
+        //Josh Dhori
         /*
          * This runs when Ethan mutates the parasite
          * Once the parasite mutates, 
@@ -137,6 +146,7 @@ public class Parasite extends Actor{
     }
 
     public boolean infectionChance(){ //chance for the organism to infect another organism
+        //Josh Dhori
         /*
          * If this parasite can infect other organisms
          * then this parasite has a (infectChance)% to infect that organism

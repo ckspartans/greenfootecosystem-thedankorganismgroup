@@ -288,11 +288,13 @@ public class Organism extends AbstOrganism {
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~////~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~////~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
 
     public List getNearby(){
+        //Josh Dhori
         List temp = getObjectsInRange(sight, Organism.class);
         return temp;
     }
 
     public void kill(Organism prey, boolean share){ //Calculates the energy gained & kills enemy
+        //Josh Dhori
         if (prey.isAlive){ //if prey is alive
             if(share == true){ //sharing is true when they attack as a group
                 double energyGain = (prey.maxHealth/(myFamily.familyList.size())); //int energy gain is the xp gained by each team member (prey max health divided by amount of team mates)
@@ -313,6 +315,7 @@ public class Organism extends AbstOrganism {
     }
 
     public void hit(Organism prey, boolean attackOrDefend){ //hits enemy
+        //Josh Dhori
         if (prey.isAlive) {//if prey is alive
             if (isTouchingEnemy){ //if touching the X organism in totalEnemy list
                 if ((att - prey.def) > 0){ //if your attack is greater than their defense
@@ -346,6 +349,7 @@ public class Organism extends AbstOrganism {
     }
 
     public void checkDefend(){ //Check if it is under attack
+        //Josh Dhori
         List tempList = getObjectsInRange(sight, Organism.class); //creates a list of organisms in sight range
         Organism tempOrg; //creates a temp organism
         for (int i = 0; i < tempList.size(); i++){
@@ -369,6 +373,7 @@ public class Organism extends AbstOrganism {
     }
 
     public int getGroupThreatLevel(){ //gets family threat level based on if YOU see THEM
+        //Josh Dhori
         int groupThreatLevel = 0; //group threat level
 
         List organismClose = getObjectsInRange(sight, Organism.class); //gets a list of organisms nearby
@@ -384,6 +389,7 @@ public class Organism extends AbstOrganism {
 
     //Dhori's parasite code
     public void infect(){
+        //Josh Dhori
         if(isTouching(Organism.class)){
             List touchingOrganisms = getIntersectingObjects(Organism.class);
             Organism touchingOrg;
