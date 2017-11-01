@@ -87,7 +87,7 @@ public class Organism extends AbstOrganism {
     //Draws the organism
     public void drawOrganism(Color c, double r){
         //Uzair Ahmed
-        
+
         int rad = (int)r;
         //Creates new greenfoot image
         GreenfootImage img = new GreenfootImage(rad, rad);
@@ -132,7 +132,9 @@ public class Organism extends AbstOrganism {
 
         //Updates the radius to match the size
         radius = health/5;
-
+        if(!attackMode){
+            health += 0.1;
+        }
         threatLevel = (maxHealth + att + def + speed);
 
         //--------------------LIMITERS---------------------
@@ -175,7 +177,6 @@ public class Organism extends AbstOrganism {
             def = world.maxBuyableDef;
         }
     }
-
 
 
     //Creates two new organisms and kills the OG
