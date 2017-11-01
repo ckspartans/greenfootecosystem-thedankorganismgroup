@@ -64,7 +64,7 @@ public class AI
         else{
             //Move in original direction
             o.move(o.speed);
-            
+
             //25% chance to turn
             if (Greenfoot.getRandomNumber(100) < 25){
                 //within 45 degrees on either side of of the direction im facing
@@ -201,11 +201,13 @@ public class AI
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~////~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~////~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
     public static void killEveryone(Organism o){
         //Josh Dhori
-        if(o.parasite.insane){
-            while(o.isAlive){
-                List temp = o.getNearby();
-                Organism enemy = (Organism)temp.get(0);
-                attack(o, enemy, 0);
+        if( o.parasite != null){
+            if(o.parasite.insane){
+                while(o.isAlive){
+                    List temp = o.getNearby();
+                    Organism enemy = (Organism)temp.get(0);
+                    attack(o, enemy, 0);
+                }
             }
         }
     }

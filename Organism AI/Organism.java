@@ -10,46 +10,21 @@ import java.util.*;
  */
 
 public class Organism extends AbstOrganism {
-    public Organism(double smh, double smxp, int ss, int sa, int sd, int ssi, Family fam, Color c, int nameNum) {
+    public Organism(double smh, double smxp, int ss, int sa, int sd, int ssi, Family fam, Color c, int nameNum, Parasite p) {
         //XP Upgradeable Variables-------------------------------------------------
-        maxHealth = smh; //Maximum Health
         maxXp = smxp; //Max XP Storage
+        maxHealth = smh; //Maximum Health
         speed = ss; //Nuff Said
         att = sa; //Attack power
         def = sd; //Defensive power
         sight = ssi; //Sight
-
-        //"Live" Variables. ----------------------------------------------------
-        age = 0; //Time
-        health = maxHealth; //Out of maxHealth
-        xp = 0; //Out of maxXp
-        radius = (health/10);
-        isAlive = true;
-        attackMode = false;
-        isAlpha = false;
-        isTouchingEnemy = false;
-        threatLevel = (maxHealth + att + def + speed);
-
-        //Team Variables
-        myFamily = fam;
-        myFamily.addOrganism(this);
-        familyColor = c;
-        myColor = familyColor;
-        name = nameNum; //Debugging varaiable
-
-        //Declares world class
-        MainWorld world;
-
-    }
-
-    public Organism(int smh, int smxp, int ss, int sa, int sd, int ssi, Family fam, Color c, int nameNum, Parasite p) {
-        //XP Upgradeable Variables-------------------------------------------------
-        maxXp = smxp; //Max XP Storage
-        maxHealth = smh + p.maxHealthBoost; //Maximum Health
-        speed = ss + p.speedBoost; //Nuff Said
-        att = sa + p.attBoost; //Attack power
-        def = sd + p.defBoost; //Defensive power
-        sight = ssi + p.sightBoost; //Sight
+        if (p != null) {
+            maxHealth += p.maxHealthBoost; //Maximum Health
+            speed += p.speedBoost; //Nuff Said
+            att += p.attBoost; //Attack power
+            def += sd + p.defBoost; //Defensive power
+            sight += ssi + p.sightBoost; //Sight
+        }
 
         //"Live" Variables. ----------------------------------------------------
         age = 0; //Time
@@ -118,7 +93,6 @@ public class Organism extends AbstOrganism {
     //Draws the organism
     public void drawOrganism(Color c, double r){
         //Uzair Ahmed
-
         int rad = (int)r;
         //Creates new greenfoot image
         GreenfootImage img = new GreenfootImage(rad, rad);
@@ -209,14 +183,13 @@ public class Organism extends AbstOrganism {
         }
     }
 
-
     //Creates two new organisms and kills the OG
     public void reproduce() {
         //Uzair Ahmed
 
         //Creates a temporary organism with the same traits as its parent.
-        Organism tempOrg1 = new Organism(maxHealth, xp, speed, att, def, sight, myFamily, familyColor, name+1);
-        Organism tempOrg2 = new Organism(maxHealth, xp, speed, att, def, sight, myFamily, familyColor, name+2);
+        Organism tempOrg1 = new Organism(maxHealth, xp, speed, att, def, sight, myFamily, familyColor, name+1, this.parasite);
+        Organism tempOrg2 = new Organism(maxHealth, xp, speed, att, def, sight, myFamily, familyColor, name+2, this.parasite);
 
         //Adds it to myWorld
         world.addObject(tempOrg1,(getX()+Greenfoot.getRandomNumber(30)-15),(getY()+Greenfoot.getRandomNumber(30)-15));
@@ -389,14 +362,16 @@ public class Organism extends AbstOrganism {
 
     //Dhori's parasite code
     public void infect(){
-        //Josh Dhori
-        if(isTouching(Organism.class)){
-            List touchingOrganisms = getIntersectingObjects(Organism.class);
-            Organism touchingOrg;
-            for (int i = 0; i < touchingOrganisms.size(); i++) {
-                touchingOrg = (Organism)touchingOrganisms.get(i);
-                if((!touchingOrg.infected) && (parasite.infectionChance()) && (parasite.power >= touchingOrg.parasiteResistance)){
-                    parasite.infect(touchingOrg);
+        if (parasite != null){
+            //Josh Dhori
+            if(isTouching(Organism.class)){
+                List touchingOrganisms = getIntersectingObjects(Organism.class);
+                Organism touchingOrg;
+                for (int i = 0; i < touchingOrganisms.size(); i++) {
+                    touchingOrg = (Organism)touchingOrganisms.get(i);
+                    if((!touchingOrg.infected) && (parasite.infectionChance()) && (parasite.power >= touchingOrg.parasiteResistance)){
+                        parasite.infect(touchingOrg);
+                    }
                 }
             }
         }

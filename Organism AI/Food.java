@@ -17,7 +17,6 @@ public class Food extends Actor {
     
     public Food(boolean parentInfected){
         int infectedChance = Greenfoot.getRandomNumber(1000);
-        
         if(infectedChance == 666 || parentInfected){
             infected = true;
         }
