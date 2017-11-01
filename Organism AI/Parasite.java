@@ -12,12 +12,13 @@ public class Parasite extends Actor{
     //"Live" Variables
     public int mutateRate = 100; //XP cap before mutation    
     public int xp = 0; //XP - allows for RPG-like store for mutationpublic int xp = 0; //xp
+    public int siphon = 0;
 
     //XP Upgradeable Variables
     public boolean organismInfections = false; //can it infect other organisms by touching
     public boolean insane = false; //goes insane and attacks everyone
 
-    public int baseSiphonRate = 0; //amount of health it steals
+    public int baseSiphonRate = 10; //amount of health it steals
     public int power = 0; //the strength of the parasite (counter against Organism.parasiteResistance)
 
     public int attBoost = 0; //attack boost
@@ -36,43 +37,46 @@ public class Parasite extends Actor{
         host = o;
     }
 
-    public Parasite(Organism o, int bmh, int bs, int ba, int bd, int bsi, int mr, int p, int sr, int ic, boolean crazy, boolean oi){
+    public Parasite(Organism o, Parasite p){
         //Josh Dhori
         //This is used when the host infects another organism
 
         //Base Variables
-        mutateRate = mr;
-        power = p;
-        baseSiphonRate = sr;
+        mutateRate = p.mutateRate;
+        power = p.power;
+        baseSiphonRate = p.baseSiphonRate;
         host = o;
 
         //Boost Variables
-        attBoost = ba;
-        defBoost = bd;
-        maxHealthBoost = bmh;
-        speedBoost = bs;
-        sightBoost = bsi;
-        infectChance = ic;
+        attBoost = p.attBoost;
+        defBoost = p.defBoost;
+        maxHealthBoost = p.maxHealthBoost;
+        speedBoost = p.speedBoost;
+        sightBoost = p.sightBoost;
+        infectChance = p.infectChance;
 
         //Behaviour booleans
-        organismInfections = oi;
-        insane = crazy;
+        organismInfections = p.organismInfections;
+        insane = p.insane;
 
     }
 
     public void update(){ //updates the parasite
         //Josh Dhori
-        siphonHealth(); //siphons the health from host
+        if(siphon == 120){
+            siphonHealth(); //siphons the health from host
+            siphon = 0;
+        }
         if (xp >= mutateRate){ //if xp has reached mutation threshold then mutate
             mutate();
         }
+        siphon++;
     }
 
     public  void infect(Organism o){ //spawns a parasite in "o" organism
         //Josh Dhori
         //if the organism reproduces or touches another organism parasite has a chance to infect
-        o.parasite = new Parasite(o, maxHealthBoost, speedBoost, attBoost, defBoost, sightBoost, mutateRate, power, baseSiphonRate, infectChance, insane, organismInfections); //sets the parasite in "o" organism to be a duplicate to this
-        o.parasite.mutate(); //mutates the new parasite
+        o.parasite = new Parasite(o, this);
     }
 
     public void mutate(){
@@ -118,7 +122,7 @@ public class Parasite extends Actor{
         //Josh Dhori
         host.infected = false; //switches the host infected boolean to false
         host.parasite = null; //sets the host's parasite to null (no parasite)
-        world.removeObject(this); //remove this object from world
+        //world.removeObject(this); //remove this object from world
     }
 
     public void boost(boolean mhb, boolean sb,boolean ab,boolean db,boolean sib){ //boost functions

@@ -8,8 +8,9 @@ import java.util.*;
  */
 public class Mutation{
     public static void mutate(Organism o){
-        if (o.xp%10 == 0){ //reproduce only while XP is divisible by ten
-            if (Greenfoot.getRandomNumber(50) == 1){ //repro chance
+        if (o.xp >= o.maxXp){ //reproduce only while XP is divisible by ten
+            o.xp = 0;
+            if (Greenfoot.getRandomNumber(10) == 1){ //repro chance
                 o.reproduce();
                 int chosenMutation = Greenfoot.getRandomNumber(1000); //choose mutation
                 if (chosenMutation <= 250){ //attack
