@@ -31,9 +31,10 @@ public class Food extends Actor {
         if (spawning){
             spawnShift();
         }
-        if (Greenfoot.getRandomNumber(500) == 1){
+        if (Greenfoot.getRandomNumber(750) == 1){
             reproduce();
         }
+        marcoPolo();
     }
 
     //Draws the food
@@ -60,12 +61,35 @@ public class Food extends Actor {
             world.addObject(new Food(), getX(), getY());
         }
     }
+    
+    public void marcoPolo(){
+        //Uzair Ahmed
+        int posX = getX();
+        int posY = getY();
+
+        //If it is at the edge
+        if(posX <= 0){
+            posX = 999;
+        }
+        else if (posX >= 1000){
+            posX = 1;
+        }
+        
+        if(posY <= 0){
+            posY = 999;
+        }
+        else if (posY >= 1000){
+            posY = 1;
+        }
+        
+        setLocation(posX, posY);
+    }
 
     public void spawnShift(){
         //Uzair Ahmed
 
         setRotation(Greenfoot.getRandomNumber(360));
-        move((Greenfoot.getRandomNumber(50)+50));
+        move((Greenfoot.getRandomNumber(30)+50));
         spawning = false;
     }
 }

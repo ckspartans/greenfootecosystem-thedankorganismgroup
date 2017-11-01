@@ -252,7 +252,7 @@ public class Organism extends AbstOrganism {
         if (prey.isAlive){ //if prey is alive
             if(share == true){ //sharing is true when they attack as a group
                 double energyGain = (prey.maxHealth/(myFamily.familyList.size())); //int energy gain is the xp gained by each team member (prey max health divided by amount of team mates)
-                for(int i = 0; i > (myFamily.familyList.size()); i++){ //distributes the energy gain between team members
+                for(int i = 0; i < (myFamily.familyList.size()); i++){ //distributes the energy gain between team members
                     Organism tempOrg; //creates a temp organism
                     tempOrg = (Organism)(myFamily.familyList.get(i)); //sets that temp organism as the "I" member of the family list
                     tempOrg.xp += energyGain/10; //adds xp to the member
@@ -283,35 +283,12 @@ public class Organism extends AbstOrganism {
         }
     }
 
-    /*public boolean istouchingEnemy(Organism enemy){
-        if (isTouching(Organism.class) == true){ //if touching any organism
-            Organism touchingOrganism;
-
-            //creates a temp organism
-            if (isAlive){
-                List temp = getIntersectingObjects(Organism.class);
-                for (int i = 0 ; i < temp.size(); i++) {
-                    touchingOrganism = (Organism)temp.get(i);
-                    if (touchingOrganism == enemy){ //if the touching organism is the enemy
-                        System.out.println("touching enemy");
-                        return true;
-                    }
-                    else{
-                        System.out.println("touching organism " + i + "is NOT enemy");
-                        return false;
-                    }
-                }
-            }
-        }
-        return false;
-    }*/
-
     public void checkIfAttacking(){ //checks if anyone in the group is attacking someone
         //Josh Dhori, Edited by Uzair Ahmed
 
         List tempList = getObjectsInRange(sight, Organism.class); //
         Organism tempOrg;
-        for(int j = 0; j > tempList.size(); j++){
+        for(int j = 0; j < tempList.size(); j++){
             tempOrg = (Organism)tempList.get(j);
             if ((tempOrg.myFamily == myFamily) && (tempOrg.attackMode == true)){
                 Organism enemy = tempOrg.chosenEnemy;
@@ -327,7 +304,7 @@ public class Organism extends AbstOrganism {
     public void checkDefend(){ //Check if it is under attack
         List tempList = getObjectsInRange(sight, Organism.class); //creates a list of organisms in sight range
         Organism tempOrg; //creates a temp organism
-        for (int i = 0; i > tempList.size(); i++){
+        for (int i = 0; i < tempList.size(); i++){
             tempOrg = (Organism)tempList.get(i); //sets the temp organism to "i" organism in the sight range list
             if(tempOrg.attackMode == true){ //if that organism has it's attackMode set to true
                 if (tempOrg.chosenEnemy == this){ //if that organism is attacking this organism
@@ -352,9 +329,10 @@ public class Organism extends AbstOrganism {
 
         List organismClose = getObjectsInRange(sight, Organism.class); //gets a list of organisms nearby
         Organism tempOrg; //creates temp organism
-        for (int i = 0; i > myFamily.familyList.size(); i++){
+        for (int i = 0; i < organismClose.size(); i++){
             tempOrg = (Organism)organismClose.get(i); //sets the temp org to "i" organism in the sight range
-            for (int j = 0; j > myFamily.familyList.size(); j++){ //goes through family list
+            for (int j = 0; j < myFamily.familyList.size(); j++){
+                //goes through family list
                 if(tempOrg == (Organism)myFamily.familyList.get(j)){ //checks if the "i" organism is in the family list
                     groupThreatLevel += tempOrg.threatLevel; //if it is add its attackLevel to groupThreatLevel
                 }
@@ -362,25 +340,4 @@ public class Organism extends AbstOrganism {
         }
         return groupThreatLevel;
     }
-
-    /* This is stupid, wont use this
-    public int getFamilyThreat(){ //gets family threat level based on if THEY can see YOU
-        int famThreat = 0; //fam threat level
-
-        List fams = myFamily.familyList; //creates a new list equal to the family list
-        List famSight; //creates a list that will be used to hold the sight range of family members
-        Organism fam; //creates an organism that will hold a certain family member
-        for (int i = 0; i > fams.size(); i++){
-            fam = (Organism)fams.get(i); //fam is the "i" organism in the family list
-            famSight = fam.getObjectsInRange(fam.sight, Organism.class); //gets all the organisms in fam's sight range, sets it to the list famSight
-            for (int j = 0; j > fams.size(); j++){
-                if ((Organism)famSight.get(j) == this){ //if the fam's sight has this in it
-                    famThreat += fam.threatLevel; //add
-                }
-            }
-
-        }
-        return famThreat;
-    }
-    */
 }
