@@ -184,7 +184,7 @@ public class Organism extends AbstOrganism {
 
         //Sets minimum speed to 1
         if (speed<1){
-          speed = 1;
+            speed = 1;
         }
 
         //Caps sight to maxBuyableSight
@@ -368,26 +368,26 @@ public class Organism extends AbstOrganism {
         //creates a temp organism
         Organism tempOrg;
         for (int i = 0; i < tempList.size(); i++){
-          //sets the temp organism to "i" organism in the sight range list
+            //sets the temp organism to "i" organism in the sight range list
             tempOrg = (Organism)tempList.get(i);
             //if that organism has it's attackMode set to true
             if(tempOrg.attackMode == true){
-            //if that organism is attacking this organism
+                //if that organism is attacking this organism
                 if (tempOrg.chosenEnemy == this){
-                  //if the threat level is smaller or equal to this organism
+                    //if the threat level is smaller or equal to this organism
                     if(tempOrg.threatLevel <= threatLevel){
                         AI.defend(this, tempOrg, 1); //1vs1 attack
                     }
                     //if the threat level is greater than this organism
                     else if (tempOrg.threatLevel > threatLevel){
-                      //if the organism is greater than this organism's plus its nearby family
+                        //if the organism is greater than this organism's plus its nearby family
                         if (tempOrg.threatLevel > getGroupThreatLevel()){
                             AI.defend(this, tempOrg, 0);
                             //run away
                         }
                         //if the family threatLevel is greater or equal, attack as a group
                         else if (tempOrg.threatLevel <= getGroupThreatLevel()){
-                          //attack as family
+                            //attack as family
                             AI.defend(this, tempOrg, 2);
                         }
                     }
@@ -407,11 +407,11 @@ public class Organism extends AbstOrganism {
         //creates temp organism
         Organism tempOrg;
         for (int i = 0; i < organismClose.size(); i++){
-          //sets the temp org to "i" organism in the sight range
+            //sets the temp org to "i" organism in the sight range
             tempOrg = (Organism)organismClose.get(i);
             //if the touching Organism's family is this organism's family
             if(tempOrg.myFamily == myFamily){
-              //add its attackLevel to groupThreatLevel
+                //add its attackLevel to groupThreatLevel
                 groupThreatLevel += tempOrg.threatLevel;
             }
         }
@@ -419,8 +419,8 @@ public class Organism extends AbstOrganism {
     }
 
     public void infect(){
-      //Josh Dhori
-      //Infects an organism with a parasite
+        //Josh Dhori
+        //Infects an organism with a parasite
 
         if (parasite != null){
             if(isTouching(Organism.class)){

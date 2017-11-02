@@ -30,7 +30,7 @@ public class PauseWorld extends World
         addObject(r, 1920/2, 1080/2 - 100);
         addObject(e, 1920/2, 1080/2 + 100);
     }
-    
+
     public void  act() {
         if(e.getActive()) {
             System.exit(0);
@@ -41,9 +41,6 @@ public class PauseWorld extends World
             r.setActive(false);
         }
         setBackground(bg);
-        
-    }
-    
-    
 
+    }
 }

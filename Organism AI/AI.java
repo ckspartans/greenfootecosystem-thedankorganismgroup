@@ -48,7 +48,6 @@ public class AI
         }
     }
 
-
     public static void patrol(Organism o, List thingsNearby){
         //Uzair Ahmed
         //Moves in a random motion, until it sees food or organism in its perimeter.
@@ -75,7 +74,6 @@ public class AI
         //Consume any food you come across.
         o.consumeFood(foodBeingEaten);
     }
-
 
     public static void marcoPolo(Organism o){
         //Uzair Ahmed
@@ -104,7 +102,6 @@ public class AI
         o.setLocation(posX, posY);
     }
 
-
     public static void assemble(Organism o, Organism alpha){
         //Uzair Ahmed
         //Moves the family together
@@ -125,18 +122,17 @@ public class AI
             nearbyOrg = (Organism) organismsNearby.get(i);
             //if not a family member
             if (nearbyOrg.myFamily != o.myFamily){
-              //if im better, attack
+                //if im better, attack
                 if (nearbyOrg.threatLevel <= o.threatLevel){
                     o.chosenEnemy = nearbyOrg;
                 }
                 //otherwise, run!
                 else{
-                        o.flee();
-                    }
+                    o.flee();
                 }
             }
         }
-
+    }
 
 
     public static void whoDis(Organism o){
@@ -164,8 +160,8 @@ public class AI
     }
 
     public static void attackManager(Organism o){
-      //Uzair Ahmed
-      //Runs attack code
+        //Uzair Ahmed
+        //Runs attack code
 
         //kills everyone
         killEveryone(o);
@@ -199,7 +195,6 @@ public class AI
             o.move(o.speed);
         }
     }
-
 
     public static void killEveryone(Organism o){
         //Josh Dhori
@@ -260,7 +255,7 @@ public class AI
             //take a step back after attacking
             o.move(-o.speed);
         }
-         //Option 3: Straight up attack that guy
+        //Option 3: Straight up attack that guy
         else if (tatic == 2){
             while((enemy != null)){
                 attack(o, enemy, 0);

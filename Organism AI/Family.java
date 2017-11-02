@@ -11,7 +11,7 @@ public class Family extends Actor
 {
     //Creates a list of all family organisms
     public List familyList = new ArrayList();
-    
+
     //create a summed health value
     public double familyHealth;
     public Organism targetEnemy;
@@ -34,8 +34,8 @@ public class Family extends Actor
     }
 
     public int getAvgGroupPower(){
-      //Uzair Ahmed
-      //Gets the average group att for enemychoosing purposes
+        //Uzair Ahmed
+        //Gets the average group att for enemychoosing purposes
 
         int avgGroupAtt = 0;
         //go through everyone in the family

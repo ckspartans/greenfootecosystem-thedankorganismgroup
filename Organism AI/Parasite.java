@@ -67,7 +67,7 @@ public class Parasite extends Actor{
         //updates the parasite
 
         if(siphon == 120){
-          //siphons the health from host
+            //siphons the health from host
             siphonHealth();
             siphon = 0;
         }
@@ -113,12 +113,12 @@ public class Parasite extends Actor{
 
         //if this can infect other organisms
         if(organismInfections){
-          //then increase the rate by 2
+            //then increase the rate by 2
             rate += 2;
         }
         //if this organism is crazy
         if(insane){
-          //reduce the rate by 10 (so it can live longer and kill more)
+            //reduce the rate by 10 (so it can live longer and kill more)
             rate -= 10;
         }
         //return the rate
@@ -133,28 +133,28 @@ public class Parasite extends Actor{
         host.health -= siphonRate();
         //if the host's health is below or equal 0
         if(host.health <= 0){
-          //kills the host
+            //kills the host
             host.die();
         }
         //if the host is still alive
         else{
-          //convert the amount of health stolen from the host to xp for this parasite
+            //convert the amount of health stolen from the host to xp for this parasite
             xp += siphonRate();
         }
     }
 
     public  void die(){
         //Josh Dhori
-         //parasite die function
+        //parasite die function
 
-         //switches the host infected boolean to false
+        //switches the host infected boolean to false
         host.infected = false;
         //sets the host's parasite to null (no parasite)
         host.parasite = null;
         //world.removeObject(this); //remove this object from world
     }
 
-    public void boost(boolean mhb, boolean sb,boolean ab,boolean db,boolean sib){
+    public void boost(int chosenBoost){
         //Josh Dhori
         //boost functions
 
@@ -165,19 +165,17 @@ public class Parasite extends Actor{
          */
 
         //if the boost is ______, add boost to _______o
-        if(mhb){
-            host.maxHealth += maxHealthBoost;
-        }
-        if (sb){
-            host.speed += speedBoost;
-        }
-        if (ab){
+        if(chosenBoost == 0){
             host.att += attBoost;
         }
-        if (db){
+        else if (chosenBoost == 1){
+            host.maxHealth += maxHealthBoost;
             host.def += defBoost;
         }
-        if (sib){
+        else if (chosenBoost == 2){
+            host.speed += speedBoost;
+        }
+        else if (chosenBoost == 3){
             host.sight += sightBoost;
         }
     }

@@ -8,7 +8,7 @@ import java.util.*;
  */
 
 public class Food extends Actor {
-  //Declares world reference
+    //Declares world reference
     MainWorld world;
     //GreenfootImage to store the picture to create.
     GreenfootImage img = new GreenfootImage(foodMass, foodMass);
