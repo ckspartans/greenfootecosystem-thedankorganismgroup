@@ -52,7 +52,7 @@ public class Food extends Actor {
         marcoPolo();
 
         //Reproduces at a low probability
-        if (Greenfoot.getRandomNumber(500) == 1){
+        if (Greenfoot.getRandomNumber(750) == 1){
             reproduce();
         }
     }

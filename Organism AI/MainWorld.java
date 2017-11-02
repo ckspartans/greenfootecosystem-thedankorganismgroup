@@ -49,6 +49,8 @@ public class MainWorld extends World {
     Family fam2;
     Family fam3;
     Family fam4;
+    
+    ArrayList fams;
 
     public MainWorld() {
         //Creates new world of the size given
@@ -99,17 +101,22 @@ public class MainWorld extends World {
 
     public void act() {
         checkButtons();
+        if (gameOver()){
+            System.out.println("GAMEOVER");
+        }
     }
 
     public void instFamsNOrgs(){
       //Uzair Ahmed
 
-      //Instantiates Families
+      //Instantiates Families and list
       fam1 = new Family();
       fam2 = new Family();
       fam3 = new Family();
       fam4 = new Family();
-
+      
+      fams = new ArrayList<Family>();
+      
       //Instantiates players
       player1 = new Organism(startingMaxHealth, startingMaxXp, startingSpeed, startingAttackPower, startingDefensePower, startingSight, fam1 , Color.RED);
       player2 = new Organism(startingMaxHealth, startingMaxXp, startingSpeed, startingAttackPower, startingDefensePower, startingSight, fam2, Color.BLUE);
@@ -125,12 +132,30 @@ public class MainWorld extends World {
       addObject(player2, 880, 200);
       addObject(player3, 200, 880);
       addObject(player4, 880, 880);
-
+      
       //Adds the family to the world
       addObject(fam1, 1780,1060);
       addObject(fam2, 1820,1060);
       addObject(fam3, 1860,1060);
       addObject(fam4, 1900,1060);
+      
+      fams.add(fam1);fams.add(fam2);fams.add(fam3);fams.add(fam4);
     }
-
+    
+    public boolean gameOver(){
+        Family fam;
+        for(int i = 0; i < fams.size(); i++){
+            fam = (Family) fams.get(i);
+            if (fam.familyList.size() == 0){
+                removeObject(fam);
+                fams.remove(fam);
+        }
+    }
+        
+        if (fams.size() == 1){
+            return true;
+        }
+        return false;
+    
+}
 }

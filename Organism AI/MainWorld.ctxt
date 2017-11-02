@@ -13,4 +13,6 @@ comment5.params=
 comment5.target=void\ instFamsNOrgs()
 comment6.params=
 comment6.target=void\ addFamsNOrgs()
-numComments=7
+comment7.params=
+comment7.target=boolean\ gameOver()
+numComments=8
