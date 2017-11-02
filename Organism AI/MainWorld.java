@@ -143,15 +143,22 @@ public class MainWorld extends World {
     }
     
     public boolean gameOver(){
+//Uzair Ahmed
+//checks when theres only one family left
+
         Family fam;
+//goes through each family
         for(int i = 0; i < fams.size(); i++){
             fam = (Family) fams.get(i);
+//checks if the size is zero
             if (fam.familyList.size() == 0){
+//removes family from world and list
                 removeObject(fam);
                 fams.remove(fam);
         }
     }
         
+//if the list size is 1 return true
         if (fams.size() == 1){
             return true;
         }
