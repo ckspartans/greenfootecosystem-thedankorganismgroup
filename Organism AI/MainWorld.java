@@ -81,6 +81,13 @@ public class MainWorld extends World {
         }
     }
 
+    public void act() {
+        checkButtons();
+        if (gameOver()){
+            System.out.println("GAMEOVER");
+        }
+    }
+
     public void checkButtons() {
         //Cameron Dickie
 
@@ -97,13 +104,6 @@ public class MainWorld extends World {
         pauseButton = new Button(200,100, this);
         addObject(UI, 1920 - UI.width/2, 0 + UI.height/2); // spawning the ui back at the right hand side of the screen
         addObject(pauseButton, UI.getX() -250,UI.getY() - 400);
-    }
-
-    public void act() {
-        checkButtons();
-        if (gameOver()){
-            System.out.println("GAMEOVER");
-        }
     }
 
     public void instFamsNOrgs(){

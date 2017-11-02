@@ -17,7 +17,7 @@ public class Organism extends AbstOrganism {
 
         init(smh,smx,ss,sa,sd,ssi,fam,c);
     }
-
+    
     public Organism(Organism p) {
         //Josh Dhori
 
