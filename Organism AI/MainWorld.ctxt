@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=MainWorld
-comment0.text=\r\n\ Main\ GameState\r\n\r\n\ @author\ Class\r\n\ @author\ Uzair\ Ahmed\r\n\ @author\ Cameron\ Dickie\r\n\ @author\ Laura\ Balofsky\r\n\ @version\ 1.0\r\n
+comment0.text=\r\n\ Main\ GameState\r\n\r\n\ @author\ Uzair\ Ahmed\r\n\ @author\ Cameron\ Dickie\r\n\ @author\ Laura\ Balofsky\r\n\ @version\ 2.0\r\n
 comment1.params=
 comment1.target=MainWorld()
 comment2.params=
@@ -9,4 +9,8 @@ comment3.params=
 comment3.target=void\ openUI()
 comment4.params=
 comment4.target=void\ act()
-numComments=5
+comment5.params=
+comment5.target=void\ instFamsNOrgs()
+comment6.params=
+comment6.target=void\ addFamsNOrgs()
+numComments=7

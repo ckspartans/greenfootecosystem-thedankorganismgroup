@@ -21,9 +21,9 @@ public class AI
     //Gets a list of all organisms it touches
     static List touchingOrganisms;
 
-    //This is the only called function by outside classes. This will choose what to think
     public static void think(Organism o, List fn, Food fbe, List on, List to, Boolean ito){
         //Uzair Ahmed
+        //This is the only called function by outside classes. This will choose what to think
 
         //Set the values to what was given in by the upper class.
         foodNearby = fn;
@@ -48,14 +48,15 @@ public class AI
         }
     }
 
-    //Moves in a random motion, until it sees food or organism in its perimeter.
+
     public static void patrol(Organism o, List thingsNearby){
         //Uzair Ahmed
+        //Moves in a random motion, until it sees food or organism in its perimeter.
 
         //If theres "the thing" near it.
         if ((thingsNearby.size()) > 0){
             //Move towards it.
-            o.move((int)(o.speed*1.5));
+            o.move((int)(o.speed*1.1));
             //Get the first instance of nearby Food.
             Food nearest = (Food) thingsNearby.get(0);
             //Turn towards it.
@@ -71,18 +72,20 @@ public class AI
                 o.turn(Greenfoot.getRandomNumber(90)-45);
             }
         }
-
         //Consume any food you come across.
         o.consumeFood(foodBeingEaten);
     }
 
-    //Turn around if organism is at the edge of the map.
+
     public static void marcoPolo(Organism o){
         //Uzair Ahmed
+        //Wrap around if organism is at the edge of the map.
+
+        //Get current position values
         int posX = o.getX();
         int posY = o.getY();
 
-        //If it is at the edge
+        //If it is at the edge, move to the other edge
         if(posX <= 0){
             posX = 999;
         }
@@ -97,12 +100,14 @@ public class AI
             posY = 1;
         }
 
+        //Set final location
         o.setLocation(posX, posY);
     }
 
-    //Moves the family together
+
     public static void assemble(Organism o, Organism alpha){
         //Uzair Ahmed
+        //Moves the family together
 
         //Turns towards the alpha
         o.turnTowards(alpha.getX(), alpha.getY());
@@ -112,39 +117,32 @@ public class AI
 
     public static void choosePrey(Organism o){
         //Uzair Ahmed
-        Organism tempOrg;
-        Organism enemy;
+        //Chooses prey based on its attack power
+
+        //Creates nearby organism, checks if its on the same team
+        Organism nearbyOrg;
         for (int i = 0; i< organismsNearby.size(); i++){
-            tempOrg = (Organism) organismsNearby.get(i);
-            if (tempOrg.myFamily != o.myFamily){
-                if (tempOrg.threatLevel <= o.threatLevel){
-                    if(tempOrg.getGroupThreatLevel() <=o.getGroupThreatLevel()){
-                        o.chosenEnemy = tempOrg;
-                    }
-                    else{
-                        if (tempOrg.myFamily.getAvgGroupPower() <= o.myFamily.getAvgGroupPower()){
-                            o.chosenEnemy = tempOrg;
-                        }
-                        else{
-                            o.flee();
-                        }
-                    }
+            nearbyOrg = (Organism) organismsNearby.get(i);
+            //if not a family member
+            if (nearbyOrg.myFamily != o.myFamily){
+              //if im better, attack
+                if (nearbyOrg.threatLevel <= o.threatLevel){
+                    o.chosenEnemy = nearbyOrg;
                 }
+                //otherwise, run!
                 else{
-                    if(tempOrg.getGroupThreatLevel() <=o.getGroupThreatLevel()){
-                        o.chosenEnemy = tempOrg;
-                    }
-                    else{
                         o.flee();
                     }
                 }
             }
         }
-    }
 
-    //Checks if the nearby organism is a friend or foe
+
+
     public static void whoDis(Organism o){
         //Uzair Ahmed
+        //Checks if the nearby organism is a friend or foe
+
         //Checks if its touching the organism
         if (isTouchingOrganism){
             //For each organism its touching
@@ -166,7 +164,12 @@ public class AI
     }
 
     public static void attackManager(Organism o){
+      //Uzair Ahmed
+      //Runs attack code
+
+        //kills everyone
         killEveryone(o);
+        //if there is a targetted enmy, attack it
         if (o.chosenEnemy != null){
             attack(o,o.chosenEnemy, 0);
         }
@@ -175,6 +178,7 @@ public class AI
     public static void bounceOff(Organism o, Organism touchingOrganism){
         //Uzair Ahmed
         //Set x and y values for the organism it touches
+
         int bx = touchingOrganism.getX();
         int by = touchingOrganism.getY();
         //Create x and y values for added radii
@@ -196,11 +200,10 @@ public class AI
         }
     }
 
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~////~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~////~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~Dhori's Code~~~~~~~~~~~~~~~~~~~~~~~~~~////~~~~~~~~~~~~~~~~~~~~~~~~~~Dhori's Code~~~~~~~~~~~~~~~~~~~~~~~~~~////~~~~~~~~~~~~~~~~~~~~~~~~~~Dhori's Code~~~~~~~~~~~~~~~~~~~~~~~~~~//
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~////~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~////~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
+
     public static void killEveryone(Organism o){
         //Josh Dhori
+
         if( o.parasite != null){
             if(o.parasite.insane){
                 while(o.isAlive){
@@ -214,34 +217,38 @@ public class AI
 
     public static void attack(Organism o, Organism enemy, int tatic){
         //Josh Dhori
+        //attacks.
+
         if(enemy.isAlive){
-            //o.chosenEnemy = enemy; //choose which enemy to attack their chosenEnemy value, which enemy is it?
-            //o.attackMode = true; //set your own attackmode to true
             o.attackTatic = tatic;
-            o.getGroupThreatLevel(); //figure out how badass your squad is (not used rn)
-            if (tatic == 0){ //basic group attack
-                //while((enemy != null) && (o.isTouchingEnemy == false)){
+            //figure out how badass your squad is (not used rn)
+            o.getGroupThreatLevel();
+            //basic group attack
+            if (tatic == 0){
                 //turn towards enemy (Uzair)
                 o.turnTowards(enemy.getX(), enemy.getY());
                 //move towards enemy (Uzair)
                 o.move(o.speed*2);
-                //}
-
                 //Prevents the organisms from overlapping each other
                 o.hit(enemy, true);
-                o.move(-o.speed); //take a step back after attacking
+                //take a step back after attacking
+                o.move(-o.speed);
             }
         }
     }
 
     public static void defend(Organism o, Organism enemy, int tatic){
         //Josh Dhori
-        if(tatic == 0){//Option 0: RUN!!!!
+        //defends.
+
+        //Option 0: RUN!!!!
+        if(tatic == 0){
             while((enemy != null)){
                 o.flee();
             }
         }
-        else if (tatic == 1){ //Option 1: 1 vs 1 that dude
+        //Option 1: 1 vs 1 that dude
+        else if (tatic == 1){
             while((enemy != null) && (o.isTouchingEnemy == false)){
                 //turn towards enemy
                 o.turnTowards(enemy.getX(), enemy.getY());
@@ -250,9 +257,11 @@ public class AI
             }
             //hit enemy
             o.hit(enemy, false);
-            o.move(-o.speed); //take a step back after attacking
+            //take a step back after attacking
+            o.move(-o.speed);
         }
-        else if (tatic == 2){ //Option 3: Straight up attack that guy
+         //Option 3: Straight up attack that guy
+        else if (tatic == 2){
             while((enemy != null)){
                 attack(o, enemy, 0);
             }

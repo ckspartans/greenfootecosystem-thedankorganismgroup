@@ -4,11 +4,10 @@ import java.util.*;
 /**
  * Main GameState
  *
- * @author Class
  * @author Uzair Ahmed
  * @author Cameron Dickie
  * @author Laura Balofsky
- * @version 1.0
+ * @version 2.0
  */
 
 public class MainWorld extends World {
@@ -65,28 +64,11 @@ public class MainWorld extends World {
         //Sets paint order
         setPaintOrder(Button.class, Family.class, UIBack.class, Parasite.class, Organism.class, Food.class);
 
-        //Instantiates Families
-        fam1 = new Family();
-        fam2 = new Family();
-        fam3 = new Family();
-        fam4 = new Family();
-        //Instantiates players
-        player1 = new Organism(startingMaxHealth, startingMaxXp, startingSpeed, startingAttackPower, startingDefensePower, startingSight, fam1 , Color.RED);
-        player2 = new Organism(startingMaxHealth, startingMaxXp, startingSpeed, startingAttackPower, startingDefensePower, startingSight, fam2, Color.BLUE);
-        player3 = new Organism(startingMaxHealth, startingMaxXp, startingSpeed, startingAttackPower, startingDefensePower, startingSight, fam3, Color.GREEN);
-        player4 = new Organism(startingMaxHealth, startingMaxXp, startingSpeed, startingAttackPower, startingDefensePower, startingSight, fam4, Color.YELLOW);
+        //Runs player and family instantation methods
+        instFamsNOrgs();
 
-        //Adds player to world
-        addObject(player1, 200, 200);
-        addObject(player2, 880, 200);
-        addObject(player3, 200, 880);
-        addObject(player4, 880, 880);
-
-        //Adds the family to the world
-        addObject(fam1, 1780,1060);
-        addObject(fam2, 1820,1060);
-        addObject(fam3, 1860,1060);
-        addObject(fam4, 1900,1060);
+        //Runs player and family add methods
+        addFamsNOrgs();
 
         //Runs UI method
         openUI();
@@ -98,6 +80,8 @@ public class MainWorld extends World {
     }
 
     public void checkButtons() {
+      //Cameron Dickie
+
         if(pauseButton.active) {
             Greenfoot.setWorld(pause);
             pauseButton.setActive(false);
@@ -105,6 +89,8 @@ public class MainWorld extends World {
     }
 
     public void openUI() {
+        //Cameron Dickie
+
         UI = new UIBack(); // creates a reference to draw the back of the UI
         pauseButton = new Button(200,100, this);
         addObject(UI, 1920 - UI.width/2, 0 + UI.height/2); // spawning the ui back at the right hand side of the screen
@@ -113,7 +99,38 @@ public class MainWorld extends World {
 
     public void act() {
         checkButtons();
-        //10% chance of new food being spawned
+    }
+
+    public void instFamsNOrgs(){
+      //Uzair Ahmed
+
+      //Instantiates Families
+      fam1 = new Family();
+      fam2 = new Family();
+      fam3 = new Family();
+      fam4 = new Family();
+
+      //Instantiates players
+      player1 = new Organism(startingMaxHealth, startingMaxXp, startingSpeed, startingAttackPower, startingDefensePower, startingSight, fam1 , Color.RED);
+      player2 = new Organism(startingMaxHealth, startingMaxXp, startingSpeed, startingAttackPower, startingDefensePower, startingSight, fam2, Color.BLUE);
+      player3 = new Organism(startingMaxHealth, startingMaxXp, startingSpeed, startingAttackPower, startingDefensePower, startingSight, fam3, Color.GREEN);
+      player4 = new Organism(startingMaxHealth, startingMaxXp, startingSpeed, startingAttackPower, startingDefensePower, startingSight, fam4, Color.YELLOW);
+    }
+
+    public void addFamsNOrgs(){
+      //Uzair Ahmed
+
+      //Adds player to world
+      addObject(player1, 200, 200);
+      addObject(player2, 880, 200);
+      addObject(player3, 200, 880);
+      addObject(player4, 880, 880);
+
+      //Adds the family to the world
+      addObject(fam1, 1780,1060);
+      addObject(fam2, 1820,1060);
+      addObject(fam3, 1860,1060);
+      addObject(fam4, 1900,1060);
     }
 
 }

@@ -1,13 +1,15 @@
 import greenfoot.*;
 import java.util.*;
-/*
- * 
- *@author Ethan Gale
- *@Version 2.0 27/10/27
+
+/**
+ * @author Ethan Gale
+ * @version 2.0
  *
  */
 public class Mutation{
     public static void mutate(Organism o){
+      //Ethan Gale
+
         if (o.xp >= o.maxXp){ //reproduce only while XP is divisible by ten
             o.xp = 0;
             if (Greenfoot.getRandomNumber(10) == 1){ //repro chance
@@ -28,11 +30,13 @@ public class Mutation{
                 else if((chosenMutation > 751) && (chosenMutation <= 1000)){ //sight range
                     o.sight += 10;
                 }
-            
+
         }
     }
 
     public static void mutate(Parasite p){
+      //Ethan Gale
+
         if (p.xp >= p.mutateRate){
             //mutate the parasite
             int chosenMutation = Greenfoot.getRandomNumber(4);
@@ -55,4 +59,4 @@ public class Mutation{
             }
         }
     }
-}	
+}

@@ -3,19 +3,28 @@ import java.util.*;
 /**
  * Food for the organism to eat.
  * @author Uzair Ahmed
- * @version 1.0
+ * @author Josh Dhori
+ * @version 1.5
  */
 
 public class Food extends Actor {
+  //Declares world reference
     MainWorld world;
-
+    //GreenfootImage to store the picture to create.
+    GreenfootImage img = new GreenfootImage(foodMass, foodMass);
+    //is it currently spawning
+    boolean spawning = true;
+    //is it infected
+    public boolean infected;
+    //The size of the food. Other classes *should* be able to see this.
+    static int foodMass = 10;
+    //reproduction rate
     int reprodRate = 2;
 
-    boolean spawning = true;
-
-    public boolean infected;
-    
     public Food(boolean parentInfected){
+        //Josh Dhori
+        //creates a food object with the chance of it turning into a parasite
+
         int infectedChance = Greenfoot.getRandomNumber(1000);
         if(infectedChance == 666 || parentInfected){
             infected = true;
@@ -24,33 +33,33 @@ public class Food extends Actor {
             infected = false;
         }
     }
-    //The size of the food. Other classes *should* be able to see this.
-    static int foodMass = 10;
-    //GreenfootImage to store the picture to create.
-    GreenfootImage img = new GreenfootImage(foodMass, foodMass);
 
-    public void act()
-    {
-        //Uzair Ahmed
-
+    public void act(){
+        //Instantiates World
         if (world == null){
             world = (MainWorld) getWorld();
         }
 
         //Draws food.
         drawFood(foodMass, img);
+
+        //Shifts slightly to spread out more evenly
         if (spawning){
             spawnShift();
         }
-        if (Greenfoot.getRandomNumber(1000) == 1){
+
+        //Wrap around the edges
+        marcoPolo();
+
+        //Reproduces at a low probability
+        if (Greenfoot.getRandomNumber(500) == 1){
             reproduce();
         }
-        marcoPolo();
     }
 
-    //Draws the food
     public void drawFood(int m, GreenfootImage i){
         //Uzair Ahmed
+        //Draws the food
 
         //Gets a random angle between a range of 35-55
         int num = Greenfoot.getRandomNumber(10)+15;
@@ -77,32 +86,36 @@ public class Food extends Actor {
             world.addObject(new Food(infected), getX(), getY());
         }
     }
-    
+
     public void marcoPolo(){
         //Uzair Ahmed
+        //It teleports to the other side of the map when hitting the side
+
+        //Get current position values
         int posX = getX();
         int posY = getY();
 
-        //If it is at the edge
+        //If it is at the edge, move to the other edge
         if(posX <= 0){
             posX = 1079;
         }
         else if (posX >= 1080){
             posX = 1;
         }
-        
         if(posY <= 0){
             posY = 1079;
         }
         else if (posY >= 1080){
             posY = 1;
         }
-        
+
+        //set the final location
         setLocation(posX, posY);
     }
 
     public void spawnShift(){
         //Uzair Ahmed
+        //turns and move in a random direction at spawn
 
         setRotation(Greenfoot.getRandomNumber(360));
         move((Greenfoot.getRandomNumber(30)+50));

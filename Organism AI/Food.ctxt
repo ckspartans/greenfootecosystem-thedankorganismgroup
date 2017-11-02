@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=Food
-comment0.text=\r\n\ Food\ for\ the\ organism\ to\ eat.\r\n\ @author\ Uzair\ Ahmed\r\n\ @version\ 1.0\r\n
+comment0.text=\r\n\ Food\ for\ the\ organism\ to\ eat.\r\n\ @author\ Uzair\ Ahmed\r\n\ @author\ Josh\ Dhori\r\n\ @version\ 1.5\r\n
 comment1.params=parentInfected
 comment1.target=Food(boolean)
 comment2.params=

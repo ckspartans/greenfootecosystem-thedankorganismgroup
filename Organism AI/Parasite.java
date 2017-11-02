@@ -3,14 +3,14 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 /**
  * Parasite infects organisms and decreeases their health ovetime
  * Parasite also has stat boosts for it's host organism
- * 
- * 
+ *
  * @Josh Dhori
  * @1.0
  */
+
 public class Parasite extends Actor{
     //"Live" Variables
-    public int mutateRate = 100; //XP cap before mutation    
+    public int mutateRate = 100; //XP cap before mutation
     public int xp = 0; //XP - allows for RPG-like store for mutationpublic int xp = 0; //xp
     public int siphon = 0;
 
@@ -34,6 +34,7 @@ public class Parasite extends Actor{
     public Parasite(Organism o){
         //Josh Dhori
         //Used when host is infected by a plant
+
         host = o;
     }
 
@@ -61,96 +62,129 @@ public class Parasite extends Actor{
 
     }
 
-    public void update(){ //updates the parasite
+    public void update(){
         //Josh Dhori
+        //updates the parasite
+
         if(siphon == 120){
-            siphonHealth(); //siphons the health from host
+          //siphons the health from host
+            siphonHealth();
             siphon = 0;
         }
-        if (xp >= mutateRate){ //if xp has reached mutation threshold then mutate
+        //if xp has reached mutation threshold then mutate
+        if (xp >= mutateRate){
             mutate();
         }
         siphon++;
     }
 
-    public  void infect(Organism o){ //spawns a parasite in "o" organism
+    public  void infect(Organism o){
         //Josh Dhori
+        //spawns a parasite in "o" organism
+
         //if the organism reproduces or touches another organism parasite has a chance to infect
         o.parasite = new Parasite(o, this);
     }
 
     public void mutate(){
         //Josh Dhori
-        xp = 0; //sets xp to 0
-        Mutation.mutate(this); //runs Ethan's parasite mutation code
+
+        //sets xp to 0
+        xp = 0;
+        //runs Ethan's parasite mutation code
+        Mutation.mutate(this);
     }
 
-    public int siphonRate(){ //calculates the siphon rate of this parasite
+    public int siphonRate(){
         //Josh Dhori
+        //calculates the siphon rate of this parasite
+
         //Laura needs to edit these values to balance it
-        int rate = baseSiphonRate; //This returns "rate" which is orginally set to base siphon rate 
-        rate += (attBoost/10); //adds attBoost / 10 to rate
-        rate += (defBoost/10); //adds defBoost / 10 to rate
-        rate += (maxHealthBoost/10); //adds maxHealthBoost / 10 to rate
-        rate += (speedBoost/10); //adds speedBoost / 10 to rate
-        rate += (infectChance/10); //adds infectChance / 10 to rate
-        rate += (mutateRate/10); //adds mutateRate / 10 to rate
-        rate += (power/10); //adds power / 10 to rate
+        //This returns "rate" which is orginally set to base siphon rate
+        int rate = baseSiphonRate;
+        //adds ____Boost/10 to rate
+        rate += (attBoost/10);
+        rate += (defBoost/10);
+        rate += (maxHealthBoost/10);
+        rate += (speedBoost/10);
+        rate += (infectChance/10);
+        rate += (mutateRate/10);
+        rate += (power/10);
 
-        if(organismInfections){ //if this can infect other organisms
-            rate += 2; //then increase the rate by 2
+        //if this can infect other organisms
+        if(organismInfections){
+          //then increase the rate by 2
+            rate += 2;
         }
-
-        if(insane){ //if this organism is crazy
-            rate -= 10; //reduce the rate by 10 (so it can live longer and kill more)
+        //if this organism is crazy
+        if(insane){
+          //reduce the rate by 10 (so it can live longer and kill more)
+            rate -= 10;
         }
-        return rate; //return the rate
+        //return the rate
+        return rate;
     }
 
-    public  void siphonHealth(){ //main function that siphons the health of it's host organism
+    public  void siphonHealth(){
         //Josh Dhori
-        host.health -= siphonRate(); //subtract this parasite's siphonRate from it's host's health
-        if(host.health <= 0){ //if the host's health is below or equal 0
-            host.die(); //kills the host
+        //main function that siphons the health of it's host organism
+
+        //subtract this parasite's siphonRate from it's host's health
+        host.health -= siphonRate();
+        //if the host's health is below or equal 0
+        if(host.health <= 0){
+          //kills the host
+            host.die();
         }
-        else{ //if the host is still alive
-            xp += siphonRate(); //convert the amount of health stolen from the host to xp for this parasite
+        //if the host is still alive
+        else{
+          //convert the amount of health stolen from the host to xp for this parasite
+            xp += siphonRate();
         }
     }
 
-    public  void die(){ //parasite die function
+    public  void die(){
         //Josh Dhori
-        host.infected = false; //switches the host infected boolean to false
-        host.parasite = null; //sets the host's parasite to null (no parasite)
+         //parasite die function
+
+         //switches the host infected boolean to false
+        host.infected = false;
+        //sets the host's parasite to null (no parasite)
+        host.parasite = null;
         //world.removeObject(this); //remove this object from world
     }
 
-    public void boost(boolean mhb, boolean sb,boolean ab,boolean db,boolean sib){ //boost functions
+    public void boost(boolean mhb, boolean sb,boolean ab,boolean db,boolean sib){
         //Josh Dhori
+        //boost functions
+
         /*
          * This runs when Ethan mutates the parasite
-         * Once the parasite mutates, 
+         * Once the parasite mutates,
          * it applys that boost to the host
          */
-        if(mhb){ //if the boost is maxHealth
-            host.maxHealth += maxHealthBoost; //add parasite's boost to maxHealth
+
+        //if the boost is ______, add boost to _______o
+        if(mhb){
+            host.maxHealth += maxHealthBoost;
         }
-        if (sb){ //if the boost is speed
-            host.speed += speedBoost; //add parasite's boost to speed
+        if (sb){
+            host.speed += speedBoost;
         }
-        if (ab){ //if the boost is att 
-            host.att += attBoost; //add parasite's boost to att
+        if (ab){
+            host.att += attBoost;
         }
-        if (db){ //if the boost is def
-            host.def += defBoost; //add parasite's boost to def
+        if (db){
+            host.def += defBoost;
         }
-        if (sib){ //if the boost is sight
-            host.sight += sightBoost; //add parasite's boost to sight
+        if (sib){
+            host.sight += sightBoost;
         }
     }
 
-    public boolean infectionChance(){ //chance for the organism to infect another organism
+    public boolean infectionChance(){
         //Josh Dhori
+        //chance for the organism to infect another organism
         /*
          * If this parasite can infect other organisms
          * then this parasite has a (infectChance)% to infect that organism

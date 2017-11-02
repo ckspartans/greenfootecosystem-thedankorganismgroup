@@ -22,12 +22,12 @@ public abstract class AbstOrganism extends Actor {
     public Boolean isTouchingEnemy;
     public Boolean isAlpha;
     public Boolean infected;
-    
+
     public int attackTatic; //which attackTatic to use
     public double threatLevel;
     public Organism chosenEnemy;
     public Parasite parasite;
-    
+
     //XP Upgradeable Variables
     public double maxHealth; //Maximum Health
     public double maxXp; //Max XP Storage
@@ -48,14 +48,11 @@ public abstract class AbstOrganism extends Actor {
 
     public abstract void consumeFood(Food foodBeingEaten);
 
-
     public abstract void updateandCapVariables();
 
     public abstract void reproduce();
 
     public abstract void startTimer();
-
-    public abstract int getAge();
 
     public abstract void die();
 }
