@@ -49,7 +49,7 @@ public class MainWorld extends World {
     Family fam2;
     Family fam3;
     Family fam4;
-    
+
     ArrayList fams;
 
     public MainWorld() {
@@ -81,8 +81,15 @@ public class MainWorld extends World {
         }
     }
 
+    public void act() {
+        checkButtons();
+        if (gameOver()){
+            System.out.println("GAMEOVER");
+        }
+    }
+
     public void checkButtons() {
-      //Cameron Dickie
+        //Cameron Dickie
 
         if(pauseButton.active) {
             Greenfoot.setWorld(pause);
@@ -99,70 +106,63 @@ public class MainWorld extends World {
         addObject(pauseButton, UI.getX() -250,UI.getY() - 400);
     }
 
-    public void act() {
-        checkButtons();
-        if (gameOver()){
-            System.out.println("GAMEOVER");
-        }
-    }
-
     public void instFamsNOrgs(){
-      //Uzair Ahmed
+        //Uzair Ahmed
 
-      //Instantiates Families and list
-      fam1 = new Family();
-      fam2 = new Family();
-      fam3 = new Family();
-      fam4 = new Family();
-      
-      fams = new ArrayList<Family>();
-      
-      //Instantiates players
-      player1 = new Organism(startingMaxHealth, startingMaxXp, startingSpeed, startingAttackPower, startingDefensePower, startingSight, fam1 , Color.RED);
-      player2 = new Organism(startingMaxHealth, startingMaxXp, startingSpeed, startingAttackPower, startingDefensePower, startingSight, fam2, Color.BLUE);
-      player3 = new Organism(startingMaxHealth, startingMaxXp, startingSpeed, startingAttackPower, startingDefensePower, startingSight, fam3, Color.GREEN);
-      player4 = new Organism(startingMaxHealth, startingMaxXp, startingSpeed, startingAttackPower, startingDefensePower, startingSight, fam4, Color.YELLOW);
+        //Instantiates Families and list
+        fam1 = new Family();
+        fam2 = new Family();
+        fam3 = new Family();
+        fam4 = new Family();
+
+        fams = new ArrayList<Family>();
+
+        //Instantiates players
+        player1 = new Organism(startingMaxHealth, startingMaxXp, startingSpeed, startingAttackPower, startingDefensePower, startingSight, fam1 , Color.RED);
+        player2 = new Organism(startingMaxHealth, startingMaxXp, startingSpeed, startingAttackPower, startingDefensePower, startingSight, fam2, Color.BLUE);
+        player3 = new Organism(startingMaxHealth, startingMaxXp, startingSpeed, startingAttackPower, startingDefensePower, startingSight, fam3, Color.GREEN);
+        player4 = new Organism(startingMaxHealth, startingMaxXp, startingSpeed, startingAttackPower, startingDefensePower, startingSight, fam4, Color.YELLOW);
     }
 
     public void addFamsNOrgs(){
-      //Uzair Ahmed
+        //Uzair Ahmed
 
-      //Adds player to world
-      addObject(player1, 200, 200);
-      addObject(player2, 880, 200);
-      addObject(player3, 200, 880);
-      addObject(player4, 880, 880);
-      
-      //Adds the family to the world
-      addObject(fam1, 1780,1060);
-      addObject(fam2, 1820,1060);
-      addObject(fam3, 1860,1060);
-      addObject(fam4, 1900,1060);
-      
-      fams.add(fam1);fams.add(fam2);fams.add(fam3);fams.add(fam4);
+        //Adds player to world
+        addObject(player1, 200, 200);
+        addObject(player2, 880, 200);
+        addObject(player3, 200, 880);
+        addObject(player4, 880, 880);
+
+        //Adds the family to the world
+        addObject(fam1, 1780,1060);
+        addObject(fam2, 1820,1060);
+        addObject(fam3, 1860,1060);
+        addObject(fam4, 1900,1060);
+
+        fams.add(fam1);fams.add(fam2);fams.add(fam3);fams.add(fam4);
     }
-    
+
     public boolean gameOver(){
-//Uzair Ahmed
-//checks when theres only one family left
+        //Uzair Ahmed
+        //checks when theres only one family left
 
         Family fam;
-//goes through each family
+        //goes through each family
         for(int i = 0; i < fams.size(); i++){
             fam = (Family) fams.get(i);
-//checks if the size is zero
+            //checks if the size is zero
             if (fam.familyList.size() == 0){
-//removes family from world and list
+                //removes family from world and list
                 removeObject(fam);
                 fams.remove(fam);
+            }
         }
-    }
-        
-//if the list size is 1 return true
+
+        //if the list size is 1 return true
         if (fams.size() == 1){
             return true;
         }
         return false;
-    
-}
+
+    }
 }
