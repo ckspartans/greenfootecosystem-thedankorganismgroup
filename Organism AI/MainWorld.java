@@ -31,13 +31,11 @@ public class MainWorld extends World {
     
     //File Locations
     String pLoc = "pause.png";
-    String rLoc = "resume.png";
-    
-    String sLoc = "start.png";
     String blue = "blue.png";
     String red = "red.png";
     String green = "green.png";
     String yellow = "yellow.png";
+    String black = "black.png";
     
     //ACTUAL CODE--------------------------------------------------------
 
@@ -50,6 +48,7 @@ public class MainWorld extends World {
     Button sFam2;
     Button sFam3;
     Button sFam4;
+    Button sFood;
     PauseWorld pause;
     GameOver gover;
 
@@ -86,7 +85,7 @@ public class MainWorld extends World {
         checkButtons();
         if (gameOver()){
         gover = new GameOver();
-        Greenfoot.setWorld(gover);
+        Greenfoot.setWorld(gover); //sets the gamestate to a gameover state when there are no other families left
         }
     }
 
@@ -158,25 +157,31 @@ public class MainWorld extends World {
             spawnOrganism(fam4);
             sFam4.setActive(false);            
         }
+        if(sFood.active) {
+            spawnFood();
+            sFood.setActive(false);
+        }
     }
 
-    //sets a reference to the images for pause, resume, exit, start, blue, red, green and yellow buttons
+
 
     public void openUI() {
         //Cameron Dickie
         
         UI = new UIBack(); // creates a reference to draw the back of the UI
         pauseButton = new Button(this, pLoc);
-        sFam1 = new Button(this, red);
+        sFam1 = new Button(this, red); //creates the references to the spawning buttons
         sFam2 = new Button(this, blue);
         sFam3 = new Button(this, green);
         sFam4 = new Button(this, yellow);
+        sFood =  new Button(this, black);
         addObject(UI, 1920 - UI.width/2, 0 + UI.height/2); // spawning the ui back at the right hand side of the screen
         addObject(pauseButton, UI.getX() -250,UI.getY() - 400);
-        addObject(sFam1, UI.getX() - 250, UI.getY() - 200);
+        addObject(sFam1, UI.getX() - 250, UI.getY() - 200); // placing in the spawn buttons into the world
         addObject(sFam2, UI.getX() + 250, UI.getY() - 200);
         addObject(sFam3, UI.getX() - 250, UI.getY());
         addObject(sFam4, UI.getX() + 250, UI.getY());
+        addObject(sFood, UI.getX(), UI.getY() -100);
     }
 
     public boolean gameOver(){
