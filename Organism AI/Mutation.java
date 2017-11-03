@@ -11,7 +11,7 @@ public class Mutation{
         //Ethan Gale
         if (o.xp >= o.maxXp){ //reproduce only while XP is divisible by ten
             if (Greenfoot.getRandomNumber(10) == 1){ //repro chance
-                o.xp = 0;
+                o.xp = 0;o.att += 2;
                 int chosenMutation = Greenfoot.getRandomNumber(1000); //choose mutation
                 if (chosenMutation <= 250){ //attack
                     o.att += 2;

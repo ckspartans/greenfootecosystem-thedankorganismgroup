@@ -15,7 +15,7 @@ public class MainWorld extends World {
     //VARIABLES ---------------------------------------------------------
     static int startingMaxHealth = 100;
     static int startingMaxXp = 5;
-    static int startingSpeed = 3;
+    static int startingSpeed = 4;
     static int startingAttackPower = 1;
     static int startingDefensePower = 1;
     static int startingSight = 100;

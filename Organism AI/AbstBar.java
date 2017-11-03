@@ -17,9 +17,10 @@ public abstract class AbstBar extends Actor
     protected double maxVal; // maximum value of the bar
     protected double curVal; // current value of the bar
     
-    protected GreenfootImage img;
+    protected GreenfootImage imgback;
+    protected GreenfootImage imgfront;
     protected int height;
-    protected int width;
+    protected int percent;
     
     protected long curTime;
     protected long lastAdded;
@@ -35,8 +36,7 @@ public abstract class AbstBar extends Actor
         }
         */
     }    
-    public abstract int updateValue(double w);
-    public abstract void updateColor();
+    public abstract void updateValue(double h, double mh);
     public abstract void drawBar();
     
 }

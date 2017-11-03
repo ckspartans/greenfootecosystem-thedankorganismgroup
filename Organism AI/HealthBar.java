@@ -14,14 +14,14 @@ public class HealthBar extends AbstBar
      */
     Organism owner;
     MainWorld world;
-    Color c;
-    public HealthBar(Organism o, int w, int h, double max, double cur) {
+    Color fc;
+    Color bc;
+    public HealthBar(Organism o, int h, double max, double cur) {
         isActive = false;
-        width = w;
         height = h;
         maxVal = max;
         curVal = cur;
-        img = new GreenfootImage(width, height);
+
         owner = o;
     }
     public void act() 
@@ -30,25 +30,20 @@ public class HealthBar extends AbstBar
         if(world == null) {
             world = (MainWorld) getWorld();
         }
-        /*if(owner.getWorld() == null) {
-            removeObject(this);
-        }
-      */
         drawBar();
     }    
-    public int updateValue(double w) {
-        w = w*((curVal/maxVal));
-        return (int)w;
-    }
-    public void updateColor() {
-        c = new Color(0, 255, 0);   
-        img.setColor(c);
-    }
+    
+    public void updateValue(double h, double mh) {
+        curVal = h;
+        maxVal = mh;
+        percent = Math.abs((int)((curVal/maxVal)*100));
+       }
+
     public void drawBar() {
-        updateColor();
-        img.fill();
-        setImage(img);
+        imgfront = new GreenfootImage((int)maxVal, height);
+        imgfront.drawRect(0,0,(int)maxVal-1,height-1);
+        imgfront.setColor(new Color(0,255,0));
+        imgfront.fillRect(1,1,percent-2, height-2);
+        setImage(imgfront);
     }
-    
-    
 }

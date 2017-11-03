@@ -6,6 +6,7 @@ import java.util.*;
  *
  * @author Uzair Ahmed
  * @author Josh Dhori
+ * @author Cameron Dickie
  * @version 2.0
  */
 
@@ -62,7 +63,7 @@ public class Organism extends AbstOrganism {
         //Declares world class
         MainWorld world;
         
-        hpBar = new HealthBar(this, 50,10, maxHealth, health);
+        hpBar = new HealthBar(this, 10, maxHealth, health);
 
     }
 
@@ -74,8 +75,7 @@ public class Organism extends AbstOrganism {
             world = (MainWorld) getWorld();
         }
        
-            updateBars();
-        
+            
         
         //Gets all objects in the sight radius and puts them into thier proper lists.
         List foodNearby = getObjectsInRange(sight, Food.class);
@@ -96,14 +96,14 @@ public class Organism extends AbstOrganism {
         //Runs Mutation Method
         Mutation.mutate(this);
 
-        //Draws the organism
-        drawOrganism(myColor, Math.abs(radius+1));
-
         //Checks if the organism is alive, if not, return. (placed here specifically because mutate
         //and updateAndCapVariables runs the die method, but should not run think.)
         if (!isAlive){
             return;
         }
+        
+        //Draws the organism
+        drawOrganism(myColor, Math.abs(radius+1));
 
         //Runs the AI Method
         AI.think(this, foodNearby, foodBeingEaten, organismsNearby, touchingOrgs, isTouchingOrg);
@@ -116,7 +116,7 @@ public class Organism extends AbstOrganism {
 
         int rad = (int)r;
         //Creates new greenfoot image
-        GreenfootImage img = new GreenfootImage(rad, rad);
+        GreenfootImage img = new GreenfootImage(rad+1, rad+1);
         //Sets the color, draws an oval, and fills it.
         img.setColor(c);
 
@@ -130,6 +130,9 @@ public class Organism extends AbstOrganism {
 
         //Sets the objects image to the created image.
         setImage(img);
+        
+        //Runs Cameron's Draw Function
+        updateBars();
     }
 
     public void updateandCapVariables(){
@@ -157,7 +160,7 @@ public class Organism extends AbstOrganism {
 
         //Increases health slowly if its not being attacked
         if(!attackMode){
-            health += 0.2;
+            health -= 0.25;
         }
 
         //Updates threatLevel
@@ -242,12 +245,15 @@ public class Organism extends AbstOrganism {
 
         //removes organism from family
         myFamily.remOrganism(this);
-
+        
         //moves it away from the world (to avoid any confusions with AIs)
         setLocation(2000,1000);
 
         //removes the object from the world
         world.removeObject(this);
+        
+        //removes health bar
+        world.removeObject(hpBar);
     }
 
     public void consumeFood(Food foodBeingEaten){
@@ -269,7 +275,7 @@ public class Organism extends AbstOrganism {
             //Gets the mass of the food and adds it to xp and health.
             int foodConsumed = foodBeingEaten.foodMass;
             xp+=foodConsumed/10;
-            health+=0.5;
+            health+=5;
         }
     }
 
@@ -334,6 +340,7 @@ public class Organism extends AbstOrganism {
             if (intersects(prey) == true){ //if touching the X organism in totalEnemy list
                 if ((att - prey.def) > 0){ //if your attack is greater than their defense
                     prey.health -= (att - prey.def); //hits selected enemy for your attack - enemy defense
+                    health += (att - prey.def);
                 }
                 //This is giving problems --> prey.def -= (prey.def*(att/prey.def)); //reduce their defensive power by your attack by dividing their defense percentage eg att-->1 def -->2 new def = 1
                 prey.health -= (prey.def*(att/prey.def));
@@ -447,11 +454,14 @@ public class Organism extends AbstOrganism {
    
     
     public void updateBars() {
+        //Cameron Dickie
+        //Updates Health Bars
+        
         if(hpBar.isActive == false) {
            world.addObject(hpBar, getX(), getY() - (int)radius - 10);
            hpBar.isActive = true;
         }
-        hpBar.updateValue(health);
+        hpBar.updateValue(health, maxHealth);
         hpBar.setLocation(this.getX(), this.getY() -  (int)radius - 10);
     }
 }
