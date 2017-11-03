@@ -13,10 +13,10 @@ public class Button extends Actor
     public MainWorld game;
     public boolean active = false;
 
-    public Button(int width, int height, MainWorld w) {
-        img = new GreenfootImage(width, height);
-        img.setColor(new Color(200,200,200));
-        img.fill();
+    public Button(MainWorld w, String s) {
+        img = new GreenfootImage(s);
+        
+        
         setImage(img); //assigning the color and size of the square
         game = w; // setting the reference to the world
 

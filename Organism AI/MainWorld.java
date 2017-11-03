@@ -28,7 +28,17 @@ public class MainWorld extends World {
     static int maxBuyableSight = 1000;
 
     static int startingFood = 50;
-
+    
+    //File Locations
+    String pLoc = "pause.png";
+    String rLoc = "resume.png";
+    
+    String sLoc = "start.png";
+    String blue = "blue.png";
+    String red = "red.png";
+    String green = "green.png";
+    String yellow = "yellow.png";
+    
     //ACTUAL CODE--------------------------------------------------------
 
     //Initializes classes
@@ -36,6 +46,10 @@ public class MainWorld extends World {
 
     UIBack UI;
     Button pauseButton;
+    Button sFam1;
+    Button sFam2;
+    Button sFam3;
+    Button sFam4;
     PauseWorld pause;
 
     //Declares Families
@@ -58,7 +72,7 @@ public class MainWorld extends World {
         Greenfoot.setWorld(intro);
 
         //Sets paint order
-        setPaintOrder(Button.class, Family.class, UIBack.class, Parasite.class, Organism.class, Food.class);
+        setPaintOrder(Button.class, UIBack.class, Parasite.class, Organism.class, Food.class,Family.class);
 
         //Creates Families, and spawns organisms and food
         spawn();
@@ -70,7 +84,7 @@ public class MainWorld extends World {
     public void act() {
         checkButtons();
         if (gameOver()){
-            System.out.println("GAMEOVER");
+            System.out.println("GAMEOVER"); // run end screen function here
         }
     }
 
@@ -78,10 +92,10 @@ public class MainWorld extends World {
         //Uzair Ahmed
 
         //Instantiates Families and list
-        fam1 = new Family(Color.RED);
-        fam2 = new Family(Color.BLUE);
-        fam3 = new Family(Color.GREEN);
-        fam4 = new Family(Color.YELLOW);
+        fam1 = new Family(Color.RED, 200,200);
+        fam2 = new Family(Color.BLUE, 880, 200);
+        fam3 = new Family(Color.GREEN,200,880);
+        fam4 = new Family(Color.YELLOW, 880,880);
 
         fams = new ArrayList<Family>();
 
@@ -93,10 +107,10 @@ public class MainWorld extends World {
 
         fams.add(fam1);fams.add(fam2);fams.add(fam3);fams.add(fam4);
 
-        spawnOrganism(fam1, 200, 200);
-        spawnOrganism(fam2, 880, 200);
-        spawnOrganism(fam3, 200, 880);
-        spawnOrganism(fam4, 880, 880);       
+        spawnOrganism(fam1);
+        spawnOrganism(fam2);
+        spawnOrganism(fam3);
+        spawnOrganism(fam4);       
 
         // Spawns the initial food
         for (int i = 0; i < startingFood; i++) {
@@ -104,12 +118,12 @@ public class MainWorld extends World {
         }
     }
 
-    public void spawnOrganism(Family fam, int x, int y){
+    public void spawnOrganism(Family fam){
         //Uzair Ahmed
         //Spawns an organism
 
         Organism o = new Organism(startingMaxHealth, startingMaxXp, startingSpeed, startingAttackPower, startingDefensePower, startingSight, fam);
-        addObject(o, x, y);
+        addObject(o, o.myFamily.baseX, o.myFamily.baseY);
     }
 
     public void spawnFood(){
@@ -126,15 +140,41 @@ public class MainWorld extends World {
             Greenfoot.setWorld(pause);
             pauseButton.setActive(false);
         }
+        if(sFam1.active) {
+            spawnOrganism(fam1);
+            sFam1.setActive(false);
+        }
+        if(sFam2.active) {
+            spawnOrganism(fam2);
+            sFam2.setActive(false);            
+        }
+        if(sFam3.active) {
+            spawnOrganism(fam3);
+            sFam3.setActive(false);
+        }
+        if(sFam4.active) {
+            spawnOrganism(fam4);
+            sFam4.setActive(false);            
+        }
     }
+
+    //sets a reference to the images for pause, resume, exit, start, blue, red, green and yellow buttons
 
     public void openUI() {
         //Cameron Dickie
-
+        
         UI = new UIBack(); // creates a reference to draw the back of the UI
-        pauseButton = new Button(200,100, this);
+        pauseButton = new Button(this, pLoc);
+        sFam1 = new Button(this, red);
+        sFam2 = new Button(this, blue);
+        sFam3 = new Button(this, green);
+        sFam4 = new Button(this, yellow);
         addObject(UI, 1920 - UI.width/2, 0 + UI.height/2); // spawning the ui back at the right hand side of the screen
         addObject(pauseButton, UI.getX() -250,UI.getY() - 400);
+        addObject(sFam1, UI.getX() - 250, UI.getY() - 200);
+        addObject(sFam2, UI.getX() + 250, UI.getY() - 200);
+        addObject(sFam3, UI.getX() - 250, UI.getY());
+        addObject(sFam4, UI.getX() + 250, UI.getY());
     }
 
     public boolean gameOver(){

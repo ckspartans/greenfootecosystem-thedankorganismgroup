@@ -13,17 +13,17 @@ public class IntroScreen extends World {
 
     Button start;
     Button exit;
+    String sLoc = "start.png";
+    String eLoc = "exit.png";
 
     public IntroScreen(MainWorld w)
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(1920, 1080, 1); 
         world = w;
-        bg = new GreenfootImage(1920,1080);
-        bg.setColor(new Color(119, 221, 119));
-        bg.fill();
-        start = new Button(400,100, w);
-        exit = new Button(400,100, w);
+        bg = new GreenfootImage("bg.png");
+        start = new Button(w, sLoc);
+        exit = new Button(w, eLoc);
         addObject(start, 1920/2, 1080/2 - 100);
         addObject(exit, 1920/2, 1080/2 + 100);
     }

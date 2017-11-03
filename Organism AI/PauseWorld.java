@@ -16,17 +16,17 @@ public class PauseWorld extends World
     Button r;
     MainWorld game;
     Button e;
+    String eLoc = "exit.png";
+    String rLoc = "resume.png";
     public PauseWorld(MainWorld g)
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(1920, 1080, 1); 
-        bg = new GreenfootImage(1920,1080);
-        bg.setColor(new Color(119, 221, 119));
-        bg.fill();
+        bg = new GreenfootImage("bg.png");
         setBackground(bg);
         game = g;
-        r = new Button(400,100, game);
-        e = new Button(400,100, game);
+        r = new Button(game, rLoc);
+        e = new Button(game, eLoc);
         addObject(r, 1920/2, 1080/2 - 100);
         addObject(e, 1920/2, 1080/2 + 100);
     }

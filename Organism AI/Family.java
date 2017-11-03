@@ -12,14 +12,16 @@ public class Family extends Actor
     //Creates a list of all family organisms
     public List familyList = new ArrayList();
 
-    //create a summed health value
+    public int baseX; public int baseY;
     public double familyHealth;
     public Organism targetEnemy;
     public Boolean familyAttackMode = false;
     public Color color;
     
-    public Family(Color c){
+    public Family(Color c, int x, int y){
         color = c;
+        baseX = x;
+        baseY = y;
     }
 
     public void addOrganism(Organism o){
