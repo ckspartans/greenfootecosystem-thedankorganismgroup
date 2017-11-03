@@ -179,7 +179,7 @@ public class Organism extends AbstOrganism {
             def = world.maxBuyableDef;
         }
         
-        checkMouseOver();
+
     }
 
     
