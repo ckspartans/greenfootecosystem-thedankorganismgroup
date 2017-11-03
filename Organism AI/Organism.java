@@ -133,7 +133,7 @@ public class Organism extends AbstOrganism {
         //--------------------UPDATERS---------------------
 
         //Colors the organism to show a visual rep. of age every 30 seconds of an organisms lifetime
-        if ((age%1800)==0){
+        if ((age%4)==0){
             //Creates temporary color
             Color c = myColor;
             //Sets color equal to current color, and gets the rgb vals
@@ -163,8 +163,8 @@ public class Organism extends AbstOrganism {
             die();
         }
 
-        //Dies after exactly 120 seconds
-        if (age >= 7200){
+        //Dies after exactly 30 seconds
+        if (age >= 900){
             die();
         }
 
