@@ -403,16 +403,7 @@ public class Organism extends AbstOrganism {
         return famThreat;
     }
     */
-   public void checkMouseOver() {
-       
-           /*
-            * Calls code to show health bars and 
-            * */
-            
-
-            System.out.println("test");
-       
-    }
+   
     
     public void updateBars() {
         if(hpBar.isActive == false) {
