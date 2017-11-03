@@ -35,7 +35,7 @@ public abstract class AbstBar extends Actor
         }
         */
     }    
-    public abstract int updateValue(int w);
+    public abstract int updateValue(double w);
     public abstract void updateColor();
     public abstract void drawBar();
     

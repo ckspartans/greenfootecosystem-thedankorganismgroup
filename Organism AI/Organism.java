@@ -448,11 +448,10 @@ public class Organism extends AbstOrganism {
     
     public void updateBars() {
         if(hpBar.isActive == false) {
-           world.addObject(hpBar, getX(), getY() - radius - 10);
+           world.addObject(hpBar, getX(), getY() - (int)radius - 10);
            hpBar.isActive = true;
         }
         hpBar.updateValue(health);
-        hpBar.setLocation(this.getX(), this.getY() -  radius - 10);
+        hpBar.setLocation(this.getX(), this.getY() -  (int)radius - 10);
     }
-    */
 }

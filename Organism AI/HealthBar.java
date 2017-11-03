@@ -36,9 +36,9 @@ public class HealthBar extends AbstBar
       */
         drawBar();
     }    
-    public int updateValue(int w) {
-        w = w*((int) (curVal/maxVal));
-        return w;
+    public int updateValue(double w) {
+        w = w*((curVal/maxVal));
+        return (int)w;
     }
     public void updateColor() {
         c = new Color(0, 255, 0);   
