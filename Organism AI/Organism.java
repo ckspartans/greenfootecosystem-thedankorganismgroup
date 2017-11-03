@@ -11,17 +11,17 @@ import java.util.*;
 
 public class Organism extends AbstOrganism {
 
-    public Organism(double smh, double smx, int ss, int sa, int sd, int ssi, Family fam , Color c){
+    public Organism(double smh, double smx, int ss, int sa, int sd, int ssi, Family fam){
         // Uzair Ahmed
         //Runs on creation of a new Organism
 
-        init(smh,smx,ss,sa,sd,ssi,fam,c);
+        init(smh,smx,ss,sa,sd,ssi,fam);
     }
-    
+
     public Organism(Organism p) {
         //Josh Dhori
 
-        init(p.maxHealth, p.maxXp, p.speed, p.att, p.def, p.sight, p.myFamily, p.familyColor);
+        init(p.maxHealth, p.maxXp, p.speed, p.att, p.def, p.sight, p.myFamily);
         if (p.infected == true) {
             infected = true;
             parasite = new Parasite (this, p.parasite);
@@ -33,7 +33,7 @@ public class Organism extends AbstOrganism {
         }
     }
 
-    public void init(double smh, double smx, int ss, int sa, int sd, int ssi, Family fam , Color c){
+    public void init(double smh, double smx, int ss, int sa, int sd, int ssi, Family fam){
         //Uzair Ahmed
         //Initializes all the variables required
 
@@ -57,8 +57,7 @@ public class Organism extends AbstOrganism {
         //Team Variables
         myFamily = fam; //Family reference
         myFamily.addOrganism(this); //adds organism to family
-        familyColor = c; //Original family color for reference
-        myColor = familyColor; //current color
+        myColor = myFamily.color; //Original family color for reference
 
         //Declares world class
         MainWorld world;
@@ -114,8 +113,10 @@ public class Organism extends AbstOrganism {
         GreenfootImage img = new GreenfootImage(rad, rad);
         //Sets the color, draws an oval, and fills it.
         img.setColor(c);
+
         img.drawOval(0,0,rad,rad);
         img.fillOval(0,0,rad,rad);
+
         if(infected == true) {
             img.setColor(Color.WHITE);
             img.fillOval(0,0,(rad-5),(rad-5));

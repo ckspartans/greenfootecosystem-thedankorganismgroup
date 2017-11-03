@@ -16,6 +16,11 @@ public class Family extends Actor
     public double familyHealth;
     public Organism targetEnemy;
     public Boolean familyAttackMode = false;
+    public Color color;
+    
+    public Family(Color c){
+        color = c;
+    }
 
     public void addOrganism(Organism o){
         //Uzair Ahmed
