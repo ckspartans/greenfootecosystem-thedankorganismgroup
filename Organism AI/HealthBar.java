@@ -14,6 +14,7 @@ public class HealthBar extends AbstBar
      */
     Organism owner;
     MainWorld world;
+    Color c;
     public HealthBar(Organism o, int w, int h, double max, double cur) {
         isActive = false;
         width = w;
@@ -40,7 +41,8 @@ public class HealthBar extends AbstBar
         return w;
     }
     public void updateColor() {
-        img.setColor(new Color(255,255,255));
+        c = new Color(0, 255, 0);   
+        img.setColor(c);
     }
     public void drawBar() {
         updateColor();
