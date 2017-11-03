@@ -38,12 +38,6 @@ public class MainWorld extends World {
     Button pauseButton;
     PauseWorld pause;
 
-    //Declares players
-    Organism player1;
-    Organism player2;
-    Organism player3;
-    Organism player4;
-
     //Declares Families
     Family fam1;
     Family fam2;
@@ -66,19 +60,11 @@ public class MainWorld extends World {
         //Sets paint order
         setPaintOrder(Button.class, Family.class, UIBack.class, Parasite.class, Organism.class, Food.class);
 
-        //Runs player and family instantation methods
-        instFamsNOrgs();
-
-        //Runs player and family add methods
-        addFamsNOrgs();
+        //Creates Families, and spawns organisms and food
+        spawn();
 
         //Runs UI method
         openUI();
-
-        // Spawns the initial food
-        for (int i = 0; i < startingFood; i++) {
-            addObject(new Food(false), Greenfoot.getRandomNumber(1080), Greenfoot.getRandomNumber(1080));
-        }
     }
 
     public void act() {
@@ -86,6 +72,51 @@ public class MainWorld extends World {
         if (gameOver()){
             System.out.println("GAMEOVER");
         }
+    }
+
+    public void spawn(){
+        //Uzair Ahmed
+
+        //Instantiates Families and list
+        fam1 = new Family(Color.RED);
+        fam2 = new Family(Color.BLUE);
+        fam3 = new Family(Color.GREEN);
+        fam4 = new Family(Color.YELLOW);
+
+        fams = new ArrayList<Family>();
+
+        //Adds the family to the world
+        addObject(fam1, 1780,1060);
+        addObject(fam2, 1820,1060);
+        addObject(fam3, 1860,1060);
+        addObject(fam4, 1900,1060);
+
+        fams.add(fam1);fams.add(fam2);fams.add(fam3);fams.add(fam4);
+
+        spawnOrganism(fam1, 200, 200);
+        spawnOrganism(fam2, 880, 200);
+        spawnOrganism(fam3, 200, 880);
+        spawnOrganism(fam4, 880, 880);       
+
+        // Spawns the initial food
+        for (int i = 0; i < startingFood; i++) {
+            spawnFood();
+        }
+    }
+
+    public void spawnOrganism(Family fam, int x, int y){
+        //Uzair Ahmed
+        //Spawns an organism
+
+        Organism o = new Organism(startingMaxHealth, startingMaxXp, startingSpeed, startingAttackPower, startingDefensePower, startingSight, fam);
+        addObject(o, x, y);
+    }
+
+    public void spawnFood(){
+        // Uzair Ahmed
+        // Spawns food
+
+        addObject(new Food(false), Greenfoot.getRandomNumber(1080), Greenfoot.getRandomNumber(1080));
     }
 
     public void checkButtons() {
@@ -104,42 +135,6 @@ public class MainWorld extends World {
         pauseButton = new Button(200,100, this);
         addObject(UI, 1920 - UI.width/2, 0 + UI.height/2); // spawning the ui back at the right hand side of the screen
         addObject(pauseButton, UI.getX() -250,UI.getY() - 400);
-    }
-
-    public void instFamsNOrgs(){
-        //Uzair Ahmed
-
-        //Instantiates Families and list
-        fam1 = new Family();
-        fam2 = new Family();
-        fam3 = new Family();
-        fam4 = new Family();
-
-        fams = new ArrayList<Family>();
-
-        //Instantiates players
-        player1 = new Organism(startingMaxHealth, startingMaxXp, startingSpeed, startingAttackPower, startingDefensePower, startingSight, fam1 , Color.RED);
-        player2 = new Organism(startingMaxHealth, startingMaxXp, startingSpeed, startingAttackPower, startingDefensePower, startingSight, fam2, Color.BLUE);
-        player3 = new Organism(startingMaxHealth, startingMaxXp, startingSpeed, startingAttackPower, startingDefensePower, startingSight, fam3, Color.GREEN);
-        player4 = new Organism(startingMaxHealth, startingMaxXp, startingSpeed, startingAttackPower, startingDefensePower, startingSight, fam4, Color.YELLOW);
-    }
-
-    public void addFamsNOrgs(){
-        //Uzair Ahmed
-
-        //Adds player to world
-        addObject(player1, 200, 200);
-        addObject(player2, 880, 200);
-        addObject(player3, 200, 880);
-        addObject(player4, 880, 880);
-
-        //Adds the family to the world
-        addObject(fam1, 1780,1060);
-        addObject(fam2, 1820,1060);
-        addObject(fam3, 1860,1060);
-        addObject(fam4, 1900,1060);
-
-        fams.add(fam1);fams.add(fam2);fams.add(fam3);fams.add(fam4);
     }
 
     public boolean gameOver(){

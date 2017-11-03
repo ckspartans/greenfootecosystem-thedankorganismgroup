@@ -5,7 +5,7 @@ import java.util.*;
  * AI Code (Things like patrolling the area, knowing how to move, and more.
  *
  * @author Uzair Ahmed
- * @version 1.4
+ * @version 1.6
  */
 
 public class AI
