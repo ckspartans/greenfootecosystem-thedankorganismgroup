@@ -38,6 +38,7 @@ public class HealthBar extends AbstBar
     }    
     public int updateValue(double w) {
         w = w*((curVal/maxVal));
+        System.out.println();
         return (int)w;
     }
     public void updateColor() {
@@ -47,6 +48,7 @@ public class HealthBar extends AbstBar
     public void drawBar() {
         updateColor();
         img.fill();
+        img.scale(updateValue(img.getWidth()), img.getHeight());
         setImage(img);
     }
     

@@ -4,7 +4,7 @@ import java.util.*;
 /**
  * 
  * @author Cameron Dickie
- * @version 0.1
+ * @version 1.2
  */
 
 public class Button extends Actor
