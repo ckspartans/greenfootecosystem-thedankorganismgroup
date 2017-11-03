@@ -15,9 +15,7 @@ public class Button extends Actor
 
     public Button(MainWorld w, String s) {
         img = new GreenfootImage(s);
-        
-        
-        setImage(img); //assigning the color and size of the square
+        setImage(img); //setting the image to the filepath
         game = w; // setting the reference to the world
 
     }

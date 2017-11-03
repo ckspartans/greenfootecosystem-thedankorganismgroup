@@ -51,6 +51,7 @@ public class MainWorld extends World {
     Button sFam3;
     Button sFam4;
     PauseWorld pause;
+    GameOver gover;
 
     //Declares Families
     Family fam1;
@@ -59,7 +60,7 @@ public class MainWorld extends World {
     Family fam4;
 
     ArrayList fams;
-
+    
     public MainWorld() {
         //Creates new world of the size given
         super(1920,1080, 1);
@@ -84,7 +85,8 @@ public class MainWorld extends World {
     public void act() {
         checkButtons();
         if (gameOver()){
-            System.out.println("GAMEOVER"); // run end screen function here
+        gover = new GameOver();
+        Greenfoot.setWorld(gover);
         }
     }
 
