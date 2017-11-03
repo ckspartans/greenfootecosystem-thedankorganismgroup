@@ -42,6 +42,8 @@ public abstract class AbstOrganism extends Actor {
     public Color myColor; //current color
 
     public int name;
+    
+    public HealthBar hpBar;
 
     MainWorld world;
     public abstract void drawOrganism(Color c, double rad);

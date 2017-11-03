@@ -61,6 +61,9 @@ public class Organism extends AbstOrganism {
 
         //Declares world class
         MainWorld world;
+        
+        hpBar = new HealthBar(this, 50,10, maxHealth, health);
+
     }
 
     public void act(){
@@ -70,7 +73,10 @@ public class Organism extends AbstOrganism {
         if (world == null){
             world = (MainWorld) getWorld();
         }
-
+       
+            updateBars();
+        
+        
         //Gets all objects in the sight radius and puts them into thier proper lists.
         List foodNearby = getObjectsInRange(sight, Food.class);
         List organismsNearby  = getObjectsInRange(sight, Organism.class);
@@ -202,6 +208,8 @@ public class Organism extends AbstOrganism {
         if (def > world.maxBuyableDef){
             def = world.maxBuyableDef;
         }
+        
+
     }
 
     public void reproduce() {
@@ -436,4 +444,15 @@ public class Organism extends AbstOrganism {
             }
         }
     }
+   
+    
+    public void updateBars() {
+        if(hpBar.isActive == false) {
+           world.addObject(hpBar, getX(), getY() - radius - 10);
+           hpBar.isActive = true;
+        }
+        hpBar.updateValue(health);
+        hpBar.setLocation(this.getX(), this.getY() -  radius - 10);
+    }
+    */
 }
