@@ -1,7 +1,7 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class GameOver here.
+ * GameOver Class
  * 
  * @author Cameron Dickie 
  * @version 1.0
@@ -21,5 +21,5 @@ public class GameOver extends World
         img = new GreenfootImage("gameover.png");
         setBackground(img);
     }
-    
+
 }

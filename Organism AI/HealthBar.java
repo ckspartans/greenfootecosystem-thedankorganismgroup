@@ -1,21 +1,18 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class HealthBar here.
+ * Health Bar
  * 
  * @author Cameron Dickie
- * @version 1.9
+ * @author Uzair Ahmed
+ * @version 2.0
  */
 public class HealthBar extends AbstBar
 {
-    /**
-     * Act - do whatever the HealthBar wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
-     */
     Organism owner;
     MainWorld world;
     Color fc;
-    
+
     public HealthBar(Organism o, int h, double max, double cur) {
         isActive = false;
         height = h;
@@ -24,6 +21,7 @@ public class HealthBar extends AbstBar
         fc = new Color(0,255,0);
         owner = o;
     }
+
     public void act() 
     {
         // Add your action code here.
@@ -32,12 +30,12 @@ public class HealthBar extends AbstBar
         }
         drawBar(fc);
     }    
-    
+
     public void updateValue(double h, double mh) {
         curVal = h;
         maxVal = mh;
         percent = Math.abs((int)((curVal/maxVal)*100));
-       }
+    }
 
     public void drawBar(Color c) {
         imgfront = new GreenfootImage((int)maxVal, height);

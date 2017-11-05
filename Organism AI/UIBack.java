@@ -2,9 +2,8 @@ import greenfoot.*; // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.*;
 
 /**
- * 
  * @author Cameron Dickie 
- * @version 0.1
+ * @version 1.0
  */
 public class UIBack extends Actor
 {
@@ -14,7 +13,7 @@ public class UIBack extends Actor
 
     public UIBack() {
         UIBack = new GreenfootImage("uiback.png");
-        
+
     }
 
     public void act() 

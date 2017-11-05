@@ -4,8 +4,8 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * Parasite infects organisms and decreeases their health ovetime
  * Parasite also has stat boosts for it's host organism
  *
- * @Josh Dhori
- * @1.0
+ * @author Josh Dhori
+ * @version 1.0
  */
 
 public class Parasite extends Actor{

@@ -4,11 +4,9 @@ import java.util.*;
 /**
  * Abstract Organism, this is the base class for Organism
  *
- * @author Class
  * @author Uzair Ahmed
- * @author Ethan Gale
  * @author Josh Dhori
- * @version 1.1
+ * @version 2.0
  */
 public abstract class AbstOrganism extends Actor {
 
@@ -38,23 +36,41 @@ public abstract class AbstOrganism extends Actor {
     public int parasiteResistance;
 
     Family myFamily; //Variable to FamilyReference
-    public Color familyColor; //Color Variable at spawn
     public Color myColor; //current color
-    
+
     public HealthBar hpBar;
-    
+
     public GreenfootSound sandstorm;
 
     MainWorld world;
-    public abstract void drawOrganism(Color c, double rad);
 
-    public abstract void consumeFood(Food foodBeingEaten);
+    public abstract void init(double smh, double smx, int ss, int sa, int sd, int ssi, Family fam);
+
+    public abstract void drawOrganism(Color c, double r);
 
     public abstract void updateandCapVariables();
+
+    public abstract void consumeFood(Food foodBeingEaten);
 
     public abstract void reproduce();
 
     public abstract void startTimer();
 
     public abstract void die();
+
+    public abstract void flee();
+
+    public abstract List getNearby();
+
+    public abstract void kill(Organism prey, boolean share);
+
+    public abstract void hit(Organism prey, boolean attackOrDefend);
+
+    public abstract void checkIfAttacking();
+
+    public abstract void checkDefend();
+
+    public abstract int getGroupThreatLevel();
+
+    public abstract void infect();
 }

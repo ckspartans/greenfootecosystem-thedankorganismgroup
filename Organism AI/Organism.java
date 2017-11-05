@@ -60,7 +60,7 @@ public class Organism extends AbstOrganism {
         myFamily = fam; //Family reference
         myFamily.addOrganism(this); //adds organism to family
         myColor = myFamily.color; //Original family color for reference
-        
+
         //Declares world class
         MainWorld world;
 
@@ -73,9 +73,7 @@ public class Organism extends AbstOrganism {
         if (world == null){
             world = (MainWorld) getWorld();
         }
-       
-            
-        
+
         //Gets all objects in the sight radius and puts them into thier proper lists.
         List foodNearby = getObjectsInRange(sight, Food.class);
         List organismsNearby  = getObjectsInRange(sight, Organism.class);
@@ -100,7 +98,7 @@ public class Organism extends AbstOrganism {
         if (!isAlive){
             return;
         }
-        
+
         //Draws the organism
         drawOrganism(myColor, Math.abs(radius+1));
 
@@ -129,7 +127,7 @@ public class Organism extends AbstOrganism {
 
         //Sets the objects image to the created image.
         setImage(img);
-        
+
         //Runs Cameron's Draw Function
         updateBars();
     }
@@ -164,11 +162,13 @@ public class Organism extends AbstOrganism {
 
         //Updates threatLevel
         threatLevel = (maxHealth + att + def + speed);
-        
+
         //Runs Darude - Sandstorm once MaxSpeed is hit.
         if (speed == world.maxBuyableSpeed){
+            //Rainbows the healthbar
             hpBar.fc = new Color(Greenfoot.getRandomNumber(255),Greenfoot.getRandomNumber(255),Greenfoot.getRandomNumber(255));
             if (!world.isPlayingSandstorm){
+                //Loops Darude Sandstorm
                 sandstorm = new GreenfootSound("sandstorm.mp3");
                 sandstorm.playLoop();
                 world.isPlayingSandstorm = true;
@@ -220,10 +220,8 @@ public class Organism extends AbstOrganism {
         if (def > world.maxBuyableDef){
             def = world.maxBuyableDef;
         }
-        
 
     }
-
     public void reproduce() {
         //Uzair Ahmed
         //Creates two new organisms and kills the OG
@@ -254,13 +252,13 @@ public class Organism extends AbstOrganism {
 
         //removes organism from family
         myFamily.remOrganism(this);
-        
+
         //moves it away from the world (to avoid any confusions with AIs)
         setLocation(2000,1000);
 
         //removes the object from the world
         world.removeObject(this);
-        
+
         //removes health bar
         world.removeObject(hpBar);
     }
@@ -460,15 +458,14 @@ public class Organism extends AbstOrganism {
             }
         }
     }
-   
-    
+
     public void updateBars() {
         //Cameron Dickie
         //Updates Health Bars
-        
+
         if(hpBar.isActive == false) {
-           world.addObject(hpBar, getX(), getY() - (int)radius - 10);
-           hpBar.isActive = true;
+            world.addObject(hpBar, getX(), getY() - (int)radius - 10);
+            hpBar.isActive = true;
         }
         hpBar.updateValue(health, maxHealth);
         hpBar.setLocation(this.getX(), this.getY() -  (int)radius - 10);

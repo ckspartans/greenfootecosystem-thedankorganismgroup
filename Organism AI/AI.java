@@ -5,7 +5,8 @@ import java.util.*;
  * AI Code (Things like patrolling the area, knowing how to move, and more.
  *
  * @author Uzair Ahmed
- * @version 1.6
+ * @author Josh Dhori
+ * @version 2.0
  */
 
 public class AI
@@ -133,7 +134,6 @@ public class AI
             }
         }
     }
-
 
     public static void whoDis(Organism o){
         //Uzair Ahmed

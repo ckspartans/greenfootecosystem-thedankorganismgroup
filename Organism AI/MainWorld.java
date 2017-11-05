@@ -21,15 +21,15 @@ public class MainWorld extends World {
     static int startingSight = 100;
 
     static int maxBuyableMaxHealth = 1000;
-    static int maxBuyableSpeed = 9;
+    static int maxBuyableSpeed = 10;
     static int maxBuyableAtt = 10;
     static int maxBuyableDef = 10;
     static int maxBuyableSight = 1000;
 
     static int startingFood = 50;
-    
+
     static Boolean isPlayingSandstorm = false;
-    
+
     //File Locations
     String pLoc = "pause.png";
     String blue = "blue.png";
@@ -37,11 +37,11 @@ public class MainWorld extends World {
     String green = "green.png";
     String yellow = "yellow.png";
     String black = "black.png";
-    
+
     //ACTUAL CODE--------------------------------------------------------
 
     //Initializes classes
-    
+
     IntroScreen intro;
 
     UIBack UI;
@@ -61,7 +61,7 @@ public class MainWorld extends World {
     Family fam4;
 
     ArrayList fams;
-    
+
     public MainWorld() {
         //Creates new world of the size given
         super(1920,1080, 1);
@@ -86,8 +86,8 @@ public class MainWorld extends World {
     public void act() {
         checkButtons();
         if (gameOver()){
-        gover = new GameOver();
-        Greenfoot.setWorld(gover); //sets the gamestate to a gameover state when there are no other families left
+            gover = new GameOver();
+            Greenfoot.setWorld(gover); //sets the gamestate to a gameover state when there are no other families left
         }
     }
 
@@ -166,10 +166,9 @@ public class MainWorld extends World {
     }
 
 
-
     public void openUI() {
         //Cameron Dickie
-        
+
         UI = new UIBack(); // creates a reference to draw the back of the UI
         pauseButton = new Button(this, pLoc);
         sFam1 = new Button(this, red); //creates the references to the spawning buttons

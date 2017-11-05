@@ -2,9 +2,10 @@ import greenfoot.*;
 import java.util.*;
 
 /**
+ * Reproduce organism, then mutate it
+ * 
  * @author Ethan Gale
  * @version 2.0
- *Reproduce organism, then mutate it
  */
 public class Mutation{
     public static void mutate(Organism o){

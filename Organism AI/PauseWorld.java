@@ -2,8 +2,10 @@ import greenfoot.*; // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.*;
 
 /**
+ * PauseWorld Class
+ * 
  * @author Cameron Dickie 
- * @version 0.0
+ * @version 1.0
  */
 public class PauseWorld extends World
 {

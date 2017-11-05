@@ -17,7 +17,7 @@ public class Family extends Actor
     public Organism targetEnemy;
     public Boolean familyAttackMode = false;
     public Color color;
-    
+
     public Family(Color c, int x, int y){
         color = c;
         baseX = x;

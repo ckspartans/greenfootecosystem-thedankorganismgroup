@@ -4,7 +4,7 @@ import java.util.*;
  * Intro Screen
  *
  * @author Class
- * @version 0.1
+ * @version 1.0
  */
 public class IntroScreen extends World {
 

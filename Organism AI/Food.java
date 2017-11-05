@@ -2,6 +2,7 @@ import greenfoot.*; // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.*;
 /**
  * Food for the organism to eat.
+ * 
  * @author Uzair Ahmed
  * @author Josh Dhori
  * @version 1.5
