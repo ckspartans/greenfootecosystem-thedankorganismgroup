@@ -21,13 +21,14 @@ public class MainWorld extends World {
     static int startingSight = 100;
 
     static int maxBuyableMaxHealth = 1000;
-    static int maxBuyableMaxXp = 100;
-    static int maxBuyableSpeed = 30;
+    static int maxBuyableSpeed = 9;
     static int maxBuyableAtt = 10;
     static int maxBuyableDef = 10;
     static int maxBuyableSight = 1000;
 
     static int startingFood = 50;
+    
+    static Boolean isPlayingSandstorm = false;
     
     //File Locations
     String pLoc = "pause.png";
@@ -40,6 +41,7 @@ public class MainWorld extends World {
     //ACTUAL CODE--------------------------------------------------------
 
     //Initializes classes
+    
     IntroScreen intro;
 
     UIBack UI;
@@ -201,7 +203,7 @@ public class MainWorld extends World {
         }
 
         //if the list size is 1 return true
-        if (fams.size() == 1){
+        if (fams.size() == 0){
             return true;
         }
         return false;

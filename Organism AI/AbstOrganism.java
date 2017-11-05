@@ -40,10 +40,10 @@ public abstract class AbstOrganism extends Actor {
     Family myFamily; //Variable to FamilyReference
     public Color familyColor; //Color Variable at spawn
     public Color myColor; //current color
-
-    public int name;
     
     public HealthBar hpBar;
+    
+    public GreenfootSound sandstorm;
 
     MainWorld world;
     public abstract void drawOrganism(Color c, double rad);

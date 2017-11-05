@@ -16,27 +16,12 @@ public abstract class AbstBar extends Actor
     public Boolean isActive;
     protected double maxVal; // maximum value of the bar
     protected double curVal; // current value of the bar
-    
-    protected GreenfootImage imgback;
+
     protected GreenfootImage imgfront;
     protected int height;
     protected int percent;
     
-    protected long curTime;
-    protected long lastAdded;
-    public void act() 
-    {
-        // Add your action code here.
-        /*
-        
-        curTime = System.currentTimeMillis();
-        if(curTime >= lastAdded + 2000) {
-            removeObject(this);
-            lastAdded = curTime;
-        }
-        */
-    }    
     public abstract void updateValue(double h, double mh);
-    public abstract void drawBar();
+    public abstract void drawBar(Color c);
     
 }

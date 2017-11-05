@@ -49,21 +49,20 @@ public class Organism extends AbstOrganism {
         age = 0; //Time
         health = maxHealth; //Out of maxHealth
         xp = 0; //Out of maxXp
-        radius = (health*2); //Radius
+        radius = (health)/7.5; //Radius
         isAlive = true; //is it alive
         attackMode = false; //Is it attacking
         infected = false; //Is it infected
         threatLevel = (maxHealth + att + def + speed); //threatLevel
+        hpBar = new HealthBar(this, 10, maxHealth, health);
 
         //Team Variables
         myFamily = fam; //Family reference
         myFamily.addOrganism(this); //adds organism to family
         myColor = myFamily.color; //Original family color for reference
-
+        
         //Declares world class
         MainWorld world;
-        
-        hpBar = new HealthBar(this, 10, maxHealth, health);
 
     }
 
@@ -156,7 +155,7 @@ public class Organism extends AbstOrganism {
         }
 
         //Updates the radius to match the size
-        radius = health/5;
+        radius = health/7.5;
 
         //Increases health slowly if its not being attacked
         if(!attackMode){
@@ -165,6 +164,16 @@ public class Organism extends AbstOrganism {
 
         //Updates threatLevel
         threatLevel = (maxHealth + att + def + speed);
+        
+        //Runs Darude - Sandstorm once MaxSpeed is hit.
+        if (speed == world.maxBuyableSpeed){
+            hpBar.fc = new Color(Greenfoot.getRandomNumber(255),Greenfoot.getRandomNumber(255),Greenfoot.getRandomNumber(255));
+            if (!world.isPlayingSandstorm){
+                sandstorm = new GreenfootSound("sandstorm.mp3");
+                sandstorm.playLoop();
+                world.isPlayingSandstorm = true;
+            }
+        }
 
         //--------------------LIMITERS---------------------
         //Dies when the health is zero

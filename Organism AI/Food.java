@@ -19,7 +19,7 @@ public class Food extends Actor {
     //The size of the food. Other classes *should* be able to see this.
     static int foodMass = 10;
     //reproduction rate
-    int reprodRate = 2;
+    int reprodRate = 3;
 
     public Food(boolean parentInfected){
         //Josh Dhori

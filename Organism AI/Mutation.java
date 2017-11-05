@@ -18,14 +18,14 @@ public class Mutation{
                 }
                 else if((chosenMutation > 251) && (chosenMutation <= 500)){ //tankiness
                     o.def += 2;
-                    o.maxHealth += 5;
+                    o.maxHealth += 50;
                     o.speed -=1; //the tankier you are, the slower you are
                 }
                 else if((chosenMutation > 501) && (chosenMutation <= 750)){ //speed
                     o.speed += 2;
                 }
                 else if((chosenMutation > 751) && (chosenMutation <= 1000)){ //sight range
-                    o.sight += 10;
+                    o.sight += 50;
                 }
                 o.reproduce();
             }
